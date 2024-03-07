@@ -1,0 +1,15 @@
+@import "./vars";
+@import "./mixin";
+@import "./common";
+@import "./header";
+@import "./main-visual";
+
+#logo {
+  height: 80px;
+  width: 80px;
+}
+
+#sub-logo {
+  height: 24px;
+  width: 24px;
+}

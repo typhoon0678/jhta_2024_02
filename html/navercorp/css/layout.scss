@@ -1,0 +1,45 @@
+@import "./header";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  padding-top: 600px;
+  text-align: center;
+  height: 200vh;
+}
+
+.footer a {
+  color: red;
+  font-size: 48px;
+  position: absolute;
+  bottom: 0;
+}
+
+#logo {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  width: 140px;
+}
+
+#icon {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  top: 32px;
+  width: 24px;
+  padding-right: 16px;
+}

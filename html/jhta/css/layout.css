@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+header {
+  height: 100px;
+  border-bottom: 1px solid #cccccc;
+  display: flex;
+  justify-content: center;
+  overflow: hidden; /* 넘어가는 요소 스크롤 */
+  transition: height 0.8s ease;
+}
+
+header:hover {
+  height: 250px;
+}
+
+header h1 {
+  height: 100px;
+  left: 20px;
+  display: flex;
+  position: absolute; /* absolute : 독립적인 위치를 갖게 됨(정렬에 포함 X) */
+  align-items: center;
+}
+
+.gnb {
+  display: flex;
+  margin-top: 16px;
+}
+
+a {
+  text-decoration: none;
+  color: #333333; /* 또는 rgba(255, 0, 0, 0) 또는 rgb*/
+  font-size: 16px;
+}
+
+.depth01 {
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  /* 태그 없는 글자도 flex 적용됨, text-align도 같은 역할 */
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  margin-bottom: 48px;
+}
+
+.depth02 {
+  text-align: center;
+}
+
+.depth02 a {
+  color: #ffcc00;
+}
+
+.depth02 a:hover {
+  color: #ffcc33;
+  text-decoration: underline;
+}
+
+/* csss는 id, class 순으로 우선 적용 */
+#notice {
+  color: #ff0000;
+}

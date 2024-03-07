@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NaverCorp</title>
+    <link rel="stylesheet" href="../css/layout.css" />
+  </head>
+  <body>
+    <header>
+      <h1>
+        <a href="index.html">
+          <img id="logo" src="../images/logo.png" alt="logo" />
+        </a>
+      </h1>
+      <ul class="gnb">
+        <li>
+          <a href="" class="main-menu">네이버</a>
+          <ul class="sub-menu">
+            <li>
+              <a href="">네이버</a>
+            </li>
+            <li>
+              <a href="">팀네이버</a>
+            </li>
+            <li>
+              <a href="">제휴제안</a>
+            </li>
+            <li>
+              <a href="">Contact</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="" class="main-menu">서비스</a>
+          <ul class="sub-menu">
+            <li>
+              <a href="">주요 서비스 요약</a>
+            </li>
+            <li>
+              <a href="">핀테크</a>
+            </li>
+            <li>
+              <a href="">네이버</a>
+            </li>
+            <li>
+              <a href="">콘텐츠</a>
+            </li>
+            <li>
+              <a href="">검색</a>
+            </li>
+            <li>
+              <a href="">커뮤니티</a>
+            </li>
+            <li>
+              <a href="">광고</a>
+            </li>
+            <li>
+              <a href="">C2C</a>
+            </li>
+            <li>
+              <a href="">커머스</a>
+            </li>
+            <li>
+              <a href="">전체 서비스 보기</a>
+            </li>
+            <li>
+              <a href="">클라우드</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="" class="main-menu">기술</a>
+          <ul class="sub-menu">
+            <li>
+              <a href="">주요 기술</a>
+            </li>
+            <li>
+              <a href=""> 요약</a>
+            </li>
+            <li>
+              <a href="">디지털 트윈 기술</a>
+            </li>
+            <li>
+              <a href="">AI 기술</a>
+            </li>
+            <li>
+              <a href="">데이터센터 각</a>
+            </li>
+            <li>
+              <a href="">검색 기술</a>
+            </li>
+            <li>
+              <a href="">1784</a>
+            </li>
+            <li>
+              <a href="">로봇 기술</a>
+            </li>
+            <li>
+              <a href="">기술 상생</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="" class="main-menu">ESG</a>
+          <ul class="sub-menu">
+            <li>
+              <a href="">주요 ESG 프로그램 요약</a>
+            </li>
+            <li>
+              <a href="">정보보호</a>
+            </li>
+            <li>
+              <a href="">지속가능경영</a>
+            </li>
+            <li>
+              <a href="">프로젝트 꽃</a>
+            </li>
+            <li>
+              <a href="">환경</a>
+            </li>
+            <li>
+              <a href="">사회공헌</a>
+            </li>
+            <li>
+              <a href="">기업윤리</a>
+            </li>
+            <li>
+              <a href="">자료실</a>
+            </li>
+            <li>
+              <a href="">인권 존중</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="" class="main-menu">투자정보</a>
+          <ul class="sub-menu">
+            <li>
+              <a href="">주요 IR 요약</a>
+            </li>
+            <li>
+              <a href="">기업지배구조</a>
+            </li>
+            <li>
+              <a href="">IR 일정</a>
+            </li>
+            <li>
+              <a href="">재무정보</a>
+            </li>
+            <li>
+              <a href="">IR 자료실</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="" class="main-menu">미디어</a>
+          <ul class="sub-menu">
+            <li>
+              <a href="">보도자료</a>
+            </li>
+            <li>
+              <a href="">이벤트</a>
+            </li>
+            <li>
+              <a href="">브랜드 리소스</a>
+            </li>
+            <li>
+              <a href="">커뮤니케이션 채널</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="" class="main-menu">스토리</a>
+        </li>
+        <li>
+          <a href="" class="main-menu">채용</a>
+        </li>
+      </ul>
+      <li class="icon">
+        <a href=""><img id="icon" src="../images/icon.png" alt="" /></a>
+        <a href=""><img id="icon" src="../images/icon.png" alt="" /></a>
+        <a href=""><img id="icon" src="../images/icon.png" alt="" /></a>
+      </li>
+    </header>
+    <footer><a href="https://navercorp.com">원본사이트</a></footer>
+  </body>
+  <script>
+    const header = document.querySelector("header");
+
+    document.addEventListener("scroll", function () {
+      const hideHeight = 50;
+      const scrollY = window.scrollY;
+      if (scrollY > hideHeight) {
+        header.classList.add("hide-header");
+      } else {
+        header.classList.remove("hide-header");
+      }
+    });
+  </script>
+</html>

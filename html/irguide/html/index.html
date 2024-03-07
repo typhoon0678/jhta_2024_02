@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>irguide</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- <link rel="stylesheet" href="../css/layout.css" /> -->
+    <link rel="stylesheet" href="../css/layout03.css" />
+  </head>
+  <body>
+    <header>
+      <h1>
+        <a href="index.html"
+          ><img id="logo" src="../images/logo.png" alt="logo"
+        /></a>
+      </h1>
+      <ul class="gnb">
+        <li>
+          <a href="" class="main-menu">제품소개</a>
+          <ul class="sub-menu">
+            <li>
+              <a href="">열화상 카메라</a>
+            </li>
+            <li>
+              <a href="">산업용 안전펜스</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="" class="main-menu">머신비전</a>
+        </li>
+        <li>
+          <a href="" class="main-menu">회사소개</a>
+          <ul class="sub-menu">
+            <li>
+              <a href="">회사 연혁</a>
+            </li>
+            <li>
+              <a href="">오시는 길</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="" class="main-menu">고객지원</a>
+          <ul class="sub-menu">
+            <li>
+              <a href="">자료실</a>
+            </li>
+            <li>
+              <a href="">적용사례</a>
+            </li>
+            <li>
+              <a href="">공지사항</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="" class="main-menu">고객문의</a>
+          <ul class="sub-menu">
+            <li>
+              <a href="">문의하기</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="index.html"
+            ><img id="sub-logo" src="../images/logo.png" alt="logo"
+          /></a>
+        </li>
+      </ul>
+    </header>
+    <!-- header end -->
+    <div class="main-visual" id="main-visual">
+      <ul class="swiper-wrapper">
+        <li class="swiper-slide">
+          <div class="txt-box">
+            <p class="title">
+              디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성
+            </p>
+            <p class="txt">
+              세계 3대 디자인 어워드, 독일
+              <span>2023 레드 닷 디자인 어워드</span> 수상
+            </p>
+          </div>
+          <div class="img-box">
+            <img src="../images/visual_img01.png" alt="" />
+          </div>
+        </li>
+        <li class="swiper-slide">
+          <div class="txt-box">
+            <p class="title">
+              해상도의 혁신, 최고의 성능 세계 최초 MP급 해상도
+            </p>
+            <p class="txt">
+              Guide는
+              <span>전세계 적외선 열화상 시장에서 Top2위</span>에 올랐습니다
+            </p>
+          </div>
+          <div class="img-box">
+            <img src="../images/visual_img02.png" alt="" />
+          </div>
+        </li>
+        <li class="swiper-slide">
+          <div class="txt-box">
+            <p class="title">
+              지능형 장비 시대 안전을 위한 산업용 안전펜스의 뛰어난 선택
+            </p>
+            <p class="txt">
+              안전과 효율의 조화, 산업용
+              <span>지능형 안전펜스의 필수성</span>
+            </p>
+          </div>
+          <div class="img-box">
+            <img src="../images/visual_img03.png" alt="" />
+          </div>
+        </li>
+      </ul>
+      <div class="pagination"></div>
+      <button class="btn-prev">
+        <span class="material-symbols-outlined"> chevron_left </span>
+      </button>
+      <button class="btn-next">
+        <span class="material-symbols-outlined"> chevron_right </span>
+      </button>
+    </div>
+    <!-- main-visual end -->
+    <div class="banner">
+      <h2>긴급공수</h2>
+      <ul>
+        <li>
+          <div class="item-box">
+            <div class="img-box">
+              <img src="https://picsum.photos/400/250" alt="" />
+            </div>
+            <div class="txt-box"></div>
+          </div>
+          <div class="bottom-info"></div>
+        </li>
+      </ul>
+    </div>
+    <button class="btn-top">TOP</button>
+  </body>
+  <script>
+    const swiper = new Swiper(".main-visual", {
+      loop: true,
+      effect: "fade",
+      speed: 1000,
+      navigation: {
+        prevEl: ".btn-prev",
+        nextEl: ".btn-next",
+      },
+      pagination: {
+        el: ".pagination",
+        clickable: true,
+      },
+      autoplay: {
+        delay: 3000,
+        // pauseOnMouseEnter: true,
+        // disableOnInteractioin: false,
+      },
+    });
+
+    const header = document.querySelector("header");
+    const btnTop = document.querySelector(".btn-top");
+    const gnb = document.querySelector(".gnb");
+
+    btnTop.addEventListener("click", function () {
+      window.scroll({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+
+    document.addEventListener("scroll", function () {
+      const scrollY = window.scrollY;
+      const btnShowHeight = 300;
+
+      if (scrollY > 0) {
+        header.classList.add("scroll");
+      } else {
+        header.classList.remove("scroll");
+      }
+
+      if (window.scrollY > btnShowHeight) {
+        btnTop.classList.add("show");
+      } else {
+        btnTop.classList.remove("show");
+      }
+    });
+
+    gnb.addEventListener("mouseenter", function () {
+      header.classList.add("over");
+    });
+
+    gnb.addEventListener("mouseleave", function () {
+      console.log("off");
+      header.classList.remove("over");
+    });
+  </script>
+</html>

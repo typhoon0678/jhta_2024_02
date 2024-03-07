@@ -1,0 +1,97 @@
+.main-visual {
+  // overflow: hidden;
+  height: 100vh;
+  ul {
+    li {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      background-color: #fff;
+      height: 100vh;
+
+      .img-box {
+        img {
+          height: 500px;
+        }
+      }
+      .txt-box {
+        .title {
+          font-size: 48px;
+          font-weight: 900;
+          margin-bottom: 50px;
+          width: 500px;
+          @include multiEllipsis(2, 1.2);
+        }
+        .txt {
+          font-size: 20px;
+          font-weight: 500;
+          span {
+            color: $main-color;
+          }
+        }
+      }
+    }
+  }
+
+  .pagination {
+    position: absolute;
+    bottom: 50px;
+    z-index: 10;
+    @include flex();
+
+    .swiper-pagination-bullet {
+      width: 20px;
+      height: 20px;
+      border: 5px solid #333;
+      border-radius: 100px;
+      background-color: transparent;
+      transition: all 0.5s ease;
+
+      &-active {
+        background-color: $main-color;
+        border-color: $main-color;
+        width: 100px;
+      }
+    }
+  }
+
+  button {
+    position: absolute;
+    top: 50%;
+    font-size: 48px;
+    z-index: 2;
+    cursor: pointer;
+
+    span {
+      font-size: 48px;
+      font-variation-settings: "FILL" 0, "wght" 100, "GRAD" 0, "opsz" 24;
+    }
+
+    &.btn-prev {
+      left: 20px;
+    }
+
+    &.btn-next {
+      right: 20px;
+    }
+  }
+}
+
+.btn-top {
+  width: 50px;
+  height: 50px;
+  @include flex("center");
+  background-color: $main-color;
+  color: #fff;
+  border: none;
+  position: fixed;
+  right: 50px;
+  bottom: -150px;
+  z-index: 98;
+  transition: all 0.25s ease;
+  overflow: hidden;
+  @include longShadow(10, darken($main-color, 10));
+  &.show {
+    bottom: 50px;
+  }
+}
