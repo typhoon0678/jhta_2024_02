@@ -20,7 +20,7 @@
   <body>
     <header>
       <h1>
-        <a href="index.html"
+        <a href="../../index.html"
           ><img id="logo" src="../images/logo.png" alt="logo"
         /></a>
       </h1>
@@ -135,18 +135,121 @@
     </div>
     <!-- main-visual end -->
     <div class="banner">
-      <h2>긴급공수</h2>
-      <ul>
-        <li>
-          <div class="item-box">
-            <div class="img-box">
-              <img src="https://picsum.photos/400/250" alt="" />
+      <div class="container">
+        <h2>긴급공수</h2>
+        <ul class="swiper-wrapper">
+          <li class="swiper-slide">
+            <div class="item-box">
+              <a href="">
+                <div class="img-box">
+                  <img src="https://picsum.photos/400/250" alt="" />
+                </div>
+                <div class="txt-box">
+                  <h3>상품명</h3>
+                  <p class="price"><strong>12,900</strong><span>원~</span></p>
+                </div>
+              </a>
             </div>
-            <div class="txt-box"></div>
-          </div>
-          <div class="bottom-info"></div>
-        </li>
-      </ul>
+            <div class="bottom-info">
+              <span class="delivery">무료배송</span>
+              <span class="quantity">4800</span>
+            </div>
+          </li>
+          <li class="swiper-slide">
+            <div class="item-box">
+              <a href="">
+                <div class="img-box">
+                  <img src="https://picsum.photos/400/250" alt="" />
+                </div>
+                <div class="txt-box">
+                  <h3>상품명</h3>
+                  <p class="price"><strong>12,900</strong><span>원~</span></p>
+                </div>
+              </a>
+            </div>
+            <div class="bottom-info">
+              <span class="delivery">무료배송</span>
+              <span class="quantity">4800</span>
+            </div>
+          </li>
+          <li class="swiper-slide">
+            <div class="item-box">
+              <a href="">
+                <div class="img-box">
+                  <img src="https://picsum.photos/400/250" alt="" />
+                </div>
+                <div class="txt-box">
+                  <h3>상품명</h3>
+                  <p class="price"><strong>12,900</strong><span>원~</span></p>
+                </div>
+              </a>
+            </div>
+            <div class="bottom-info">
+              <span class="delivery">무료배송</span>
+              <span class="quantity">4800</span>
+            </div>
+          </li>
+          <li class="swiper-slide">
+            <div class="item-box">
+              <a href="">
+                <div class="img-box">
+                  <img src="https://picsum.photos/400/250" alt="" />
+                </div>
+                <div class="txt-box">
+                  <h3>상품명</h3>
+                  <p class="price"><strong>12,900</strong><span>원~</span></p>
+                </div>
+              </a>
+            </div>
+            <div class="bottom-info">
+              <span class="delivery">무료배송</span>
+              <span class="quantity">4800</span>
+            </div>
+          </li>
+          <li class="swiper-slide">
+            <div class="item-box">
+              <a href="">
+                <div class="img-box">
+                  <img src="https://picsum.photos/400/250" alt="" />
+                </div>
+                <div class="txt-box">
+                  <h3>상품명</h3>
+                  <p class="price"><strong>12,900</strong><span>원~</span></p>
+                </div>
+              </a>
+            </div>
+            <div class="bottom-info">
+              <span class="delivery">무료배송</span>
+              <span class="quantity">4800</span>
+            </div>
+          </li>
+          <li class="swiper-slide">
+            <div class="item-box">
+              <a href="">
+                <div class="img-box">
+                  <img src="https://picsum.photos/400/250" alt="" />
+                </div>
+                <div class="txt-box">
+                  <h3>상품명</h3>
+                  <p class="price"><strong>12,900</strong><span>원~</span></p>
+                </div>
+              </a>
+            </div>
+            <div class="bottom-info">
+              <span class="delivery">무료배송</span>
+              <span class="quantity">4800</span>
+            </div>
+          </li>
+        </ul>
+        <div class="banner-pagination">
+          <button class="banner-btn-prev">
+            <span class="material-symbols-outlined"> chevron_left </span>
+          </button>
+          <button class="banner-btn-next">
+            <span class="material-symbols-outlined"> chevron_right </span>
+          </button>
+        </div>
+      </div>
     </div>
     <button class="btn-top">TOP</button>
   </body>
@@ -162,6 +265,20 @@
       pagination: {
         el: ".pagination",
         clickable: true,
+      },
+      autoplay: {
+        delay: 3000,
+        // pauseOnMouseEnter: true,
+        // disableOnInteractioin: false,
+      },
+    });
+
+    const bannerSwiper = new Swiper(".banner .container", {
+      slidesPerView: 3,
+      spaceBetween: 30,
+      navigation: {
+        prevEl: ".banner-btn-prev",
+        nextEl: ".banner-btn-next",
       },
       autoplay: {
         delay: 3000,

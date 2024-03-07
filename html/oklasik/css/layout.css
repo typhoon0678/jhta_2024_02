@@ -1,0 +1,65 @@
+header {
+  height: 48px;
+}
+header ul {
+  display: flex;
+  justify-content: space-around;
+}
+header > ul {
+  border-bottom: 1px solid #111;
+}
+header .logo {
+  width: 160px;
+  height: auto;
+  margin: 24px 8px;
+}
+header .icons {
+  width: 160px;
+  margin: 24px 8px;
+  display: flex;
+  justify-content: space-around;
+}
+header .gnb {
+  flex: 1 0 auto;
+}
+header .gnb:hover {
+  height: 300px;
+}
+header .gnb li {
+  font-size: 16px;
+  text-align: center;
+}
+header .gnb li:hover {
+  color: red;
+}
+header .gnb li ul {
+  padding-top: 16px;
+}
+header .gnb li ul li a {
+  color: #111;
+  padding: auto;
+  background-image: linear-gradient(#111 0 0);
+  background-position: bottom left;
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  padding-bottom: 4px;
+  transition: background-size 0.5s ease;
+}
+header .gnb li ul li a:hover {
+  background-size: 100% 2px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}/*# sourceMappingURL=layout.css.map */

@@ -55,6 +55,13 @@
     }
   }
 
+  .banner-pagination {
+    position: absolute;
+    bottom: 50px;
+    z-index: 10;
+    @include flex();
+  }
+
   button {
     position: absolute;
     top: 50%;
@@ -72,6 +79,99 @@
     }
 
     &.btn-next {
+      right: 20px;
+    }
+
+    &.banner-btn-prev {
+      left: 20px;
+    }
+
+    &.banner-btn-next {
+      right: 20px;
+    }
+  }
+}
+
+.banner {
+  position: relative;
+  overflow: hidden;
+
+  ul {
+    li {
+      border: 1px solid #ccc;
+      background-color: #fff;
+      border-radius: 20px;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+
+      h3 {
+        font-size: 16px;
+      }
+
+      img {
+        width: 100%;
+        transition: all 0.5s ease;
+      }
+
+      .txt-box {
+        padding: 20px;
+      }
+
+      .bottom-info {
+        display: flex;
+        padding: 20px;
+      }
+
+      &:hover {
+        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
+        transform: translateY(-10px);
+
+        img {
+          transform: scale(1.05, 1.05);
+        }
+      }
+    }
+  }
+
+  button {
+    position: absolute;
+    top: 50%;
+    font-size: 48px;
+    z-index: 2;
+    cursor: pointer;
+    display: flex;
+    background-color: #fff;
+    // border: 1px solid #000;
+    border-radius: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    transition: all 0.5s ease;
+
+    &:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      color: black;
+    }
+
+    span {
+      font-size: 48px;
+      font-variation-settings: "FILL" 0, "wght" 100, "GRAD" 0, "opsz" 24;
+    }
+
+    &.btn-prev {
+      left: 20px;
+    }
+
+    &.btn-next {
+      right: 20px;
+    }
+
+    &.banner-btn-prev {
+      left: 20px;
+    }
+
+    &.banner-btn-next {
       right: 20px;
     }
   }

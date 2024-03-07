@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 ol,
@@ -22,6 +23,15 @@ body {
 button {
   background: none;
   border: none;
+}
+
+.container {
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.container h2 {
+  padding-bottom: 24px;
 }
 
 header {
@@ -144,6 +154,14 @@ header .gnb .sub-menu li a:hover {
   border-color: #e60012;
   width: 100px;
 }
+.main-visual .banner-pagination {
+  position: absolute;
+  bottom: 50px;
+  z-index: 10;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
 .main-visual button {
   position: absolute;
   top: 50%;
@@ -159,6 +177,80 @@ header .gnb .sub-menu li a:hover {
   left: 20px;
 }
 .main-visual button.btn-next {
+  right: 20px;
+}
+.main-visual button.banner-btn-prev {
+  left: 20px;
+}
+.main-visual button.banner-btn-next {
+  right: 20px;
+}
+
+.banner {
+  position: relative;
+  overflow: hidden;
+}
+.banner ul li {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 20px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.banner ul li h3 {
+  font-size: 16px;
+}
+.banner ul li img {
+  width: 100%;
+  transition: all 0.5s ease;
+}
+.banner ul li .txt-box {
+  padding: 20px;
+}
+.banner ul li .bottom-info {
+  display: flex;
+  padding: 20px;
+}
+.banner ul li:hover {
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-10px);
+}
+.banner ul li:hover img {
+  transform: scale(1.05, 1.05);
+}
+.banner button {
+  position: absolute;
+  top: 50%;
+  font-size: 48px;
+  z-index: 2;
+  cursor: pointer;
+  display: flex;
+  background-color: #fff;
+  border-radius: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  transition: all 0.5s ease;
+}
+.banner button:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  color: black;
+}
+.banner button span {
+  font-size: 48px;
+  font-variation-settings: "FILL" 0, "wght" 100, "GRAD" 0, "opsz" 24;
+}
+.banner button.btn-prev {
+  left: 20px;
+}
+.banner button.btn-next {
+  right: 20px;
+}
+.banner button.banner-btn-prev {
+  left: 20px;
+}
+.banner button.banner-btn-next {
   right: 20px;
 }
 

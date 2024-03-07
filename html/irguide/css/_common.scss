@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box; // width에 padding 값과 border를 포함함
 }
 
 ol,
@@ -22,4 +23,14 @@ body {
 button {
   background: none;
   border: none;
+}
+
+.container {
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+
+  h2 {
+    padding-bottom: 24px;
+  }
 }
