@@ -1,41 +1,50 @@
 header {
-  height: 48px;
-}
-header ul {
-  display: flex;
-  justify-content: space-around;
-}
-header > ul {
+  position: fixed;
+  width: 100vw;
+  height: 100px;
   border-bottom: 1px solid #111;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  background-color: rgba(0, 0, 0, 0.2);
 }
-header .logo {
-  width: 160px;
-  height: auto;
-  margin: 24px 8px;
-}
-header .icons {
-  width: 160px;
-  margin: 24px 8px;
-  display: flex;
-  justify-content: space-around;
-}
-header .gnb {
-  flex: 1 0 auto;
-}
-header .gnb:hover {
+header:hover {
   height: 300px;
 }
-header .gnb li {
-  font-size: 16px;
+header:hover .sub-menu {
+  flex-basis: auto;
+}
+header .gnb {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+}
+header .gnb .logo {
+  width: 160px;
+  margin: 36px 8px;
+  flex-shrink: 0;
+}
+header .gnb .icons {
+  width: 160px;
+  margin: 36px 8px;
+  display: flex;
+  justify-content: space-around;
+  flex-shrink: 0;
+}
+header .gnb .menu {
+  flex-grow: 1;
+  margin-top: 36px;
+}
+header .gnb .menu > ul {
+  display: flex;
+  justify-content: center;
+}
+header .gnb .menu > ul > li {
+  margin-left: 8px;
+  margin-right: 8px;
   text-align: center;
 }
-header .gnb li:hover {
-  color: red;
-}
-header .gnb li ul {
-  padding-top: 16px;
-}
-header .gnb li ul li a {
+header .gnb .menu > ul > li > h2 {
+  font-size: 14px;
   color: #111;
   padding: auto;
   background-image: linear-gradient(#111 0 0);
@@ -45,8 +54,24 @@ header .gnb li ul li a {
   padding-bottom: 4px;
   transition: background-size 0.5s ease;
 }
-header .gnb li ul li a:hover {
+header .gnb .menu > ul > li:hover > h2 {
   background-size: 100% 2px;
+}
+header .gnb .menu > ul .sub-menu {
+  padding-top: 36px;
+  font-size: 14px;
+}
+header .gnb .menu > ul .sub-menu li {
+  color: grey;
+  padding: 4px;
+}
+header .gnb .menu > ul .sub-menu li:hover a {
+  color: yellow;
+}
+
+.hide-header {
+  height: 0;
+  border-bottom: 0px solid #111;
 }
 
 * {
@@ -62,4 +87,8 @@ li {
 
 a {
   text-decoration: none;
+}
+
+body {
+  height: 1600px;
 }/*# sourceMappingURL=layout.css.map */

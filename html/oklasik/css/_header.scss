@@ -1,44 +1,54 @@
 header {
-  height: 48px;
-  ul {
-    display: flex;
-    justify-content: space-around;
-  }
-  > ul {
-    border-bottom: 1px solid #111;
-  }
-  .logo {
-    width: 160px;
-    height: auto;
-    margin: 24px 8px;
-  }
-  .icons {
-    width: 160px;
-    margin: 24px 8px;
-    display: flex;
-    justify-content: space-around;
-  }
-  .gnb {
-    flex: 1 0 auto; // 남은 공간 expand
+  position: fixed;
+  width: 100vw;
+  height: 100px;
+  border-bottom: 1px solid #111;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  background-color: rgba(0, 0, 0, 0.2);
 
-    &:hover {
-      height: 300px;
+  &:hover {
+    height: 300px;
+    .sub-menu {
+      flex-basis: auto;
+    }
+  }
+
+  .gnb {
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+
+    .logo {
+      width: 160px;
+      margin: 36px 8px;
+      flex-shrink: 0;
     }
 
-    // main-menu
-    li {
-      font-size: 16px;
-      text-align: center;
+    .icons {
+      width: 160px;
+      margin: 36px 8px;
+      display: flex;
+      justify-content: space-around;
+      flex-shrink: 0;
+    }
 
-      &:hover {
-        color: red;
-      }
+    .menu {
+      flex-grow: 1;
+      margin-top: 36px;
 
-      // sub-menu
-      ul {
-        padding-top: 16px;
-        li {
-          a {
+      > ul {
+        display: flex;
+        justify-content: center;
+
+        // main-menu
+        > li {
+          margin-left: 8px;
+          margin-right: 8px;
+          text-align: center;
+
+          > h2 {
+            font-size: 14px;
             color: #111;
             padding: auto;
             background-image: linear-gradient(#111 0 0);
@@ -47,13 +57,32 @@ header {
             background-repeat: no-repeat;
             padding-bottom: 4px;
             transition: background-size 0.5s ease;
+          }
 
-            &:hover {
-              background-size: 100% 2px;
+          &:hover > h2 {
+            background-size: 100% 2px;
+          }
+        }
+
+        .sub-menu {
+          padding-top: 36px;
+          font-size: 14px;
+
+          li {
+            color: grey;
+            padding: 4px;
+
+            &:hover a {
+              color: yellow;
             }
           }
         }
       }
     }
   }
+}
+
+.hide-header {
+  height: 0;
+  border-bottom: 0px solid #111;
 }
