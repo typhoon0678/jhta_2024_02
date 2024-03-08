@@ -1,5 +1,6 @@
 header {
   position: fixed;
+  top: 0;
   width: 100vw;
   height: 100px;
   border-bottom: 1px solid #111;
@@ -60,6 +61,7 @@ header .gnb .menu > ul > li:hover > h2 {
 header .gnb .menu > ul .sub-menu {
   padding-top: 36px;
   font-size: 14px;
+  overflow: hidden;
 }
 header .gnb .menu > ul .sub-menu li {
   color: grey;
@@ -91,4 +93,12 @@ a {
 
 body {
   height: 1600px;
+  padding-top: 116px;
+}
+
+.main-visual .swiper-wrapper {
+  display: flex;
+}
+.main-visual .swiper-wrapper .swiper-side {
+  display: flex;
 }/*# sourceMappingURL=layout.css.map */

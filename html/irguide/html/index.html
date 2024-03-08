@@ -5,15 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>irguide</title>
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
-    <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
       rel="stylesheet"
     />
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="../js/gnb.js" defer></script>
     <!-- <link rel="stylesheet" href="../css/layout.css" /> -->
     <link rel="stylesheet" href="../css/layout03.css" />
   </head>
@@ -26,7 +23,7 @@
       </h1>
       <ul class="gnb">
         <li>
-          <a href="" class="main-menu">제품소개</a>
+          <a href="./form.html" class="main-menu">제품소개</a>
           <ul class="sub-menu">
             <li>
               <a href="">열화상 카메라</a>
@@ -285,43 +282,6 @@
         // pauseOnMouseEnter: true,
         // disableOnInteractioin: false,
       },
-    });
-
-    const header = document.querySelector("header");
-    const btnTop = document.querySelector(".btn-top");
-    const gnb = document.querySelector(".gnb");
-
-    btnTop.addEventListener("click", function () {
-      window.scroll({
-        top: 0,
-        behavior: "smooth",
-      });
-    });
-
-    document.addEventListener("scroll", function () {
-      const scrollY = window.scrollY;
-      const btnShowHeight = 300;
-
-      if (scrollY > 0) {
-        header.classList.add("scroll");
-      } else {
-        header.classList.remove("scroll");
-      }
-
-      if (window.scrollY > btnShowHeight) {
-        btnTop.classList.add("show");
-      } else {
-        btnTop.classList.remove("show");
-      }
-    });
-
-    gnb.addEventListener("mouseenter", function () {
-      header.classList.add("over");
-    });
-
-    gnb.addEventListener("mouseleave", function () {
-      console.log("off");
-      header.classList.remove("over");
     });
   </script>
 </html>

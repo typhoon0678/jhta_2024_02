@@ -1,5 +1,6 @@
 header {
   position: fixed; // z-index 사용을 위해선 posiiton이 필요
+  top: 0;
   width: 100%;
   z-index: 100; // 높은 순서대로 위로 올라옴
   display: flex;
