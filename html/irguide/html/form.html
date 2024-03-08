@@ -76,9 +76,9 @@
       <div class="container">
         <h2>회원가입</h2>
         <div class="basic-info-box">
-          <div class="table-box">
-            <h3>기본정보</h3>
-            <form action="join-confirm.html" method="get" id="join-form">
+          <form action="join-confirm.html" method="get" id="join-form">
+            <div class="table-box">
+              <h3>기본정보</h3>
               <table class="form-table">
                 <colgroup>
                   <col style="width: 180px" />
@@ -93,6 +93,7 @@
                         name="userId"
                         id="user-id"
                         placeholder="아이디를 입력해주세요"
+                        required
                       />
                     </td>
                   </tr>
@@ -162,14 +163,109 @@
                       <!-- default type : submit -->
                     </td>
                   </tr>
+                  <tr>
+                    <th>
+                      <label for="user-hp">휴대전화</label>
+                    </th>
+                    <td>
+                      <div class="input-box">
+                        <select name="userHp" id="userhp">
+                          <option name="010" id="" selected>010</option>
+                          <option name="016" id="">016</option>
+                          <option name="017" id="">017</option>
+                          <option name="018" id="">018</option>
+                          <option name="019" id="">019</option>
+                        </select>
+                        <input type="text" name="userHpMiddle" class="short" />
+                        <input type="text" name="userHpLast" class="short" />
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>
+                      <label for="user-email">이메일</label>
+                    </th>
+                    <td>
+                      <input
+                        type="text"
+                        name="userEmail"
+                        id="user-email"
+                        placeholder="이메일을 입력해주세요"
+                      />
+                    </td>
+                  </tr>
                 </tbody>
               </table>
-              <input type="checkbox" name="agree" id="" value="true" />동의
-              <input type="radio" name="gender" value="male" />남자
-              <input type="radio" name="gender" value="female" />여자
+              <div class="table-box">
+                <h3>추가정보</h3>
+                <table class="form-table">
+                  <colgroup>
+                    <col style="width: 180px" />
+                    <col />
+                  </colgroup>
+                  <tbody>
+                    <tr>
+                      <th><label for="user-gender">성별</label></th>
+                      <td>
+                        <input type="radio" name="gender" value="male" />남자
+                        <input type="radio" name="gender" value="female" />여자
+                      </td>
+                    </tr>
+                    <tr>
+                      <th><label for="user-birth">생년월일</label></th>
+                      <td>
+                        <input
+                          type="text"
+                          name="userBirthYear"
+                          id="user-birth-year"
+                          class="short"
+                        />년
+                        <input
+                          type="text"
+                          name="userBirthMonth"
+                          id="user-birth-month"
+                          class="short"
+                        />월
+                        <input
+                          type="text"
+                          name="userBirthDay"
+                          id="user-birth-day"
+                          class="short"
+                        />일
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-box">
+                <h3>전체 동의</h3>
+                <table class="form-table">
+                  <colgroup>
+                    <col style="width: 180px" />
+                    <col />
+                  </colgroup>
+                  <tbody>
+                    <tr>
+                      <th><input type="checkbox" /></th>
+                      <td>
+                        이용약관 및 개인정보수집 및 이용, 쇼핑정보 수신(선택)에
+                        모두 동의합니다.
+                      </td>
+                    </tr>
+                    <tr>
+                      <th><input type="checkbox" /></th>
+                      <td>[필수] 이용약관 동의</td>
+                    </tr>
+                    <tr>
+                      <th><input type="checkbox" /></th>
+                      <td>[선택] 개인정보 처리 위탁 동의</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
               <div><button class="btn" id="btn-join">회원가입</button></div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -233,20 +329,25 @@
     const userId = document.querySelector("#user-id");
     const password = document.querySelector("#user-password");
     const passwordConfirm = document.querySelector("#user-password-confirm");
+    const agree = document.querySelector("#agree");
 
     btnJoin.addEventListener("click", function (e) {
       e.preventDefault(); // 기존 기능(submit) 막기
+      console.log(passwordConfirm.value);
       if (userId.value === "") {
         alert("아이디를 입력해주세요.");
         userId.focus();
       } else if (password.value === "" || passwordConfirm.value === "") {
         alert("비밀번호를 입력해주세요.");
         password.focus();
-      } else if (password.value != passwordRepeat.value) {
-        alert("비밀번호를 입력해주세요.");
+      } else if (password.value != passwordConfirm.value) {
+        alert("비밀번호를 확인해주세요.");
+        password.focus();
       } else if (postCode.value === "") {
         alert("우편번호를 입력해주세요.");
-        Postcode.focus();
+        postCode.focus();
+      } else if (agree.checked === false) {
+        alert("동의를 체크해주세요.");
       } else {
         joinForm.submit();
       }

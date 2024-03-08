@@ -4,6 +4,15 @@
 
     .swiper-side {
       display: flex;
+
+      .txt-box {
+        width: 500px;
+        // flex: 0 0 500px;
+      }
+
+      .img-box {
+        // flex: 0 0 500px;
+      }
     }
   }
 }

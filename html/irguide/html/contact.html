@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="../css/layout03.css" />
+  </head>
+  <body>
+    <header>
+      <h1>
+        <a href="../../index.html"
+          ><img id="logo" src="../images/logo.png" alt="logo"
+        /></a>
+      </h1>
+      <ul class="gnb">
+        <li>
+          <a href="./form.html" class="main-menu">제품소개</a>
+          <ul class="sub-menu">
+            <li>
+              <a href="">열화상 카메라</a>
+            </li>
+            <li>
+              <a href="">산업용 안전펜스</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="" class="main-menu">머신비전</a>
+        </li>
+        <li>
+          <a href="" class="main-menu">회사소개</a>
+          <ul class="sub-menu">
+            <li>
+              <a href="">회사 연혁</a>
+            </li>
+            <li>
+              <a href="">오시는 길</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="" class="main-menu">고객지원</a>
+          <ul class="sub-menu">
+            <li>
+              <a href="">자료실</a>
+            </li>
+            <li>
+              <a href="">적용사례</a>
+            </li>
+            <li>
+              <a href="">공지사항</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="" class="main-menu">고객문의</a>
+          <ul class="sub-menu">
+            <li>
+              <a href="./contact.html">문의하기</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="index.html"
+            ><img id="sub-logo" src="../images/logo.png" alt="logo"
+          /></a>
+        </li>
+      </ul>
+    </header>
+    <!-- header end -->
+
+    <form action="join-confirm.html" id="join-confirm">
+      <div class="contact-box">
+        <h2>
+          궁금하신 점이 있으신가요? 문의내용을 남겨주시면 신속하게
+          답변드리겠습니다.
+        </h2>
+        <p>* 표시된 항목은 필수 기입 항목입니다.</p>
+        <div class="contact-input-box">
+          <div>
+            <div>
+              <p>문의유형<span>*</span></p>
+              <input
+                type="radio"
+                name="category"
+                id="category"
+                value="교육문의"
+              />교육문의
+              <input
+                type="radio"
+                name="category"
+                id="category"
+                value="인재요청"
+              />인재요청
+              <input
+                type="radio"
+                name="category"
+                id="category"
+                value="기타"
+              />기타
+            </div>
+            <div>
+              <p>이름<span>*</span></p>
+              <input type="text" name="name" id="name" />
+            </div>
+          </div>
+          <div>
+            <div>
+              <p>휴대폰<span>*</span></p>
+              <input
+                class="small-input"
+                type="text"
+                name="phone-first"
+                id="phone-first"
+              />
+              <h4 class="text-between">-</h4>
+              <input
+                class="small-input"
+                type="text"
+                name="phone-middle"
+                id="phone-middle"
+              />
+              <h4 class="text-between">-</h4>
+              <input
+                class="small-input"
+                type="text"
+                name="phone-last"
+                id="phone-last"
+              />
+            </div>
+            <div>
+              <p>이메일<span>*</span></p>
+              <input
+                class="small-input"
+                type="text"
+                name="email-first"
+                id="email-first"
+              />
+              <h4 class="text-between">@</h4>
+              <input
+                class="small-input"
+                type="text"
+                name="email-last"
+                id="email-last"
+              />
+            </div>
+          </div>
+          <div>
+            <div>
+              <p>문의내용</p>
+              <textarea
+                name="content"
+                id="content"
+                cols="30"
+                rows="10"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="agree-box">
+          <input type="checkbox" name="agree" id="agree" />
+          개인정보 수집 및 이용약관<span>(전문보기)</span>에 동의하십니까?
+        </div>
+        <button>문의하기</button>
+      </div>
+    </form>
+  </body>
+</html>

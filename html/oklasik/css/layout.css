@@ -101,4 +101,7 @@ body {
 }
 .main-visual .swiper-wrapper .swiper-side {
   display: flex;
+}
+.main-visual .swiper-wrapper .swiper-side .txt-box {
+  width: 500px;
 }/*# sourceMappingURL=layout.css.map */

@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>밝은성모안과</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <link
@@ -89,17 +93,11 @@
       </ul>
     </header>
     <!-- header end -->
-    <div class="main-visual">
+    <div class="main-visual" id="main-visual">
       <ul class="swiper-wrapper">
         <li class="swiper-side">
           <div class="txt-box">
-            <p class="title">
-              디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성
-            </p>
-            <p class="txt">
-              세계 3대 디자인 어워드, 독일
-              <span>2023 레드 닷 디자인 어워드</span> 수상
-            </p>
+            <h3>디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성</h3>
           </div>
           <div class="img-box">
             <img src="https://picsum.photos/400/250" alt="" />
@@ -107,13 +105,7 @@
         </li>
         <li class="swiper-side">
           <div class="txt-box">
-            <p class="title">
-              디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성
-            </p>
-            <p class="txt">
-              세계 3대 디자인 어워드, 독일
-              <span>2023 레드 닷 디자인 어워드</span> 수상
-            </p>
+            <h3>디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성</h3>
           </div>
           <div class="img-box">
             <img src="https://picsum.photos/400/250" alt="" />
@@ -121,19 +113,51 @@
         </li>
         <li class="swiper-side">
           <div class="txt-box">
-            <p class="title">
-              디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성
-            </p>
-            <p class="txt">
-              세계 3대 디자인 어워드, 독일
-              <span>2023 레드 닷 디자인 어워드</span> 수상
-            </p>
+            <h3>디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성</h3>
+          </div>
+          <div class="img-box">
+            <img src="https://picsum.photos/400/250" alt="" />
+          </div>
+        </li>
+        <li class="swiper-side">
+          <div class="txt-box">
+            <h3>디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성</h3>
+          </div>
+          <div class="img-box">
+            <img src="https://picsum.photos/400/250" alt="" />
+          </div>
+        </li>
+        <li class="swiper-side">
+          <div class="txt-box">
+            <h3>디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성</h3>
+          </div>
+          <div class="img-box">
+            <img src="https://picsum.photos/400/250" alt="" />
+          </div>
+        </li>
+        <li class="swiper-side">
+          <div class="txt-box">
+            <h3>디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성</h3>
+          </div>
+          <div class="img-box">
+            <img src="https://picsum.photos/400/250" alt="" />
+          </div>
+        </li>
+        <li class="swiper-side">
+          <div class="txt-box">
+            <h3>디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성</h3>
           </div>
           <div class="img-box">
             <img src="https://picsum.photos/400/250" alt="" />
           </div>
         </li>
       </ul>
+      <!-- If we need pagination -->
+      <div class="swiper-pagination"></div>
+
+      <!-- If we need navigation buttons -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
     </div>
   </body>
   <script>
@@ -142,7 +166,6 @@
     document.addEventListener("scroll", function () {
       const scrollY = window.scrollY;
 
-      console.log(scrollY);
       if (scrollY != 0) {
         header.classList.add("hide-header");
       } else {
@@ -151,7 +174,7 @@
     });
 
     const swiper = new Swiper(".main-visual", {
-      loop: true,
+      // loop: true,
       effect: "fade",
       speed: 1000,
       navigation: {
