@@ -45,8 +45,7 @@ header {
   height: 160px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.8);
   background-color: rgba(255, 255, 255, 0.8);
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   transition: all 0.5s ease;
 }
 header.scroll {
@@ -83,8 +82,7 @@ header .gnb .sub-menu {
   pointer-events: none;
   text-align: center;
   background-color: #e60012;
-  -webkit-backdrop-filter: 10px;
-          backdrop-filter: 10px;
+  backdrop-filter: 10px;
   padding: 8px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -139,9 +137,9 @@ header .gnb .sub-menu li a:hover {
   position: absolute;
   bottom: 50px;
   z-index: 10;
+  justify-content: center;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 .main-visual .pagination .swiper-pagination-bullet {
   width: 20px;
@@ -160,9 +158,9 @@ header .gnb .sub-menu li a:hover {
   position: absolute;
   bottom: 50px;
   z-index: 10;
+  justify-content: center;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 .main-visual button {
   position: absolute;
@@ -259,9 +257,9 @@ header .gnb .sub-menu li a:hover {
 .btn-top {
   width: 50px;
   height: 50px;
+  justify-content: center;
   display: flex;
   align-items: center;
-  justify-content: center;
   background-color: #e60012;
   color: #fff;
   border: none;
@@ -316,6 +314,13 @@ header .gnb .sub-menu li a:hover {
 .join .form-table td select {
   height: 40px;
   padding: 0px 20px;
+}
+.join .form-table td textarea {
+  resize: none;
+  width: 60%;
+  border: 1px solid #ccc;
+  padding: 20px;
+  font-family: inherit;
 }
 .join .form-table td .input-box {
   margin-top: 10px;
