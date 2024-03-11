@@ -1,12 +1,14 @@
 header {
-  position: fixed;
+  position: absolute;
   top: 0;
-  width: 100vw;
-  height: 100px;
+  z-index: 99;
+  width: 100%;
+  height: 96px;
   border-bottom: 1px solid #111;
   overflow: hidden;
   transition: all 0.5s ease;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #ced4da;
+  backdrop-filter: unset;
 
   &:hover {
     height: 300px;

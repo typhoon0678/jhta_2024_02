@@ -10,7 +10,8 @@ header:hover {
   height: 480px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.8);
   background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
 }
 header.hide-header {
   top: -200px;
@@ -108,4 +109,4 @@ body {
   top: 32px;
   width: 24px;
   padding-right: 16px;
-}/*# sourceMappingURL=layout.css.map */
+}

@@ -8,13 +8,12 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <link rel="stylesheet" href="../css/layout.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   </head>
   <body>
     <header>
@@ -95,57 +94,71 @@
     <!-- header end -->
     <div class="main-visual" id="main-visual">
       <ul class="swiper-wrapper">
-        <li class="swiper-side">
+        <li class="swiper-slide">
           <div class="txt-box">
-            <h3>디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성</h3>
+            <h3>
+              1. 디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성
+            </h3>
           </div>
           <div class="img-box">
             <img src="https://picsum.photos/400/250" alt="" />
           </div>
         </li>
-        <li class="swiper-side">
+        <li class="swiper-slide">
           <div class="txt-box">
-            <h3>디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성</h3>
+            <h3>
+              2. 디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성
+            </h3>
           </div>
           <div class="img-box">
             <img src="https://picsum.photos/400/250" alt="" />
           </div>
         </li>
-        <li class="swiper-side">
+        <li class="swiper-slide">
           <div class="txt-box">
-            <h3>디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성</h3>
+            <h3>
+              3. 디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성
+            </h3>
           </div>
           <div class="img-box">
             <img src="https://picsum.photos/400/250" alt="" />
           </div>
         </li>
-        <li class="swiper-side">
+        <li class="swiper-slide">
           <div class="txt-box">
-            <h3>디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성</h3>
+            <h3>
+              4. 디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성
+            </h3>
           </div>
           <div class="img-box">
             <img src="https://picsum.photos/400/250" alt="" />
           </div>
         </li>
-        <li class="swiper-side">
+        <li class="swiper-slide">
           <div class="txt-box">
-            <h3>디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성</h3>
+            <h3>
+              5. 디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성
+            </h3>
           </div>
           <div class="img-box">
             <img src="https://picsum.photos/400/250" alt="" />
           </div>
         </li>
-        <li class="swiper-side">
+        <li class="swiper-slide">
           <div class="txt-box">
-            <h3>디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성</h3>
+            <h3>
+              6. 디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성
+            </h3>
           </div>
           <div class="img-box">
             <img src="https://picsum.photos/400/250" alt="" />
           </div>
         </li>
-        <li class="swiper-side">
+        <li class="swiper-slide">
           <div class="txt-box">
-            <h3>디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성</h3>
+            <h3>
+              7. 디자인과 안전의 완벽한 조화 뛰어난 디자인으로 안전을 완성
+            </h3>
           </div>
           <div class="img-box">
             <img src="https://picsum.photos/400/250" alt="" />
@@ -158,6 +171,9 @@
       <!-- If we need navigation buttons -->
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
+
+      <!-- If we need scrollbar -->
+      <div class="swiper-scrollbar"></div>
     </div>
   </body>
   <script>
@@ -174,21 +190,28 @@
     });
 
     const swiper = new Swiper(".main-visual", {
-      // loop: true,
-      effect: "fade",
-      speed: 1000,
-      navigation: {
-        prevEl: ".btn-prev",
-        nextEl: ".btn-next",
-      },
-      pagination: {
-        el: ".pagination",
-        clickable: true,
-      },
+      loop: true,
+
       autoplay: {
         delay: 3000,
         // pauseOnMouseEnter: true,
         // disableOnInteractioin: false,
+      },
+
+      // If we need pagination
+      pagination: {
+        el: ".swiper-pagination",
+      },
+
+      // Navigation arrows
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+
+      // And if we need scrollbar
+      scrollbar: {
+        el: ".swiper-scrollbar",
       },
     });
   </script>
