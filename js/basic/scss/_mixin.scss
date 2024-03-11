@@ -1,0 +1,37 @@
+@mixin longShadow($end, $shadowColor) {
+  $shadow: "";
+  @for $i from 1 through $end - 1 {
+    //1px 1px 0 rgba(0,0,0,1)
+    $shadow: $shadow + $i + "px " + $i + "px 0 " + $shadowColor + ",";
+  }
+  $shadow: $shadow + $end + "px " + $end + "px 0 " + $shadowColor + ";";
+  $shadow: unquote($shadow);
+  text-shadow: $shadow;
+}
+@mixin flex($position: center) {
+  @if $position == start {
+    justify-content: start;
+  } @else if $position == end {
+    justify-content: end;
+  } @else {
+    justify-content: center;
+  }
+  display: flex;
+  align-items: center;
+}
+
+@mixin ellipse() {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+@mixin multiEllipsis($line: 2, $lineHeight: 1.5) {
+  display: -webkit-box;
+  overflow: hidden;
+  line-height: $lineHeight;
+  height: $line * $lineHeight * 1em; //px은 절대 단위
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}

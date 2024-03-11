@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; // width에 padding값과 border를 포함하는 값이다.
+}
+ol,
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+body {
+  font-family: $base-font;
+  font-size: 16px;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+}
+button {
+  background: none;
+  border: none;
+}

@@ -1,0 +1,19 @@
+h1 {
+  font-weight: 100;
+  font-size: 10vw;
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .date {
+    font-weight: 100;
+    font-size: 10vw;
+    @include longShadow(500, #222);
+  }
+  .time {
+    font-weight: 700;
+    @include longShadow(500, #222);
+  }
+}
