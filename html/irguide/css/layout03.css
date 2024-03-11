@@ -103,6 +103,7 @@ header .gnb .sub-menu li a:hover {
 }
 
 .main-visual {
+  overflow: hidden;
   height: 100vh;
 }
 .main-visual ul li {
@@ -138,9 +139,9 @@ header .gnb .sub-menu li a:hover {
   position: absolute;
   bottom: 50px;
   z-index: 10;
-  justify-content: center;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .main-visual .pagination .swiper-pagination-bullet {
   width: 20px;
@@ -159,9 +160,9 @@ header .gnb .sub-menu li a:hover {
   position: absolute;
   bottom: 50px;
   z-index: 10;
-  justify-content: center;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .main-visual button {
   position: absolute;
@@ -258,9 +259,9 @@ header .gnb .sub-menu li a:hover {
 .btn-top {
   width: 50px;
   height: 50px;
-  justify-content: center;
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: #e60012;
   color: #fff;
   border: none;

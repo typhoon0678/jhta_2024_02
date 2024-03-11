@@ -1,5 +1,5 @@
 .main-visual {
-  // overflow: hidden;
+  overflow: hidden;
   height: 100vh;
   ul {
     li {
@@ -180,7 +180,7 @@
 .btn-top {
   width: 50px;
   height: 50px;
-  @include flex("center");
+  @include flex();
   background-color: $main-color;
   color: #fff;
   border: none;
