@@ -18,29 +18,26 @@
       <span class="time"></span>
     </h1>
     <script>
+      const addZero = function (num) {
+        // if (num < 10) {
+        //   num = "0" + num;
+        // }
+        return num < 10 ? "0" + num : num; // 삼항연산
+      };
+      // console.log(addZero(5));
       const getCurrentDate = function () {
         const current = new Date();
         const year = current.getFullYear();
-        let month = current.getMonth() + 1;
-        if (month < 10) {
-          month = "0" + month;
-        }
-        let date = current.getDate();
-        if (date < 10) {
-          date = "0" + date;
-        }
-        let hour = current.getHours();
-        if (hour < 10) {
-          hour = "0" + hour;
-        }
-        let minute = current.getMinutes();
-        if (minute < 10) {
-          minute = "0" + minute;
-        }
-        let second = current.getSeconds();
-        if (second < 10) {
-          second = "0" + second;
-        }
+        let month = addZero(3);
+
+        let date = addZero(current.getDate()); // 11
+
+        let hour = addZero(current.getHours());
+
+        let minute = addZero(current.getMinutes());
+
+        let second = addZero(current.getSeconds());
+
         const myDate = document.querySelector(".date");
         const myTime = document.querySelector(".time");
 

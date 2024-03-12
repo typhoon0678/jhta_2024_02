@@ -1,0 +1,82 @@
+@import "vars";
+@import "mixin";
+@import "common";
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
+  background-color: #333;
+  color: #fff;
+  background-image: url("../images/ocean-3605547_1920.jpg");
+  background-size: cover;
+  background-position: center;
+}
+h1 {
+  position: absolute;
+  width: 100%;
+  font-weight: 200;
+  top: 60px;
+  text-align: center;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+
+  overflow: hidden;
+  color: #333;
+  span {
+    padding: 10px 30px;
+    overflow: hidden;
+    border-radius: 100px;
+    $bg: rgba(255, 255, 255, 0.9);
+    background-color: $bg;
+    @include longShadow(50, darken($bg, 20));
+  }
+}
+.date-box {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+  padding-top: 200px;
+  .txt-box {
+    width: 300px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    &:last-child {
+      //border-left: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    p {
+      font-size: 5vw;
+      font-weight: 200;
+      margin-bottom: 20px;
+      text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+.word-box {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 300px;
+  flex-direction: column;
+  .word {
+    text-align: center;
+    width: 80vw;
+    font-size: 1.5vw;
+    font-weight: 500;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+  }
+  .author {
+    margin-top: 20px;
+    font-size: 1vw;
+  }
+}

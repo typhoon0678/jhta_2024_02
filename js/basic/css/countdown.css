@@ -1,0 +1,110 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-family: "Montserrat";
+  font-size: 16px;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+}
+
+button {
+  background: none;
+  border: none;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
+  background-color: #333;
+  color: #fff;
+  background-image: url("../images/ocean-3605547_1920.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+h1 {
+  position: absolute;
+  width: 100%;
+  font-weight: 200;
+  top: 60px;
+  text-align: center;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  color: #333;
+}
+h1 span {
+  padding: 10px 30px;
+  overflow: hidden;
+  border-radius: 100px;
+  background-color: rgba(255, 255, 255, 0.9);
+  text-shadow: 1px 1px 0 rgba(204, 204, 204, 0.9),2px 2px 0 rgba(204, 204, 204, 0.9),3px 3px 0 rgba(204, 204, 204, 0.9),4px 4px 0 rgba(204, 204, 204, 0.9),5px 5px 0 rgba(204, 204, 204, 0.9),6px 6px 0 rgba(204, 204, 204, 0.9),7px 7px 0 rgba(204, 204, 204, 0.9),8px 8px 0 rgba(204, 204, 204, 0.9),9px 9px 0 rgba(204, 204, 204, 0.9),10px 10px 0 rgba(204, 204, 204, 0.9),11px 11px 0 rgba(204, 204, 204, 0.9),12px 12px 0 rgba(204, 204, 204, 0.9),13px 13px 0 rgba(204, 204, 204, 0.9),14px 14px 0 rgba(204, 204, 204, 0.9),15px 15px 0 rgba(204, 204, 204, 0.9),16px 16px 0 rgba(204, 204, 204, 0.9),17px 17px 0 rgba(204, 204, 204, 0.9),18px 18px 0 rgba(204, 204, 204, 0.9),19px 19px 0 rgba(204, 204, 204, 0.9),20px 20px 0 rgba(204, 204, 204, 0.9),21px 21px 0 rgba(204, 204, 204, 0.9),22px 22px 0 rgba(204, 204, 204, 0.9),23px 23px 0 rgba(204, 204, 204, 0.9),24px 24px 0 rgba(204, 204, 204, 0.9),25px 25px 0 rgba(204, 204, 204, 0.9),26px 26px 0 rgba(204, 204, 204, 0.9),27px 27px 0 rgba(204, 204, 204, 0.9),28px 28px 0 rgba(204, 204, 204, 0.9),29px 29px 0 rgba(204, 204, 204, 0.9),30px 30px 0 rgba(204, 204, 204, 0.9),31px 31px 0 rgba(204, 204, 204, 0.9),32px 32px 0 rgba(204, 204, 204, 0.9),33px 33px 0 rgba(204, 204, 204, 0.9),34px 34px 0 rgba(204, 204, 204, 0.9),35px 35px 0 rgba(204, 204, 204, 0.9),36px 36px 0 rgba(204, 204, 204, 0.9),37px 37px 0 rgba(204, 204, 204, 0.9),38px 38px 0 rgba(204, 204, 204, 0.9),39px 39px 0 rgba(204, 204, 204, 0.9),40px 40px 0 rgba(204, 204, 204, 0.9),41px 41px 0 rgba(204, 204, 204, 0.9),42px 42px 0 rgba(204, 204, 204, 0.9),43px 43px 0 rgba(204, 204, 204, 0.9),44px 44px 0 rgba(204, 204, 204, 0.9),45px 45px 0 rgba(204, 204, 204, 0.9),46px 46px 0 rgba(204, 204, 204, 0.9),47px 47px 0 rgba(204, 204, 204, 0.9),48px 48px 0 rgba(204, 204, 204, 0.9),49px 49px 0 rgba(204, 204, 204, 0.9),50px 50px 0 rgba(204, 204, 204, 0.9);;
+}
+
+.date-box {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+  padding-top: 200px;
+}
+.date-box .txt-box {
+  width: 300px;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.date-box .txt-box:last-child {
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+.date-box .txt-box p {
+  font-size: 5vw;
+  font-weight: 200;
+  margin-bottom: 20px;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.word-box {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 300px;
+  flex-direction: column;
+}
+.word-box .word {
+  text-align: center;
+  width: 80vw;
+  font-size: 1.5vw;
+  font-weight: 500;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+}
+.word-box .author {
+  margin-top: 20px;
+  font-size: 1vw;
+}/*# sourceMappingURL=countdown.css.map */
