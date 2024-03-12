@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -77,6 +77,23 @@
     //     word.innerHTML = data.quote.body;
     //     author.textContent = data.quote.author;
     //   });
+
+    const quote = [
+      {
+        word: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+        author: "Nelson Mandela",
+      },
+      {
+        word: "The way to get started is to quit talking and begin doing. ",
+        author: "Walt Disney",
+      },
+      {
+        word: "Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma which is living with the results of other people's thinking.",
+        author: "Eleanor Roosevelt",
+      },
+    ];
+    const randomQuote = Math.floor(Math.random() * 3);
+    word.textContent = quote[randomQuote].word;
 
     const remainTime = function () {
       const current = new Date(); // 현재 시간

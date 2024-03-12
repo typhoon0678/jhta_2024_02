@@ -3,44 +3,125 @@
 @import "./common";
 
 body {
+  display: flex;
+  flex-direction: column;
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
-}
 
-.list {
-  display: flex;
-  justify-content: center;
-  gap: 5px;
-  $orange: rgb(251, 196, 0);
-  $bule: rgb(105, 200, 242);
-  $red: rgb(255, 114, 114);
-  $grey: rgb(170, 170, 170);
-  $green: rgb(176, 216, 64);
-
-  li {
-    width: 50px;
-    height: 50px;
+  .btns {
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
-    background-color: #f00;
+    margin: 50px 0;
+    gap: 10px;
+    font-size: 24px;
     color: #fff;
-    border-radius: 100px;
+    .btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100px;
+      background-color: #666;
+    }
 
-    &.orange {
-      background-color: $orange;
+    .btn-on {
+      background-color: #f00;
     }
-    &.blue {
-      background-color: $blue;
+  }
+
+  .paper-wrap {
+    width: 370px;
+    margin: auto;
+    min-height: 390px;
+    overflow: hidden;
+    position: relative;
+
+    &:before {
+      content: "GOOD \A LUCK";
+      white-space: pre;
+      display: block;
+      color: #fff;
+      font-size: 24px;
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      top: 50%;
     }
-    &.red$red {
-      background-color: $red;
+  }
+
+  .paper {
+    min-height: 370px;
+    background-color: #fff;
+    transform: translateY(-110%);
+    position: relative;
+
+    &.on {
+      transition: all 1s ease;
+      transform: translateY(0);
     }
-    &.grey {
-      background-color: $orange;
+
+    &:after {
+      background: linear-gradient(-45deg, transparent 16px, #fff 0),
+        linear-gradient(45deg, transparent 16px, #fff 0);
+      background-repeat: repeat-x;
+      background-position: left bottom;
+      background-size: 10px 20px;
+      content: "";
+      display: block;
+      width: 100%;
+      height: 20px;
+      position: absolute;
+      bottom: -18px;
     }
-    &.green {
-      background-color: $orange;
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    padding: 16px;
+    background: #fff;
+    $orange: rgb(251, 196, 0);
+    $blue: rgb(105, 200, 242);
+    $red: rgb(255, 114, 114);
+    $gray: rgb(170, 170, 170);
+    $green: rgb(176, 216, 64);
+
+    li {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      // background-color: #f00;
+      color: #fff;
+      border-radius: 100px;
+      overflow: hidden;
+      box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+
+      &.orange {
+        background-color: $orange;
+        @include longShadow(10, darken($orange, 10));
+      }
+      &.blue {
+        background-color: $blue;
+        @include longShadow(10, darken($blue, 10));
+      }
+      &.red {
+        background-color: $red;
+        @include longShadow(10, darken($red, 10));
+      }
+      &.gray {
+        background-color: $gray;
+        @include longShadow(10, darken($gray, 10));
+      }
+      &.green {
+        background-color: $green;
+        @include longShadow(10, darken($green, 10));
+      }
     }
   }
 }

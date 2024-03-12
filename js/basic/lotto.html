@@ -13,36 +13,69 @@
     <title>Lotto</title>
   </head>
   <body>
-    <ul class="list"></ul>
+    <div class="btns">
+      <button class="btn">01</button>
+      <button class="btn">02</button>
+      <button class="btn">03</button>
+      <button class="btn">04</button>
+      <button class="btn">05</button>
+    </div>
+    <div class="paper-wrap">
+      <div class="paper">
+        <ul class="list"></ul>
+      </div>
+    </div>
     <script>
-      const nums = [];
-      for (let i = 0; i < 45; i++) {
-        nums.push(i + 1);
-      }
+      const makeLotto = function () {
+        const nums = [];
+        const selectedNums = [];
 
-      const selectedNums = [];
+        for (let i = 0; i < 45; i++) {
+          nums.push(i + 1);
+        }
 
-      for (let j = 0; j < 6; j++) {
-        selectedNums.push(
-          nums.splice(Math.floor(Math.random() * nums.length), 1)[0]
-        );
-      }
+        for (let j = 0; j < 6; j++) {
+          selectedNums.push(
+            nums.splice(Math.floor(Math.random() * nums.length), 1)[0]
+          );
+        }
 
-      // callback 함수 : 매개변수로 전달되어 실행되는 함수
-      selectedNums.sort((a, b) => a - b);
-      //   sort(function(a, b) {
-      //     return a - b;
-      //   });
+        // callback 함수 : 매개변수로 전달되어 실행되는 함수
+        selectedNums.sort((a, b) => a - b);
+        //   sort(function(a, b) {
+        //     return a - b;
+        //   });
+
+        const colorList = ["orange", "blue", "red", "gray", "green"];
+
+        for (let i = 0; i < 6; i++) {
+          // innerHTML : HTML 요소를 넣음 / textContent : text를 넣음
+          // `${}` 사용 or "<li>" + selectedNums[i] + </li>
+          let color = colorList[Math.floor((selectedNums[i] - 1) / 10)]; // 1~10 orange, ...
+          list.innerHTML += `<li class=${color}>${selectedNums[i]}</li>`;
+        }
+      };
 
       const list = document.querySelector(".list");
-      const colorList = ["orange", "blue", "red", "grey", "green"];
+      const paper = document.querySelector(".paper");
+      const btn = document.querySelectorAll(".btn");
+      let removeBtnOnNum = 0;
 
-      for (let i = 0; i < 6; i++) {
-        // innerHTML : HTML 요소를 넣음 / textContent : text를 넣음
-        // `${}` 사용 or "<li>" + selectedNums[i] + </li>
-        let color = colorList[Math.floor((selectedNums[i] - 1) / 10)];
-        console.log(color);
-        list.innerHTML += `<li class=${color}>${selectedNums[i]}</li>`;
+      for (let i = 0; i < btn.length; i++) {
+        btn[i].addEventListener("click", () => {
+          btn[removeBtnOnNum].classList.remove("btn-on");
+          removeBtnOnNum = i;
+          setTimeout(() => btn[i].classList.add("btn-on"), 100);
+
+          paper.classList.remove("on");
+          setTimeout(() => paper.classList.add("on"), 100);
+          // paper.classList.add("on");
+
+          list.innerHTML = "";
+          for (let j = 0; j <= i; j++) {
+            makeLotto();
+          }
+        });
       }
 
       // console.log(nums[Math.floor(Math.random() * 45)]);
