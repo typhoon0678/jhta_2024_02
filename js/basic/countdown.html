@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>count down</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/countdown.css" />
+  </head>
+  <body>
+    <h1>
+      <span>completion date</span>
+    </h1>
+    <div class="word-box">
+      <div class="word"></div>
+      <div class="author"></div>
+    </div>
+    <div class="date-box">
+      <div class="txt-box">
+        <p id="days">172</p>
+        <span>day</span>
+      </div>
+      <div class="txt-box">
+        <p id="hours">17</p>
+        <span>hour</span>
+      </div>
+      <div class="txt-box">
+        <p id="minutes">46</p>
+        <span>min</span>
+      </div>
+      <div class="txt-box">
+        <p id="seconds">18</p>
+        <span>sec</span>
+      </div>
+    </div>
+  </body>
+  <script>
+    const addZero = function (num) {
+      // if (num < 10) {
+      //   num = "0" + num;
+      // }
+      return num < 10 ? "0" + num : num; // 삼항연산
+    };
+    const daysDom = document.querySelector("#days");
+    const hoursDom = document.querySelector("#hours");
+    const minutesDom = document.querySelector("#minutes");
+    const secondsDom = document.querySelector("#seconds");
+    const body = document.querySelector("body");
+    const word = document.querySelector(".word");
+    const author = document.querySelector(".author");
+
+    const bgList = [
+      "milky-way-5422901_1920.jpg",
+      "planet-581239_1920.jpg",
+      "ocean-3605547_1920.jpg",
+    ];
+    // 배열   규칙없는거에 번호 매기기
+    const randomPick = Math.floor(Math.random() * 3);
+    body.style.backgroundImage = "url(images/" + bgList[randomPick] + ")";
+
+    // 유명 프로그래머의 명언을 10개 찾아서 배열에 넣고
+    // 랜덤하게 출력되게 하세요.
+
+    // fetch("https://favqs.com/api/qotd", {
+    //   headers: {
+    //     Authorization: "ea59bba00777dde0470d69cf16f5a71d",
+    //   },
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     word.innerHTML = data.quote.body;
+    //     author.textContent = data.quote.author;
+    //   });
+
+    const remainTime = function () {
+      const current = new Date(); // 현재 시간
+      const last = new Date(2024, 9, 1);
+      //차이는 milliseconds로 나옴...
+      const diff = (last - current) / 1000;
+      const days = Math.floor(diff / 60 / 60 / 24);
+      const hours = Math.floor(diff / 60 / 60) % 24;
+      const mins = Math.floor(diff / 60) % 60;
+      const sec = Math.floor(diff % 60);
+
+      daysDom.textContent = addZero(days);
+      hoursDom.textContent = addZero(hours);
+      minutesDom.textContent = addZero(mins);
+      secondsDom.textContent = addZero(sec);
+    };
+    setInterval(remainTime, 1000);
+  </script>
+</html>
