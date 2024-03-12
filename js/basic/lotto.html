@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/lotto.css" />
+    <title>Lotto</title>
+  </head>
+  <body>
+    <ul class="list"></ul>
+    <script>
+      const nums = [];
+      for (let i = 0; i < 45; i++) {
+        nums.push(i + 1);
+      }
+
+      const selectedNums = [];
+
+      for (let j = 0; j < 6; j++) {
+        selectedNums.push(
+          nums.splice(Math.floor(Math.random() * nums.length), 1)[0]
+        );
+      }
+
+      // callback 함수 : 매개변수로 전달되어 실행되는 함수
+      selectedNums.sort((a, b) => a - b);
+      //   sort(function(a, b) {
+      //     return a - b;
+      //   });
+
+      const list = document.querySelector(".list");
+      const colorList = ["orange", "blue", "red", "grey", "green"];
+
+      for (let i = 0; i < 6; i++) {
+        // innerHTML : HTML 요소를 넣음 / textContent : text를 넣음
+        // `${}` 사용 or "<li>" + selectedNums[i] + </li>
+        let color = colorList[Math.floor((selectedNums[i] - 1) / 10)];
+        console.log(color);
+        list.innerHTML += `<li class=${color}>${selectedNums[i]}</li>`;
+      }
+
+      // console.log(nums[Math.floor(Math.random() * 45)]);
+
+      // const animals = ["tiger", "cat", "lion", "bear"];
+      // animals.pop(); animals.shift;
+      // animals.push("dog"); animals.unshift("dog");
+      // animals.splice(1, 2); // 1번 index 부터 2개 추출한 배열 return, 원래 배열은 2개 drop됨
+
+      // const array = [];
+      // const arrayCopy = array; // 주소만 복사, array나 arrayCopy에 어디에 값을 넣어도 똑같이 바뀐다.
+      // arrayCopy.push(1);
+      // console.log(array);
+      // console.log(arrayCopy);
+    </script>
+  </body>
+</html>

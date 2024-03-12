@@ -1,0 +1,46 @@
+@import "./vars";
+@import "./mixin";
+@import "./common";
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+}
+
+.list {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  $orange: rgb(251, 196, 0);
+  $bule: rgb(105, 200, 242);
+  $red: rgb(255, 114, 114);
+  $grey: rgb(170, 170, 170);
+  $green: rgb(176, 216, 64);
+
+  li {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f00;
+    color: #fff;
+    border-radius: 100px;
+
+    &.orange {
+      background-color: $orange;
+    }
+    &.blue {
+      background-color: $blue;
+    }
+    &.red$red {
+      background-color: $red;
+    }
+    &.grey {
+      background-color: $orange;
+    }
+    &.green {
+      background-color: $orange;
+    }
+  }
+}
