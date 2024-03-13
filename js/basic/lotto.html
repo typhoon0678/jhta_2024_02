@@ -10,6 +10,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./css/lotto.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <title>Lotto</title>
   </head>
   <body>
@@ -26,19 +27,28 @@
       </div>
     </div>
     <script>
+      // function shuffle() {} : 함수 선언문 -> 인터프리터가 먼저 읽음
+      const shuffle = function (array, num) {
+        // 함수 표현식 -> 코드 작성 순서대로 읽음(사용 전, 선언 필요)
+        let temp = array;
+        for (let i = 0; i < num; i++) {
+          temp.unshift(
+            temp.splice(Math.floor(Math.random() * (temp.length - i)) + i, 1)[0]
+          );
+        }
+
+        return temp.slice(0, num);
+      };
+
       const makeLotto = function () {
         const nums = [];
-        const selectedNums = [];
+        let selectedNums = [];
 
         for (let i = 0; i < 45; i++) {
           nums.push(i + 1);
         }
 
-        for (let j = 0; j < 6; j++) {
-          selectedNums.push(
-            nums.splice(Math.floor(Math.random() * nums.length), 1)[0]
-          );
-        }
+        selectedNums = shuffle(nums, 6);
 
         // callback 함수 : 매개변수로 전달되어 실행되는 함수
         selectedNums.sort((a, b) => a - b);

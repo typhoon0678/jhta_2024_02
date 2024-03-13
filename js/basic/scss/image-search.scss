@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; // width에 padding값과 border를 포함하는 값이다.
+}
+ol,
+ul,
+li {
+  list-style: none;
+}
+
+.search-box {
+  height: 50px;
+  margin: 32px;
+  display: flex;
+  justify-content: center;
+  .search {
+    width: 200px;
+    margin-right: 16px;
+  }
+  .btn-search {
+    height: 50px;
+    width: 50px;
+    border-radius: 5px;
+    background-color: yellow;
+    border-color: gray;
+  }
+}
+
+.list {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1000px;
+
+  li {
+    padding: 16px;
+    margin: 16px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    a {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-decoration: none;
+      color: inherit;
+      align-items: center;
+      margin: 8px;
+
+      img {
+        margin-bottom: 16px;
+      }
+
+      span {
+        color: gray;
+      }
+    }
+  }
+}

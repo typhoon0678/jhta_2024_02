@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/image-search.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="search-box">
+      <input type="text" class="search" />
+      <button class="btn-search">검색</button>
+    </div>
+    <ul class="list"></ul>
+    <script>
+      const kakaoSearch = function (searchWord) {
+        fetch(
+          `https://dapi.kakao.com/v2/search/image?query=${searchWord}&size=${10}`,
+          {
+            headers: {
+              Authorization: "KakaoAK fbde5224b41499ea2b03bdc7b6699ac1",
+            },
+          }
+        )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            const documents = [...data.documents];
+            console.log(documents);
+            let items = "";
+            documents.forEach(function (e) {
+              items += `
+                <li>
+                    <a href="${e.doc_url}">
+                        <img src=${e.thumbnail_url}>
+                        <span>${e.display_sitename}</span>
+                    </a>
+                </li>
+                `;
+            });
+
+            $(".list").html(items);
+          });
+      };
+      $(".btn-search").on("click", () => {
+        const search = $(".search").val();
+        kakaoSearch(search);
+      });
+
+      kakaoSearch("kakao");
+      //   $.ajax({
+      //     url: "https://dapi.kakao.com/v2/search/web?query=전지현",
+      //     headers: {
+      //       Authorization: "KakaoAK fbde5224b41499ea2b03bdc7b6699ac1",
+      //     },
+      //     success: function (response) {
+      //       console.log(response);
+      //     },
+      //   });
+
+      $(".search").on("keyup", function (e) {
+        if (e.keyCode === 13) {
+          // e.key === "Enter"
+          const search = $(".search").val();
+          kakaoSearch(search);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -136,3 +136,23 @@ body .list li.green {
   background-color: rgb(176, 216, 64);
   text-shadow: 1px 1px 0 #96be27,2px 2px 0 #96be27,3px 3px 0 #96be27,4px 4px 0 #96be27,5px 5px 0 #96be27,6px 6px 0 #96be27,7px 7px 0 #96be27,8px 8px 0 #96be27,9px 9px 0 #96be27,10px 10px 0 #96be27;;
 }
+
+.popup {
+  background-color: #fff;
+  padding: 20px;
+  position: absolute;
+  top: 100px;
+  left: 100px;
+}
+.popup .content {
+  width: 400px;
+  min-height: 300px;
+  background-color: #111;
+}
+.popup .btn-close {
+  padding: 10px 5px;
+  background-color: #111;
+  color: #fff;
+  border-radius: 5px;
+  margin-top: 10px;
+}

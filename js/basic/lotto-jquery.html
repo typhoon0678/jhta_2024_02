@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lotto-jquery</title>
+    <link rel="stylesheet" href="./css/lotto.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="btns">
+      <button class="btn">01</button>
+      <button class="btn">02</button>
+      <button class="btn">03</button>
+      <button class="btn">04</button>
+      <button class="btn">05</button>
+    </div>
+    <div class="paper-wrap">
+      <div class="paper">
+        <ul class="list"></ul>
+      </div>
+    </div>
+    <div class="popup">
+      <div class="content">내용</div>
+      <div class="btn-box">
+        <button class="btn-close">닫기</button>
+      </div>
+    </div>
+    <script>
+      // $ : jQuery()  축약
+      const jqueryBtn = $(".btn"); // .btn인 요소들의 array 반환
+      jqueryBtn.on("click", (e) => {
+        $(e.currentTarget).siblings().removeClass("btn-on");
+        $(e.currentTarget).addClass("btn-on");
+        console.log("btn");
+        // jqueryBtn.slideUp();
+      }); // array 각 요소들의  event
+      //   function() {
+      //     $(this).addClass("btn-on"); // function() 일때는 this가 함수가 호출되는 요소가 됨
+      //   };
+
+      $(".popup .btn-close").on("click", () => $(".popup").fadeOut());
+    </script>
+  </body>
+</html>
