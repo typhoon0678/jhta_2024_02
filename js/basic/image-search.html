@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"
+    />
     <link rel="stylesheet" href="./css/image-search.css" />
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   </head>
@@ -33,7 +38,7 @@
             documents.forEach(function (e) {
               items += `
                 <li>
-                    <a href="${e.doc_url}">
+                    <a href="${e.image_url}" data-fancybox="gallary" data-caption="Single image">
                         <img src=${e.thumbnail_url}>
                         <span>${e.display_sitename}</span>
                     </a>
@@ -66,6 +71,10 @@
           const search = $(".search").val();
           kakaoSearch(search);
         }
+      });
+
+      Fancybox.bind("[data-fancybox]", {
+        // Your custom options
       });
     </script>
   </body>
