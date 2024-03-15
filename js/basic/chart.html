@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <style>
+      span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+        font-size: 24px;
+      }
+      .hide-loading {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input type="date" id="picked-date" />
+      <span class="loading-span">Wait...</span>
+      <canvas id="myChart"></canvas>
+    </div>
+  </body>
+  <script>
+    const labelList = [];
+    const dataList = [];
+    const ctx = $("#myChart");
+    let myChart = null;
+
+    $("#picked-date").on("change", function () {
+      writeChart($(this).val().replaceAll("-", "")); // split("-").join("");
+    });
+
+    const writeChart = (date) =>
+      $.ajax({
+        url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
+        data: {
+          key: "ece950b27a25566ec31049e7b1fe2c27",
+          targetDt: date,
+        },
+        beforeSend: function () {
+          if (myChart != null) {
+            myChart.destroy();
+            $(".loading-span").removeClass("hide-loading");
+          }
+        },
+        success: function (response) {
+          const boxOffice = [...response.boxOfficeResult.dailyBoxOfficeList];
+          labelList.length = 0; // 배열 비우기
+          dataList.length = 0;
+          $.each(boxOffice, function (idx, el) {
+            labelList.push(el.movieNm);
+            dataList.push(el.audiAcc);
+          });
+
+          $(".loading-span").addClass("hide-loading");
+
+          myChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+              labels: labelList,
+              datasets: [
+                {
+                  label: "Daily BoxOffice",
+                  data: dataList,
+                  borderWidth: 1,
+                  backgroundColor: ["#ff6384", "#36a2eb", "#cc65fe", "#ffce56"],
+                },
+              ],
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true,
+                },
+              },
+              plugins: {
+                title: {
+                  display: true,
+                  text: "Daily BoxOffice",
+                  padding: {
+                    top: 10,
+                    bottom: 30,
+                  },
+                },
+              },
+            },
+          });
+        },
+      });
+
+    // const date = new Date();
+    // const year = date.getFullYear().toString();
+    // let month = (date.getMonth() + 1).toString();
+    // month = month.length == 1 ? "0" + month : month;
+    // let day = (date.getDate() - 1).toString();
+    // day = day.length == 1 ? "0" + day : day;
+
+    // $("#picked-date").val(year + "-" + month + "-" + day);
+    // writeChart(year + month + day);
+
+    $("#picked-date").val(dayjs().subtract(1, "day").format("YYYY-MM-DD"));
+    writeChart(dayjs().subtract(1, "day").format("YYYYMMDD"));
+  </script>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Air Quality</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <style>
+      span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+        font-size: 24px;
+      }
+      .hide-loading {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input type="number" id="picked-date" />
+      <span class="loading-span">Wait...</span>
+      <canvas id="myChart"></canvas>
+    </div>
+  </body>
+  <script>
+    const labelList = [];
+    const dataList = [];
+    const ctx = $("#myChart");
+    let myChart = null;
+
+    $("#picked-date").on("change", function () {
+      writeChart($(this).val().replaceAll("-", "")); // split("-").join("");
+    });
+
+    const writeChart = (yearNum) =>
+      $.ajax({
+        url: "http://apis.data.go.kr/B552584/UlfptcaAlarmInqireSvc/getUlfptcaAlarmInfo",
+        data: {
+          serviceKey:
+            "KsJkkVx5ksedIubgdOE1Buogj7wFXBs3qVQBQaGq%2BdSNtfqN9H2dpG%2BTzCx7mIPxGJ0U9SnF2tJN%2F8FOG444aA%3D%3D",
+          returnType: "json",
+          year: yearNum,
+        },
+        beforeSend: function () {
+          if (myChart != null) {
+            myChart.destroy();
+            $(".loading-span").removeClass("hide-loading");
+          }
+        },
+        success: function (response) {
+          const airList = [...response.response.body.items];
+          labelList.length = 0; // 배열 비우기
+          dataList.length = 0;
+          $.each(airList, function (idx, el) {
+            labelList.push(el.districtName);
+            dataList.push(el.issueVal);
+          });
+
+          $(".loading-span").addClass("hide-loading");
+
+          myChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+              labels: labelList,
+              datasets: [
+                {
+                  label: "PM2.5",
+                  data: dataList,
+                  borderWidth: 1,
+                  backgroundColor: ["#ff6384", "#36a2eb", "#cc65fe", "#ffce56"],
+                },
+              ],
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true,
+                },
+              },
+              plugins: {
+                title: {
+                  display: true,
+                  text: yearNum + " 전국 미세먼지 농도",
+                  padding: {
+                    top: 10,
+                    bottom: 30,
+                  },
+                },
+              },
+            },
+          });
+        },
+      });
+
+    $("#picked-date").val(2023);
+    writeChart(2023);
+  </script>
+</html>
