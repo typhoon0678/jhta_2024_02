@@ -1,0 +1,31 @@
+@import "./common";
+@import "./kakaomap";
+
+.btn_set {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  a {
+    margin: auto auto;
+    padding: 16px;
+    background-color: yellow;
+    border-radius: 16px;
+  }
+}
+
+.list_item {
+  display: flex;
+  flex-wrap: wrap;
+
+  .item_box {
+    margin: 16px;
+    padding: 16px;
+    width: 200px;
+    border: 1px solid #000;
+    h5 {
+      font-size: 20px;
+    }
+  }
+}

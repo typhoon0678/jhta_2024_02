@@ -1,0 +1,60 @@
+@import "vars";
+@import "mixin";
+@import "common";
+body {
+  overflow: auto;
+  display: block;
+}
+header {
+  height: 80px;
+  overflow: hidden;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: 20px;
+  }
+}
+.filter-box {
+  display: flex;
+  justify-content: center;
+  margin: 100px 0;
+  button {
+    width: 120px;
+    height: 40px;
+    background-color: #111;
+    color: #fff;
+    border-radius: 100px;
+    margin: 0 10px;
+  }
+}
+.list {
+  width: 1200px;
+  margin: 100px auto;
+  display: flex;
+  //gap: 10px;
+  li {
+    box-sizing: border-box;
+    width: calc(25% - 20px);
+    padding: 10px;
+    background-color: #fff;
+    margin: 10px;
+    img {
+      width: 100%;
+    }
+    h5 {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+    .point {
+      color: #f00;
+      font-size: 18px;
+    }
+    a svg {
+      width: 20px;
+    }
+  }
+}

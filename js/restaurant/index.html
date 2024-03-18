@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>restaurant</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.js"></script>
+
+    <link rel="stylesheet" href="./css/restaurant.css" />
+    <style></style>
+  </head>
+  <body>
+    <div id="map" style="width: 100%; height: 350px"></div>
+
+    <section class="list_section">
+      <ul class="btn_set">
+        <li class="on">
+          <a href="#" data-filter="*">전체</a>
+        </li>
+        <li>
+          <a href="#" data-filter=".china">중식</a>
+        </li>
+        <li>
+          <a href="#" data-filter=".snack">분식</a>
+        </li>
+        <li>
+          <a href="#" data-filter=".etc">기타</a>
+        </li>
+      </ul>
+      <div class="list_item_wrap"></div>
+    </section>
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2dfb8a59adf52d7d2cccf1086fa8cc6a&libraries=clusterer"
+    ></script>
+
+    <script>
+      var map = new kakao.maps.Map(document.getElementById("map"), {
+        // 지도를 표시할 div
+        center: new kakao.maps.LatLng(37.572467, 126.990367), // 지도의 중심좌표
+        level: 4, // 지도의 확대 레벨
+      });
+
+      // 마커 클러스터러를 생성합니다
+      var clusterer = new kakao.maps.MarkerClusterer({
+        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+        minLevel: 6, // 클러스터 할 최소 지도 레벨
+      });
+
+      const makeContent = (title, category, type) => {
+        return `<div class="wrap">
+              <div class="info">
+                <div class="title">
+                  ${title}
+                  <div class="close" title="닫기"></div>
+                </div>
+                <div class="body">
+                  <div class="img">
+                    <img
+                      src="./images/milky-way-5422901_1920.jpg"
+                    />
+                  </div>
+                  <div class="desc">
+                    <div class="ellipsis">${category}</div>
+                    <div class="jibun ellipsis">${type}</div>
+                    <div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+      };
+
+      let restaurantList = [];
+
+      // Isotope
+      $.getJSON("./data/data.json", function (data) {
+        restaurantList = [...data.restaurant];
+
+        let tempHtml = "";
+        $.each(restaurantList, (idx, el) => {
+          // Isotope
+          tempHtml += `
+                <li class="list_item ${el.category}">
+                    <div class="item_box">
+                        <img src=${el.img} height=100px width=150px />
+                        <h5>${el.name}</h5>
+                        ${el.type}
+                    </div>
+                </li>`;
+        });
+
+        $(".list_item_wrap").html(tempHtml);
+
+        $(".list_item_wrap")
+          .imagesLoaded()
+          .always(function (instance) {
+            console.log("all images loaded");
+            grid = $(".list").isotope({
+              // options
+              itemSelector: ".item",
+              layoutMode: "masonry",
+            });
+          })
+          .done(function (instance) {
+            console.log("all images successfully loaded");
+          })
+          .fail(function () {
+            console.log("all images loaded, at least one is broken");
+          })
+          .progress(function (instance, image) {
+            var result = image.isLoaded ? "loaded" : "broken";
+            console.log("image is " + result + " for " + image.img.src);
+          });
+
+        $(document).ready(function () {
+          $(".list_item_wrap").isotope({
+            itemSelector: ".list_item",
+          });
+
+          // filter items on button click
+          $(".btn_set").on("click", "li", function () {
+            var filterValue = $(this).children().attr("data-filter");
+            $(".list_item_wrap").isotope({ filter: filterValue });
+            $(".btn_set li").removeClass("on");
+            $(this).addClass("on");
+
+            clusterer.clear();
+            markerfunc(filterValue);
+          });
+        });
+      });
+
+      const markerfunc = (filter) => {
+        let markers = [];
+        $.each(restaurantList, (idx, el) => {
+          if (filter === "*" || "." + el.category === filter) {
+            let marker = new kakao.maps.Marker({
+              position: new kakao.maps.LatLng(el.lat, el.long),
+            });
+
+            kakao.maps.event.addListener(marker, "click", function () {
+              map.panTo(new kakao.maps.LatLng(el.lat, el.long));
+
+              let overlay = new kakao.maps.CustomOverlay({
+                content: makeContent(el.name, el.category, el.type, el.type),
+                map: map,
+                position: marker.getPosition(),
+              });
+
+              overlay.setMap(map);
+
+              $(".close").on("click", () => overlay.setMap(null));
+            });
+
+            markers.push(marker);
+          }
+        });
+
+        clusterer.addMarkers(markers);
+      };
+
+      $.getJSON("./data/data.json", function (data) {
+        restaurantList = [...data.restaurant];
+        markerfunc("*");
+      });
+    </script>
+  </body>
+</html>

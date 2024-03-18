@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-family: "Montserrat";
+  font-size: 16px;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+}
+
+button {
+  background: none;
+  border: none;
+}
+
+body {
+  overflow: auto;
+  display: block;
+}
+
+header {
+  height: 80px;
+  overflow: hidden;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header h1 {
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+.filter-box {
+  display: flex;
+  justify-content: center;
+  margin: 100px 0;
+}
+.filter-box button {
+  width: 120px;
+  height: 40px;
+  background-color: #111;
+  color: #fff;
+  border-radius: 100px;
+  margin: 0 10px;
+}
+
+.list {
+  width: 1200px;
+  margin: 100px auto;
+  display: flex;
+}
+.list li {
+  box-sizing: border-box;
+  width: calc(25% - 20px);
+  padding: 10px;
+  background-color: #fff;
+  margin: 10px;
+}
+.list li img {
+  width: 100%;
+}
+.list li h5 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+.list li .point {
+  color: #f00;
+  font-size: 18px;
+}
+.list li a svg {
+  width: 20px;
+}

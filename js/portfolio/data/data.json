@@ -1,0 +1,245 @@
+{
+  "imageFolder": "images/",
+  "typoList": [
+    {
+      "img": "01.jpg",
+      "title": "to the unknown woman",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising.",
+      "point": 3.9,
+      "category": "paint",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "02.jpg",
+      "title": "The United States is winding",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.2,
+      "category": "photo",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "03.jpg",
+      "title": "severe wave and I think as",
+      "desc": "In California, where daily case reports have tripled in the last month, Gov. Gavin Newsom announced a new round of regional stay-at-home orders to address a mounting crisis over intensive-care beds. Some counties in the Bay Area said they were enacting tough new restrictions this weekend, before the state rules come into effect. And in South Florida, which is in the early stages of a new surge, physicians and politicians alike worried that there might not be enough resources to treat the sick.",
+      "point": 4.35,
+      "category": "sketch",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "04.jpg",
+      "title": "to the unknown man",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.65,
+      "category": "paint",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "05.jpg",
+      "title": "The United States is winding",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.5,
+      "category": "photo",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "06.jpg",
+      "title": "severe wave and I think as",
+      "desc": "In California, where daily case reports have tripled in the last month, Gov. Gavin Newsom announced a new round of regional stay-at-home orders to address a mounting crisis over intensive-care beds. Some counties in the Bay Area said they were enacting tough new restrictions this weekend, before the state rules come into effect. And in South Florida, which is in the early stages of a new surge, physicians and politicians alike worried that there might not be enough resources to treat the sick.",
+      "point": 4.15,
+      "category": "sketch",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "07.jpg",
+      "title": "to the unknown man",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.4,
+      "category": "paint",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "08.jpg",
+      "title": "The United States is winding",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.63,
+      "category": "photo",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "09.jpg",
+      "title": "severe wave and I think as",
+      "desc": "In California, where daily case reports have tripled in the last month, Gov. Gavin Newsom announced a new round of regional stay-at-home orders to address a mounting crisis over intensive-care beds. Some counties in the Bay Area said they were enacting tough new restrictions this weekend, before the state rules come into effect. And in South Florida, which is in the early stages of a new surge, physicians and politicians alike worried that there might not be enough resources to treat the sick.",
+      "point": 4.55,
+      "category": "sketch",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "10.jpg",
+      "title": "to the unknown man",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.25,
+      "category": "paint",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "11.jpg",
+      "title": "The United States is winding",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.85,
+      "category": "photo",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "12.jpg",
+      "title": "severe wave and I think as",
+      "desc": "In California, where daily case reports have tripled in the last month, Gov. Gavin Newsom announced a new round of regional stay-at-home orders to address a mounting crisis over intensive-care beds. Some counties in the Bay Area said they were enacting tough new restrictions this weekend, before the state rules come into effect. And in South Florida, which is in the early stages of a new surge, physicians and politicians alike worried that there might not be enough resources to treat the sick.",
+      "point": 4.54,
+      "category": "sketch",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "13.jpg",
+      "title": "to the unknown man",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.67,
+      "category": "paint",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "14.jpg",
+      "title": "The United States is winding",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.47,
+      "category": "photo",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "15.jpg",
+      "title": "severe wave and I think as",
+      "desc": "In California, where daily case reports have tripled in the last month, Gov. Gavin Newsom announced a new round of regional stay-at-home orders to address a mounting crisis over intensive-care beds. Some counties in the Bay Area said they were enacting tough new restrictions this weekend, before the state rules come into effect. And in South Florida, which is in the early stages of a new surge, physicians and politicians alike worried that there might not be enough resources to treat the sick.",
+      "point": 4.28,
+      "category": "sketch",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "16.jpg",
+      "title": "to the unknown man",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.66,
+      "category": "paint",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "17.jpg",
+      "title": "The United States is winding",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.69,
+      "category": "photo",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "18.jpg",
+      "title": "severe wave and I think as",
+      "desc": "In California, where daily case reports have tripled in the last month, Gov. Gavin Newsom announced a new round of regional stay-at-home orders to address a mounting crisis over intensive-care beds. Some counties in the Bay Area said they were enacting tough new restrictions this weekend, before the state rules come into effect. And in South Florida, which is in the early stages of a new surge, physicians and politicians alike worried that there might not be enough resources to treat the sick.",
+      "point": 4.83,
+      "category": "sketch",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "19.jpg",
+      "title": "to the unknown man",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.76,
+      "category": "paint",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "20.jpg",
+      "title": "The United States is winding",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.36,
+      "category": "photo",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "21.jpg",
+      "title": "severe wave and I think as",
+      "desc": "In California, where daily case reports have tripled in the last month, Gov. Gavin Newsom announced a new round of regional stay-at-home orders to address a mounting crisis over intensive-care beds. Some counties in the Bay Area said they were enacting tough new restrictions this weekend, before the state rules come into effect. And in South Florida, which is in the early stages of a new surge, physicians and politicians alike worried that there might not be enough resources to treat the sick.",
+      "point": 4.64,
+      "category": "sketch",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "22.jpg",
+      "title": "to the unknown man",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.56,
+      "category": "paint",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "23.jpg",
+      "title": "The United States is winding",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.34,
+      "category": "photo",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "24.jpg",
+      "title": "severe wave and I think as",
+      "desc": "In California, where daily case reports have tripled in the last month, Gov. Gavin Newsom announced a new round of regional stay-at-home orders to address a mounting crisis over intensive-care beds. Some counties in the Bay Area said they were enacting tough new restrictions this weekend, before the state rules come into effect. And in South Florida, which is in the early stages of a new surge, physicians and politicians alike worried that there might not be enough resources to treat the sick.",
+      "point": 4.67,
+      "category": "sketch",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "25.jpg",
+      "title": "to the unknown man",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.84,
+      "category": "paint",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "26.jpg",
+      "title": "The United States is winding",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.91,
+      "category": "photo",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "27.jpg",
+      "title": "severe wave and I think as",
+      "desc": "In California, where daily case reports have tripled in the last month, Gov. Gavin Newsom announced a new round of regional stay-at-home orders to address a mounting crisis over intensive-care beds. Some counties in the Bay Area said they were enacting tough new restrictions this weekend, before the state rules come into effect. And in South Florida, which is in the early stages of a new surge, physicians and politicians alike worried that there might not be enough resources to treat the sick.",
+      "point": 4.81,
+      "category": "sketch",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "28.jpg",
+      "title": "to the unknown man",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.53,
+      "category": "paint",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "29.jpg",
+      "title": "The United States is winding",
+      "desc": "The United States saw the most new coronavirus cases of the pandemic on Friday, with deaths and hospitalizations also rising. Underlying conditions largely determine who survives.",
+      "point": 4.87,
+      "category": "photo",
+      "link": "http://www.daum.net"
+    },
+    {
+      "img": "30.jpg",
+      "title": "severe wave and I think as",
+      "desc": "In California, where daily case reports have tripled in the last month, Gov. Gavin Newsom announced a new round of regional stay-at-home orders to address a mounting crisis over intensive-care beds. Some counties in the Bay Area said they were enacting tough new restrictions this weekend, before the state rules come into effect. And in South Florida, which is in the early stages of a new surge, physicians and politicians alike worried that there might not be enough resources to treat the sick.",
+      "point": 4.65,
+      "category": "sketch",
+      "link": "http://www.daum.net"
+    }
+  ]
+}
