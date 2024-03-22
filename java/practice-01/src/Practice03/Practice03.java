@@ -1,3 +1,5 @@
+package Practice03;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -33,15 +35,15 @@ public class Practice03 {
         if(t.contains(s)) System.out.println("t는 s를 포함합니다.\n");
 
         // Problem 5
-        Circle[] c = new Circle[3]; // 3개의 Circle 배열 선언
+        Circle[] c = new Circle[3]; // 3개의 Practice03.Circle 배열 선언
         for(int i=0; i<3; i++) {
             System.out.print("x, y, radius >> ");
             double x = scanner.nextDouble(); // x값 읽기.
             double y = scanner.nextDouble(); // y값 읽기.
             int radius = scanner.nextInt(); // radius 값 읽기.
-            c[i] = new Circle(x, y, radius); // Circle 객체 생성
+            c[i] = new Circle(x, y, radius); // Practice03.Circle 객체 생성
         }
-        for (Circle circle : c) circle.show(); // 모든 Circle 객체 출력
+        for (Circle circle : c) circle.show(); // 모든 Practice03.Circle 객체 출력
 
         // Problem 6
         int max = 0;
@@ -132,7 +134,7 @@ class TV {
     }
 
     public void show() {
-        System.out.println(this.name + "에서 만든 " + this.year + "년형 " + this.inch + "인치 TV");
+        System.out.println(this.name + "에서 만든 " + this.year + "년형 " + this.inch + "인치 Practice03.TV");
     }
 }
 
@@ -302,9 +304,10 @@ class Phone {
 
 class PhoneBook {
     private final Phone[] phones;
+    private final Scanner scanner;
 
     PhoneBook () {
-        Scanner scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
         String[] info;
         System.out.print("인원수 >> ");
         int len = scanner.nextInt();
@@ -324,7 +327,6 @@ class PhoneBook {
     }
 
     public void search() {
-        Scanner scanner = new Scanner(System.in);
         String name, result;
         int count;
 
@@ -444,13 +446,14 @@ class Div {
 class Reservation {
     // S, A, B 좌석
     private final String[][] seats;
+    private final Scanner scanner;
 
     Reservation() {
         this.seats = new String[3][10];
+        scanner = new Scanner(System.in);
     }
 
     public void run() {
-        Scanner scanner = new Scanner(System.in);
         int select;
 
         System.out.print("\n명품콘서트홀 예약 시스템입니다.");
@@ -479,7 +482,6 @@ class Reservation {
     }
 
     private void reserve() {
-        Scanner scanner = new Scanner(System.in);
         int seat;
         String name;
         int num;
@@ -536,7 +538,6 @@ class Reservation {
     }
 
     private void cancel() {
-        Scanner scanner = new Scanner(System.in);
         int seat;
         String name;
         int count = 0;

@@ -1,3 +1,5 @@
+package Practice01;
+
 import java.util.Scanner;
 
 public class Practice01 {
