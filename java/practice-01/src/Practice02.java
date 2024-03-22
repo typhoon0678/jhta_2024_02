@@ -138,10 +138,12 @@ public class Practice02 {
                     if (com == 0) System.out.println("가위, 사용자가 이겼습니다\n");
                     else if (com == 1) System.out.println("바위, 비겼습니다\n");
                     else System.out.println("보, 컴퓨터가 이겼습니다\n");
-                } else {
+                } else if (option.equals("보")) {
                     if (com == 0) System.out.println("가위, 컴퓨터가 이겼습니다\n");
                     else if (com == 1) System.out.println("바위, 사용자가 이겼습니다\n");
                     else System.out.println("보, 비겼습니다\n");
+                } else {
+                    System.out.println("다시 입력해주세요\n");
                 }
             }
         }
