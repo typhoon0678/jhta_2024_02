@@ -292,12 +292,13 @@ class Point3D extends Point {
     }
 
     public void moveDown() {
-        move(getX(), getY()-1);
+        move(getX(), getY() - 1);
     }
 
     public String toString() {
         return "(" + getX() + "," + getY() + "," + getZ() + ")의 점";
     }
+
 }
 
 class PositivePoint extends Point {
@@ -313,6 +314,7 @@ class PositivePoint extends Point {
         super.move(x, y);
     }
 
+    @Override
     public void move(int x, int y) {
         if (x >= 0 && y >= 0) {
             super.move(x, y);
@@ -452,20 +454,15 @@ abstract class Calc {
     protected int a;
     protected int b;
 
-    abstract void setValue(int a, int b);
+    public void setValue(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
     abstract int calculate();
-
-
 
 }
 
 class Add extends Calc {
-    @Override
-    void setValue(int a, int b) {
-        this.a = a;
-        this.b = b;
-    }
-
     @Override
     int calculate() {
         return a + b;
@@ -474,11 +471,6 @@ class Add extends Calc {
 
 class Sub extends Calc {
     @Override
-    void setValue(int a, int b) {
-        this.a = a;
-        this.b = b;
-    }
-    @Override
     int calculate() {
         return a - b;
     }
@@ -486,22 +478,12 @@ class Sub extends Calc {
 
 class Mul extends Calc {
     @Override
-    void setValue(int a, int b) {
-        this.a = a;
-        this.b = b;
-    }
-    @Override
     int calculate() {
         return a * b;
     }
 }
 
 class Div extends Calc {
-    @Override
-    void setValue(int a, int b) {
-        this.a = a;
-        this.b = b;
-    }
     @Override
     int calculate() {
         return a / b;
