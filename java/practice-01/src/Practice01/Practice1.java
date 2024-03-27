@@ -47,12 +47,10 @@ public class Practice1 {
 
         if (n1 < n2) {
             if (n2 < n3) middle = n2;
-            else if (n1 < n3) middle = n3;
-            else middle = n1;
+            else middle = Math.max(n1, n3);
         } else {
             if (n1 < n3) middle = n1;
-            else if (n2 < n3) middle = n3;
-            else middle = n2;
+            else middle = Math.max(n2, n3);
         }
         System.out.println("중간 값은 " + middle + "\n");
 
@@ -64,11 +62,9 @@ public class Practice1 {
         int max;
 
         if (a1 < a2) {
-            if (a2 < a3) max = a3;
-            else max = a2;
+            max = Math.max(a2, a3);
         } else {
-            if (a1 < a3) max = a3;
-            else max = a1;
+            max = Math.max(a1, a3);
         }
 
         if (a1 + a2 + a3 - max > max) System.out.println("삼각형이 됩니다.\n");
@@ -122,17 +118,16 @@ public class Practice1 {
         String calS = scanner.next();
         double cal2 = scanner.nextDouble();
 
-        if (calS.equals("+")) {
-            System.out.printf("%f+%f의 계산 결과는 %f\n", cal1, cal2, cal1+cal2);
-        } else if (calS.equals("-")) {
-            System.out.printf("%f-%f의 계산 결과는 %f\n", cal1, cal2, cal1-cal2);
-        } else if (calS.equals("*")) {
-            System.out.printf("%f*%f의 계산 결과는 %f\n", cal1, cal2, cal1*cal2);
-        } else if (calS.equals("/")){
-            if (cal2 == 0) {
-                System.out.println("0으로 나눌 수 없습니다.\n");
-            } else {
-                System.out.printf("%f/%f의 계산 결과는 %f\n", cal1, cal2, cal1/cal2);
+        switch (calS) {
+            case "+" -> System.out.printf("%f+%f의 계산 결과는 %f\n", cal1, cal2, cal1 + cal2);
+            case "-" -> System.out.printf("%f-%f의 계산 결과는 %f\n", cal1, cal2, cal1 - cal2);
+            case "*" -> System.out.printf("%f*%f의 계산 결과는 %f\n", cal1, cal2, cal1 * cal2);
+            case "/" -> {
+                if (cal2 == 0) {
+                    System.out.println("0으로 나눌 수 없습니다.\n");
+                } else {
+                    System.out.printf("%f/%f의 계산 결과는 %f\n", cal1, cal2, cal1 / cal2);
+                }
             }
         }
     }
