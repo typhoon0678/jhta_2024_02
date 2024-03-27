@@ -3,8 +3,8 @@ package Practice05;
 import Practice05.base.Shape;
 import Practice05.etc.Calc;
 
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
+
 
 public class Practice5 {
 
@@ -46,8 +46,12 @@ public class Practice5 {
         System.out.println();
 
         // Problem 5
+        Greet hello = new Greet(Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul")));
+        hello.greet();
 
         // Problem 6
+        TimerGame timerGame = new TimerGame(new String[]{"황기태", "이재문"}, 10);
+        timerGame.run();
 
         // Problem 7
         StringTokenizer stringTokenizer;
@@ -213,5 +217,78 @@ class Person {
             System.out.println("아쉽군요!");
             return false;
         }
+    }
+}
+
+class Greet {
+    private final Calendar calendar;
+
+    Greet(Calendar calendar) {
+        this.calendar = calendar;
+    }
+
+    public void greet() {
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        if (hour >= 4 && hour < 12) System.out.println("Good Morning");
+        else if (hour >= 12 && hour < 18) System.out.println("Good Afternoon");
+        else if (hour >= 18 && hour < 22) System.out.println("Good Evening");
+        else System.out.println("Good Night");
+    }
+}
+
+class TimerGame {
+    private final String[] person;
+    private final Scanner scanner;
+    private final int time;
+
+    TimerGame(String[] person, int time) {
+        this.person = person;
+        this.time = time;
+        scanner = new Scanner(System.in);
+    }
+
+    public void run() {
+        long firstMillis;
+        double[] second = new double[person.length];
+        System.out.println("\n" + this.time + "초에 가까운 사람이 이기는 게임입니다.");
+        firstMillis = System.currentTimeMillis();
+
+        for (int i=0; i<person.length; i++) {
+            second[i] = turn(i, firstMillis);
+        }
+
+        int winnerIndex = 0;
+        for (int i=1; i<second.length; i++) {
+            if (Math.abs(this.time - second[i]) < Math.abs(this.time - second[winnerIndex])) {
+                winnerIndex = i;
+            }
+        }
+
+        for (int i=0; i<2; i++) {
+            System.out.printf("%s의 결과 %.3f, ", person[i], second[i]);
+        }
+        System.out.println("승자는 " + person[winnerIndex]);
+    }
+
+    private double turn(int i, long first) {
+        long startMillis, endMillis;
+
+        System.out.print(person[i] + "시작 <Enter>키 >> ");
+        scanner.nextLine();
+
+        startMillis = System.currentTimeMillis();
+        System.out.printf("\n현재 초 시간 =  %.3f\n10초 예상 후 <Enter>키 >> ",
+                millisToSecondRound(startMillis - first));
+        scanner.nextLine();
+        endMillis = System.currentTimeMillis();
+
+        System.out.printf("\n현재 초 시간 =  %.3f\n",
+                millisToSecondRound(endMillis - first));
+
+        return millisToSecondRound(endMillis - startMillis);
+    }
+
+    private double millisToSecondRound(double value) {
+        return (double) Math.round(value / Math.pow(10, 3) * Math.pow(10, 3)) / 1000;
     }
 }
