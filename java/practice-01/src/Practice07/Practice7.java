@@ -12,17 +12,17 @@ public class Practice7 {
 
     public static void main(String[] args) {
 
-        problem1();
-        problem2();
-        problem3();
-        problem4();
-        problem5();
-        problem6();
-        problem7();
-        problem8();
-        problem9();
+//        problem1();
+//        problem2();
+//        problem3();
+//        problem4();
+//        problem5();
+//        problem6();
+//        problem7();
+//        problem8();
+//        problem9();
         problem10();
-        problem11();
+//        problem11();
 
     }
 
@@ -242,16 +242,15 @@ public class Practice7 {
         HashMap<String, String> phones = new HashMap<>();
 
         try {
-            for (int i=0; i<2; i++) {
-                fileReader = new FileReader(rootPath + "phone.txt");
-                bufferedReader = new BufferedReader(fileReader, 16 * 1024);
+            fileReader = new FileReader(rootPath + "phone.txt");
+            bufferedReader = new BufferedReader(fileReader, 16 * 1024);
 
-                String str;
-                String[] temp;
-                while ((str = bufferedReader.readLine()) != null) {
-                    temp = str.split(" ");
-                    phones.put(temp[0], temp[1]);
-                }
+            String str;
+            String[] temp;
+
+            while ((str = bufferedReader.readLine()) != null) {
+                temp = str.split(" ");
+                phones.put(temp[0], temp[1]);
             }
 
             System.out.println(phones.size() + "개의 전화번호를 읽었습니다.");
