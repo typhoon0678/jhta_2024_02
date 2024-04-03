@@ -10,7 +10,7 @@ public class Practice8 {
         new MyFrame2();
         new MyFrame3();
         new MyFrame4(new Color[] {Color.red, Color.orange, Color.yellow, Color.green, Color.cyan, Color.blue, Color.magenta, Color.darkGray, Color.pink, Color.gray});
-        new MyFrame5(new Color[] {Color.red, Color.orange, Color.yellow, Color.green, Color.cyan, Color.blue, Color.magenta, Color.darkGray, Color.pink, Color.gray, Color.red, Color.orange, Color.yellow, Color.green, Color.cyan, Color.blue});
+        new MyFrame5(new Color[] {Color.red, Color.orange, Color.yellow, Color.green, Color.cyan, Color.blue, Color.magenta, Color.darkGray, Color.pink, Color.gray});
         new MyFrame6();
         new MyFrame7();
         new MyFrame8();
@@ -68,7 +68,7 @@ class MyFrame4 extends JFrame {
         setLayout(new GridLayout(1, 10));
         for (int i = 0; i < 10; i++) {
             JButton btn = new JButton(String.valueOf(i));
-            btn.setBackground(colorList[i]);
+            btn.setBackground(colorList[i % colorList.length]);
             add(btn);
         }
 
@@ -86,7 +86,7 @@ class MyFrame5 extends JFrame {
         setLayout(new GridLayout(4, 4));
         for (int i = 0; i < 16; i++) {
             JButton btn = new JButton(String.valueOf(i));
-            btn.setBackground(colorList[i]);
+            btn.setBackground(colorList[i % colorList.length]);
             add(btn);
         }
 
