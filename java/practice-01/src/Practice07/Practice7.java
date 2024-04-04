@@ -94,7 +94,7 @@ public class Practice7 {
             String str;
             int line = 1;
             while ((str = bufferedReader.readLine()) != null) {
-                System.out.println(line++ + ": " + str);
+                System.out.printf("%4d: %s\n", line++, str);
             }
 
             fileReader.close();
@@ -107,20 +107,18 @@ public class Practice7 {
 
     static void problem5() {
         FileReader fileReader = null;
-        BufferedReader bufferedReader = null;
 
-        ArrayList<String>[] files = new ArrayList[2];
+        ArrayList<Integer>[] files = new ArrayList[2];
         String[] fileNames = {"elvis01.txt", "elvis02.txt"};
 
         try {
             for (int i=0; i<2; i++) {
-                files[i] = new ArrayList<String>();
+                files[i] = new ArrayList<Integer>();
                 fileReader = new FileReader(rootPath + fileNames[i]);
-                bufferedReader = new BufferedReader(fileReader, 16 * 1024);
 
-                String str;
-                while ((str = bufferedReader.readLine()) != null) {
-                    files[i].add(str);
+                int c;
+                while ((c = fileReader.read()) != -1) {
+                    files[i].add(c);
                 }
             }
 
@@ -128,10 +126,9 @@ public class Practice7 {
             else System.out.println("파일이 서로 다릅니다.");
 
             fileReader.close();
-            bufferedReader.close();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println(e);
         }
     }
 
@@ -176,7 +173,7 @@ public class Practice7 {
             FileOutputStream fileOutputStream = new FileOutputStream(newFile);
 
             System.out.println(fileName + "를 " + copyName + "로 복사합니다.");
-            System.out.println("10초마다 * 를 출력합니다.");
+            System.out.println("10%마다 * 를 출력합니다.");
 
             byte[] buffer = new byte[1024];
 
@@ -209,11 +206,15 @@ public class Practice7 {
         String fileName = null;
         long maxSize = 0;
 
-        for (File file : folder.listFiles()) {
-            if (file.isFile() && file.length() > maxSize) {
-                fileName = file.getName();
-                maxSize = file.length();
+        try {
+            for (File file : folder.listFiles()) {
+                if (file.isFile() && file.length() > maxSize) {
+                    fileName = file.getName();
+                    maxSize = file.length();
+                }
             }
+        } catch (NullPointerException e) {
+            System.out.println(e);
         }
 
         System.out.printf("가장 큰 파일은 %s이다. 크기는 %d바이트\n", fileName, maxSize);
@@ -222,11 +223,15 @@ public class Practice7 {
     static void problem9() {
         File folder = new File(rootPath + "temp/");
 
-        for (File file : folder.listFiles()) {
-            if (file.isFile() && file.getName().split("\\.")[1].equals("txt")) {
-                System.out.println(file.getName() + "삭제");
-                file.delete();
+        try {
+            for (File file : folder.listFiles()) {
+                if (file.isFile() && file.getName().endsWith(".txt")) {
+                    System.out.println(file.getName() + "삭제");
+                    file.delete();
+                }
             }
+        } catch (NullPointerException e) {
+            System.out.println(e);
         }
     }
 
@@ -237,16 +242,15 @@ public class Practice7 {
         HashMap<String, String> phones = new HashMap<>();
 
         try {
-            for (int i=0; i<2; i++) {
-                fileReader = new FileReader(rootPath + "phone.txt");
-                bufferedReader = new BufferedReader(fileReader, 16 * 1024);
+            fileReader = new FileReader(rootPath + "phone.txt");
+            bufferedReader = new BufferedReader(fileReader, 16 * 1024);
 
-                String str;
-                String[] temp;
-                while ((str = bufferedReader.readLine()) != null) {
-                    temp = str.split(" ");
-                    phones.put(temp[0], temp[1]);
-                }
+            String str;
+            String[] temp;
+
+            while ((str = bufferedReader.readLine()) != null) {
+                temp = str.split(" ");
+                phones.put(temp[0], temp[1]);
             }
 
             System.out.println(phones.size() + "개의 전화번호를 읽었습니다.");
