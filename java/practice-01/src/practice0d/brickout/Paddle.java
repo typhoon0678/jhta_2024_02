@@ -21,6 +21,6 @@ public class Paddle {
 
     public boolean isInPaddle(double ballX, double ballY) {
         return ballX >= this.x - PADDLE_WIDTH / 2.0 && ballX <= this.x + PADDLE_WIDTH / 2.0
-                && ballY >= PANEL_HEIGHT - (PADDLE_BOTTOM + PADDLE_HEIGHT) && ballY <= PANEL_HEIGHT - PADDLE_BOTTOM;
+                && ballY + BALL_SIZE / 2.0 >= PANEL_HEIGHT - PADDLE_HEIGHT && ballY - BALL_SIZE / 2.0 <= PANEL_HEIGHT;
     }
 }

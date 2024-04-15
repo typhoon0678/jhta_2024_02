@@ -11,10 +11,10 @@ class Life extends JPanel {
 
     public Life(int life) {
         int width = 200;
-        int height = PADDLE_BOTTOM;
+        int height = PADDLE_BOTTOM - 10;
 
-        this.setSize(width, height + 10);
-        this.setLocation(PANEL_WIDTH - width, PANEL_HEIGHT - PADDLE_BOTTOM + PADDLE_HEIGHT);
+        this.setSize(width, height);
+        this.setLocation(PANEL_WIDTH - width, PANEL_HEIGHT);
 
         JLabel lifeImageLabel = new JLabel();
         lifeImageLabel.setSize(40, height);

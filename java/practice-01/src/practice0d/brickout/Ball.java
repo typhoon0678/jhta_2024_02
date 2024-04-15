@@ -44,14 +44,13 @@ public class Ball {
 
     public AdjustGameInfo isInBlock(boolean[] isExists, Block[] blocks, int remainingBlock) {
 
-        for (int i = 0; i < 40; i++) {
-            if (isExists[i]
-                    && this.x >= blocks[i].getX() && this.x <= blocks[i].getX() + BLOCK_WIDTH
-                    && this.y >= blocks[i].getY() && this.y <= blocks[i].getY() + BLOCK_HEIGHT) {
+        for (int i = 0; i < INITIAL_BLOCK_COUNT; i++) {
+            int edge = findEdge(blocks[i].getX(), blocks[i].getY());
+            if (isExists[i] && edge != 0) {
                 if (remainingBlock == 1) {
                     return new AdjustGameInfo(true, -1, --remainingBlock);
                 }
-                setAngleBlockSide(blocks[i].getX(), blocks[i].getY());
+                setAngleBlockSide(edge);
 
                 return new AdjustGameInfo(false, i, --remainingBlock);
             }
@@ -60,30 +59,62 @@ public class Ball {
         return new AdjustGameInfo(false, -1, remainingBlock);
     }
 
+    private int findEdge(int blockX, int blockY) {
+        double min = Double.MAX_VALUE;
+        int[] index = {-1, -1};
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                if (min > length(this.x, this.y, blockX + BLOCK_WIDTH * i, blockY + BLOCK_HEIGHT * j)) {
+                    min = length(this.x, this.y, blockX + BLOCK_WIDTH * i, blockY + BLOCK_HEIGHT * j);
+                    index[0] = i;
+                    index[1] = j;
+                }
+            }
+        }
+        if (min < BALL_SIZE / 2.0) {
+//            return (Math.abs(this.x - (blockX + BLOCK_WIDTH * index[0])) > Math.abs(this.y - (blockY + BLOCK_HEIGHT * index[1])))
+//                    ? 1 : -1;
+            return -1;
+        }
+
+        if (Math.abs(this.y - (blockY + BLOCK_HEIGHT / 2.0)) < (BLOCK_HEIGHT + BALL_SIZE) / 2.0 &&
+                this.x - BALL_SIZE / 2.0 > blockX && this.x + BALL_SIZE < blockX + BLOCK_WIDTH
+        ) return -1;
+        else if (Math.abs(this.x - (blockX + BLOCK_WIDTH / 2.0)) < (BLOCK_WIDTH + BALL_SIZE) / 2.0 &&
+                this.y - BALL_SIZE / 2.0 > blockY && this.y + BALL_SIZE < blockY + BLOCK_HEIGHT
+        ) return 1;
+        else return 0;
+    }
+
+    private double length(double x1, double y1, int x2, int y2) {
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    }
+
     public void adjustAngle(int paddleX, boolean isInPaddle) {
-        if ((this.x <= 0 && (Math.cos(Math.toRadians(this.getAngle())) < 0))
-                || (this.x >= PANEL_WIDTH && (Math.cos(Math.toRadians(this.angle)) > 0)))
+        if ((this.x - BALL_SIZE / 2.0 <= 0 && (Math.cos(Math.toRadians(this.getAngle())) < 0))
+                || (this.x + BALL_SIZE / 2.0 >= PANEL_WIDTH && (Math.cos(Math.toRadians(this.angle)) > 0)))
             this.setAngle(180 - this.angle);
-        if (this.y <= 0 && (Math.sin(Math.toRadians(this.angle)) < 0)) this.setAngle(-this.angle);
+        if (this.y - BALL_SIZE / 2.0 <= 0 && (Math.sin(Math.toRadians(this.angle)) < 0)) this.setAngle(-this.angle);
 
         if (isInPaddle) {
             this.setAngle((int) (270 + 75 * (this.x - paddleX) * 2 / PADDLE_WIDTH) % 360);
             System.out.println(this.angle);
-            this.setY(PANEL_HEIGHT - PADDLE_BOTTOM - PADDLE_HEIGHT);
+            this.setY(PANEL_HEIGHT - PADDLE_HEIGHT - BALL_SIZE / 2.0);
         }
 
         this.setAngle((360 + this.angle) % 360);
     }
 
 
-    private void setAngleBlockSide(int blockX, int blockY) {
-        double left = this.x - blockX;
-        double right = blockX + BLOCK_WIDTH - this.x;
-        double top = this.y - blockY;
-        double bottom = blockY + BLOCK_HEIGHT - this.y;
-
-        if (Math.min(left, right) < Math.min(top, bottom)) this.setAngle((540 - this.angle) % 360);
-        else this.setAngle((360 - this.angle) % 360);
+    private void setAngleBlockSide(int side) {
+        System.out.println(angle);
+        if (side == 1) {
+            this.setAngle((540 - this.angle) % 360);
+            System.out.println(angle);
+        } else {
+            this.setAngle((360 - this.angle) % 360);
+            System.out.println(angle);
+        }
     }
 
     public double adjustSpeed(double speed, int remainingBlock) {
