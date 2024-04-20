@@ -82,7 +82,6 @@ class Problem1Client implements Runnable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
 
@@ -95,7 +94,6 @@ class Problem2Server implements Runnable {
         Thread thread = new Thread(this);
         thread.start();
     }
-
     @Override
     public void run() {
         try {
@@ -151,6 +149,16 @@ class Problem2Server implements Runnable {
         }
     }
 
+class Practice2Client implements Runnable {
+    private BufferedReader bufferedReader;
+    private BufferedWriter bufferedWriter;
+    private Socket socket;
+    private Scanner scanner = new Scanner(System.in);
+
+    private String id = String.format("Client %2d : ", (int) (Math.random() * 100));
+
+    public Practice2Client() {
+=======
 }
 
 class Problem2Client implements Runnable {

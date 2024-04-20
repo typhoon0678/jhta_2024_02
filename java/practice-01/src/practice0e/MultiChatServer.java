@@ -23,7 +23,6 @@ public class MultiChatServer {
         BufferedWriter bufferedWriter;
 
         Socket socket;
-
         public ServerWorker(Socket socket) {
             this.socket = socket;
         }
