@@ -16,8 +16,9 @@ public class MultiChatServer {
     //여러 소켓이 접속할 경우 담아두는 공간
     List<ServerWorker> socketList = new ArrayList<>();
     ServerSocket listener;
+
     //Socket socket;
-    class ServerWorker implements Runnable  {
+    class ServerWorker implements Runnable {
         BufferedReader bufferedReader;
         BufferedWriter bufferedWriter;
 
@@ -29,18 +30,23 @@ public class MultiChatServer {
         @Override
         public void run() {
             //Reader Writer 텍스트 주고 받는 보조 스트림
+            //클라이언트에서 이름 부여...
             try {
                 bufferedReader =
                         new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 bufferedWriter =
                         new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
+                String userName = bufferedReader.readLine();
+                broadCasting(userName + "님이 등장 두둥탁 \n");
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            while(true) {
+            while (true) {
                 try {
                     String inputMsg = bufferedReader.readLine();
+                    System.out.println("inputMsg===" + inputMsg);
                     //읽고나서 바로 모든 연결된 socket들에게 송출
                     broadCasting(inputMsg);
                 } catch (IOException e) {
@@ -50,10 +56,11 @@ public class MultiChatServer {
             }
         }
     }
+
     public MultiChatServer() {
         try {
             listener = new ServerSocket(9977);
-            while(true) {
+            while (true) {
                 Socket socket = listener.accept();
                 ServerWorker serverWorker = new ServerWorker(socket);
                 socketList.add(serverWorker);
@@ -65,17 +72,19 @@ public class MultiChatServer {
             throw new RuntimeException(e);
         }
     }
+
     public void broadCasting(String msg) {
         //데이터 송출
-        for(int i=0;i<socketList.size();i++) {
+        for (int i = 0; i < socketList.size(); i++) {
             ServerWorker serverWorker = socketList.get(i);
             try {
-                serverWorker.bufferedWriter.write(msg+"\n");
+                serverWorker.bufferedWriter.write(msg + "\n");
                 serverWorker.bufferedWriter.flush();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
+        //몇명 드러와 있는지  dashboard 관리자가 tel
     }
 
     public static void main(String[] args) {

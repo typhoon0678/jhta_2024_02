@@ -14,7 +14,7 @@ public class MultiChatClient extends JFrame implements ActionListener {
     JTextField sender;
     Receiver receiver;
 
-    private String id = "";
+    String userName;
 
     class Receiver extends JTextArea implements Runnable {
 
@@ -24,10 +24,11 @@ public class MultiChatClient extends JFrame implements ActionListener {
             while (true) {
                 try {
                     Thread.sleep(100);
-
                     msg = bufferedReader.readLine();
-                    this.append(msg + "\n");
-                } catch (InterruptedException | IOException e) {
+                    this.append("" + msg + "\n");
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -37,7 +38,6 @@ public class MultiChatClient extends JFrame implements ActionListener {
     public MultiChatClient() throws HeadlessException {
         this.setTitle("채팅 클라이언트");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocation(1000, 500);
         Container container = this.getContentPane();
         sender = new JTextField();
         receiver = new Receiver();
@@ -47,17 +47,26 @@ public class MultiChatClient extends JFrame implements ActionListener {
         container.add(sender, BorderLayout.SOUTH);
         this.setSize(400, 300);
         this.setVisible(true);
+        //경고창 같은거
+        // block킹 해줌...
+        userName = JOptionPane.showInputDialog("이름을 입력하세요.");
+        //님 입장
+
+        //System.out.println(userName);
         try {
-            socket = new Socket("192.168.10.82", 9977);
-            receiver.append("서버에 연결 \n");
+
+            socket = new Socket("localhost", 9977);
+            //receiver.append("서버에 연결 \n");
+            System.out.println("서버에 접속");
             bufferedReader = new BufferedReader(
                     new InputStreamReader(socket.getInputStream())
             );
             bufferedWriter = new BufferedWriter(
                     new OutputStreamWriter(socket.getOutputStream())
             );
-
-            id = JOptionPane.showInputDialog("이름을 입력하세요.");
+            //서버로 한번 전달
+            bufferedWriter.write(userName + "\n");
+            bufferedWriter.flush();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -73,16 +82,14 @@ public class MultiChatClient extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         String msg = sender.getText();
-        if (!msg.isEmpty()) {
+        if (!msg.equals("")) {
             try {
-                bufferedWriter.write(id + " : " + msg + "\n");
+                bufferedWriter.write("[" + userName + "]" + msg + "\n");
                 bufferedWriter.flush();
-
+                //receiver.append("client : "+msg+"\n");
                 int posY = receiver.getText().length();  //길이  몇줄인지
                 receiver.setCaretPosition(posY);
-
                 sender.setText(null);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

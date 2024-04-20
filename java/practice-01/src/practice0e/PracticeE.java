@@ -11,28 +11,26 @@ public class PracticeE {
 
     public static void main(String[] args) throws InterruptedException {
 
-//        new Practice1Server();
+//        new Problem1Server();
 //        Thread.sleep(1000);
-//        new Practice1Client();
-//
-//        new Practice2Server();
-//        Thread.sleep(1000);
-//        new Practice2Client();
-//        new Practice2Client();
+//        new Problem1Client();
 
-        new Practice3Server();
+//        new Problem2Server();
+//        Thread.sleep(1000);
+//        new Problem2Client();
+//        new Problem2Client();
+
+        new Problem3Server();
         Thread.sleep(1000);
-        new Practice3Client();
-        new Practice3Client();
+        new Problem3Client();
+        new Problem3Client();
+
     }
 }
 
-class Practice1Server implements Runnable {
-    private BufferedWriter bufferedWriter;
-    private ServerSocket listener;
-    private Socket socket;
+class Problem1Server implements Runnable {
 
-    public Practice1Server() {
+    public Problem1Server() {
         Thread thread = new Thread(this);
         thread.start();
     }
@@ -40,14 +38,13 @@ class Practice1Server implements Runnable {
     @Override
     public void run() {
         try {
-            listener = new ServerSocket(9977);
-            socket = listener.accept();
+            ServerSocket listener = new ServerSocket(9977);
+            Socket socket = listener.accept();
             System.out.println("Connected");
 
-            bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
 
             int i = 1;
-
             while (i <= 20) {
                 Thread.sleep(500);
 
@@ -57,14 +54,13 @@ class Practice1Server implements Runnable {
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
+
     }
 }
 
-class Practice1Client implements Runnable {
-    private BufferedReader bufferedReader;
-    private Socket socket;
+class Problem1Client implements Runnable {
 
-    public Practice1Client() {
+    public Problem1Client() {
         Thread thread = new Thread(this);
         thread.start();
     }
@@ -72,14 +68,15 @@ class Practice1Client implements Runnable {
     @Override
     public void run() {
         try {
-            socket = new Socket("localhost", 9977);
+            Socket socket = new Socket("localhost", 9977);
 
-            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             while (true) {
                 if (bufferedReader.ready()) {
-                    String msg = bufferedReader.readLine();
-                    System.out.println(msg);
+                    String outputMsg = bufferedReader.readLine();
+
+                    System.out.println(outputMsg);
                 }
             }
         } catch (IOException e) {
@@ -88,22 +85,41 @@ class Practice1Client implements Runnable {
     }
 }
 
-class Practice2Server implements Runnable {
-    List<Practice2Worker> socketList = new ArrayList<>();
-    private ServerSocket listener;
+class Problem2Server implements Runnable {
 
-    public Practice2Server() {
+    List<Problem2Worker> socketList = new ArrayList<>();
+    ServerSocket listener;
+
+    public Problem2Server() {
         Thread thread = new Thread(this);
         thread.start();
     }
+    @Override
+    public void run() {
+        try {
+            listener = new ServerSocket(9977);
 
-    class Practice2Worker implements Runnable {
+            while (true) {
+                Socket socket = listener.accept();
+                Problem2Worker worker = new Problem2Worker(socket);
+                socketList.add(worker);
+                System.out.println("Connected");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    static class Problem2Worker implements Runnable {
         BufferedReader bufferedReader;
         BufferedWriter bufferedWriter;
         Socket socket;
 
-        public Practice2Worker(Socket socket) {
+        public Problem2Worker(Socket socket) {
             this.socket = socket;
+
+            Thread thread = new Thread(this);
+            thread.start();
         }
 
         @Override
@@ -114,34 +130,17 @@ class Practice2Server implements Runnable {
 
                 while (true) {
                     String inputMsg = bufferedReader.readLine();
+                    String[] calcString = inputMsg.split(" ");
 
-                    String[] calString = inputMsg.split(" ");
-                    String outputMsg;
-
-                    try {
-                        switch (calString[1]) {
-                            case "+":
-                                outputMsg = String.valueOf(Integer.parseInt(calString[0]) + Integer.parseInt(calString[2]));
-                                break;
-                            case "-":
-                                outputMsg = String.valueOf(Integer.parseInt(calString[0]) - Integer.parseInt(calString[2]));
-                                break;
-                            default:
-                                outputMsg = "ERROR";
-                                break;
-                        }
-                    } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                        outputMsg = "ERROR";
-                    }
+                    String outputMsg = switch (calcString[1]) {
+                        case "+" -> String.valueOf(Integer.parseInt(calcString[0]) + Integer.parseInt(calcString[2]));
+                        case "-" -> String.valueOf(Integer.parseInt(calcString[0]) - Integer.parseInt(calcString[2]));
+                        default -> "ERROR";
+                    };
 
                     System.out.println("Server : " + inputMsg + " = " + outputMsg);
-
-                    try {
-                        bufferedWriter.write(outputMsg + "\n");
-                        bufferedWriter.flush();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    bufferedWriter.write(outputMsg + "\n");
+                    bufferedWriter.flush();
 
                 }
             } catch (IOException e) {
@@ -149,25 +148,6 @@ class Practice2Server implements Runnable {
             }
         }
     }
-
-    @Override
-    public void run() {
-        try {
-            listener = new ServerSocket(9977);
-            while (true) {
-                Socket socket = listener.accept();
-                Practice2Worker serverWorker = new Practice2Worker(socket);
-                System.out.println("Connected");
-                socketList.add(serverWorker);
-
-                Thread thread = new Thread(serverWorker);
-                thread.start();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-}
 
 class Practice2Client implements Runnable {
     private BufferedReader bufferedReader;
@@ -178,6 +158,73 @@ class Practice2Client implements Runnable {
     private String id = String.format("Client %2d : ", (int) (Math.random() * 100));
 
     public Practice2Client() {
+=======
+}
+
+class Problem2Client implements Runnable {
+
+    private final BufferedReader bufferedReader;
+    private final BufferedWriter bufferedWriter;
+    private final Scanner scanner = new Scanner(System.in);
+
+    private final String id = String.format("Client %2d : ", (int) (Math.random() * 100));
+
+    public Problem2Client() {
+
+        try {
+            Socket socket = new Socket("localhost", 9977);
+
+            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Thread thread = new Thread(this);
+        thread.start();
+    }
+
+    @Override
+    public void run() {
+
+        while (true) {
+            String outputMsg = scanner.nextLine();
+            try {
+                bufferedWriter.write(outputMsg + "\n");
+                bufferedWriter.flush();
+
+                String inputMsg = bufferedReader.readLine();
+                System.out.println(id + outputMsg + " = " + inputMsg);
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
+}
+
+class Problem3Server implements Runnable {
+
+    List<Problem3Worker> socketList = new ArrayList<Problem3Worker>();
+    ServerSocket listener;
+
+    private final List<String> words = new ArrayList<>();
+
+    public Problem3Server() {
+        try {
+            FileReader fileReader = new FileReader("src/practice0e/words.txt");
+            BufferedReader bufferedReader = new BufferedReader(fileReader, 16 * 1024);
+
+            String str;
+            while ((str = bufferedReader.readLine()) != null) {
+                words.add(str);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         Thread thread = new Thread(this);
         thread.start();
     }
@@ -185,41 +232,29 @@ class Practice2Client implements Runnable {
     @Override
     public void run() {
         try {
-            socket = new Socket("localhost", 9977);
-
-            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            listener = new ServerSocket(9977);
 
             while (true) {
-                String calString = scanner.nextLine();
-                bufferedWriter.write(calString + "\n");
-                bufferedWriter.flush();
-
-                String msg = bufferedReader.readLine();
-                System.out.println(id + calString + " = " + msg);
+                Socket socket = listener.accept();
+                Problem3Worker worker = new Problem3Worker(socket);
+                socketList.add(worker);
+                System.out.println("Connected");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-}
 
-class Practice3Server implements Runnable {
-    List<Practice3Worker> socketList = new ArrayList<>();
-    private ServerSocket listener;
-
-    public Practice3Server() {
-        Thread thread = new Thread(this);
-        thread.start();
-    }
-
-    class Practice3Worker implements Runnable {
+    class Problem3Worker implements Runnable {
         BufferedReader bufferedReader;
         BufferedWriter bufferedWriter;
         Socket socket;
 
-        public Practice3Worker(Socket socket) {
+        public Problem3Worker(Socket socket) {
             this.socket = socket;
+
+            Thread thread = new Thread(this);
+            thread.start();
         }
 
         @Override
@@ -230,26 +265,12 @@ class Practice3Server implements Runnable {
 
                 while (true) {
                     String inputMsg = bufferedReader.readLine();
-                    String outputMsg;
 
-                    try {
-                        if (Math.random() < 0.5) {
-                            outputMsg = "Yes";
-                        } else {
-                            outputMsg = "No";
-                        }
-                    } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                        outputMsg = "ERROR";
-                    }
+                    String outputMsg = (words.contains(inputMsg)) ? "Yes" : "No";
 
+                    bufferedWriter.write(outputMsg + "\n");
+                    bufferedWriter.flush();
                     System.out.println("Server : " + inputMsg + " = " + outputMsg);
-
-                    try {
-                        bufferedWriter.write(outputMsg + "\n");
-                        bufferedWriter.flush();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
 
                 }
             } catch (IOException e) {
@@ -258,56 +279,49 @@ class Practice3Server implements Runnable {
         }
     }
 
-    @Override
-    public void run() {
-        try {
-            listener = new ServerSocket(9977);
-            while (true) {
-                Socket socket = listener.accept();
-                Practice3Worker serverWorker = new Practice3Worker(socket);
-                System.out.println("Connected");
-                socketList.add(serverWorker);
-
-                Thread thread = new Thread(serverWorker);
-                thread.start();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
 
-class Practice3Client implements Runnable {
-    private BufferedReader bufferedReader;
-    private BufferedWriter bufferedWriter;
-    private Socket socket;
-    private Scanner scanner = new Scanner(System.in);
+class Problem3Client implements Runnable {
 
-    private String id = String.format("Client %2d : ", (int) (Math.random() * 100));
+    BufferedReader bufferedReader;
+    BufferedWriter bufferedWriter;
+    Socket socket;
+    Scanner scanner = new Scanner(System.in);
 
-    public Practice3Client() {
-        Thread thread = new Thread(this);
-        thread.start();
-    }
+    private final String id = String.format("Client %2d : ", (int) (Math.random() * 100));
 
-    @Override
-    public void run() {
+    public Problem3Client() {
+
         try {
             socket = new Socket("localhost", 9977);
 
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-            while (true) {
-                String word = scanner.nextLine();
-                bufferedWriter.write(word + "\n");
-                bufferedWriter.flush();
-
-                String msg = bufferedReader.readLine();
-                System.out.println(id + msg);
-            }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+
+        Thread thread = new Thread(this);
+        thread.start();
+    }
+
+    @Override
+    public void run() {
+
+        while (true) {
+            String outputMsg = scanner.nextLine();
+            try {
+                bufferedWriter.write(outputMsg + "\n");
+                bufferedWriter.flush();
+
+                String inputMsg = bufferedReader.readLine();
+                System.out.println(id + outputMsg + " = " + inputMsg);
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
         }
     }
 }
