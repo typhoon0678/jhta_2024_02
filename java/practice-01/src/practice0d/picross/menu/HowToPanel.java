@@ -10,7 +10,9 @@ import static practice0d.picross.Constant.GAME_HEIGHT;
 
 public class HowToPanel extends JPanel {
 
-    private boolean isNext = false;
+    private boolean isMenu = false;
+
+    private final JPanel[] panels = new JPanel[4];
 
     private final JLabel topHowToLabel = new JLabel();
     private final JLabel middleHowToLabel = new JLabel();
@@ -26,25 +28,36 @@ public class HowToPanel extends JPanel {
         this.setLayout(new GridLayout(4, 1));
         this.setBackground(BACKGROUND_COLOR);
 
-        topHowToText.setFont(MIDDLE_FONT);
-        middleHowToText.setFont(MIDDLE_FONT);
-        bottomHowToText.setFont(MIDDLE_FONT);
+        for (int i = 0; i < panels.length; i++) {
+            panels[i] = new JPanel();
+            panels[i].setLayout(new GridBagLayout());
+            this.add(panels[i]);
+        }
 
-        this.add(topHowToText);
-        this.add(middleHowToText);
-        this.add(bottomHowToText);
-        this.add(backToMenuButton);
+        topHowToText.setFont(MIDDLE_FONT);
+        panels[0].add(topHowToLabel);
+        panels[0].add(topHowToText);
+
+        middleHowToText.setFont(MIDDLE_FONT);
+        panels[1].add(middleHowToLabel);
+        panels[1].add(middleHowToText);
+
+        bottomHowToText.setFont(MIDDLE_FONT);
+        panels[2].add(bottomHowToLabel);
+        panels[2].add(bottomHowToText);
+
+        panels[3].add(backToMenuButton);
 
         backToMenuButton.addActionListener(e -> {
-            isNext = true;
+            isMenu = true;
         });
     }
 
-    public boolean getIsNext() {
-        return isNext;
+    public boolean isMenu() {
+        return isMenu;
     }
 
-    public void setIsNext(boolean isNext) {
-        this.isNext = isNext;
+    public void setMenu(boolean menu) {
+        isMenu = menu;
     }
 }
