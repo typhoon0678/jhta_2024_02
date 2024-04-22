@@ -1,16 +1,17 @@
 package practice0d.picross.component;
 
+import practice0d.picross.record.PaintType;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class Pixel extends JLabel {
 
-    private boolean isFill = false;
-    private boolean isNotFill = false;
+    private PaintType paintType = PaintType.EMPTY;
 
     public Pixel() {
 
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        this.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         this.setOpaque(true);
         this.setBackground(Color.white);
     }
@@ -34,20 +35,41 @@ public class Pixel extends JLabel {
         return (x1 < x4) && (x3 < x2) && (y1 < y4) && (y3 < y2);
     }
 
-    public boolean isFill() {
-        return isFill;
+    public PaintType getPaintType() {
+        return paintType;
     }
 
-    public void setFill(boolean fill) {
-        isFill = fill;
-        this.setBackground((isFill) ? Color.black : Color.white);
+    public void setPaintType(PaintType paintType) {
+        if (paintType == PaintType.TEMP_EMPTY && this.paintType == PaintType.FILL) {
+            this.paintType = PaintType.FILL_TO_EMPTY;
+        } else if (paintType == PaintType.TEMP_FILL && this.paintType == PaintType.EMPTY) {
+            this.paintType = PaintType.EMPTY_TO_FILL;
+        } else if (paintType == PaintType.TEMP_EMPTY && this.paintType == PaintType.BLOCK) {
+            this.paintType = PaintType.BLOCK_TO_EMPTY;
+        } else if (paintType == PaintType.TEMP_BLOCK && this.paintType == PaintType.EMPTY) {
+            this.paintType = PaintType.EMPTY_TO_BLOCK;
+        } else {
+            this.paintType = paintType;
+        }
+
+        setBackground();
     }
 
-    public boolean isNotFill() {
-        return isNotFill;
-    }
-
-    public void setNotFill(boolean notFill) {
-        isNotFill = notFill;
+    private void setBackground() {
+        if (paintType == PaintType.FILL) {
+            this.setBackground(Color.black);
+        } else if (paintType == PaintType.EMPTY) {
+            this.setBackground(Color.white);
+        } else if (paintType == PaintType.FILL_TO_EMPTY) {
+            this.setBackground(Color.yellow);
+        } else if (paintType == PaintType.EMPTY_TO_FILL) {
+            this.setBackground(Color.green);
+        } else if (paintType == PaintType.BLOCK) {
+            this.setBackground(Color.red);
+        } else if (paintType == PaintType.EMPTY_TO_BLOCK || paintType == PaintType.BLOCK_TO_EMPTY) {
+            this.setBackground(Color.yellow);
+        } else {
+            this.setBackground(Color.gray);
+        }
     }
 }

@@ -54,8 +54,9 @@ public class PlayPanel extends JPanel implements Runnable {
 
             if (gridPanel != null && gridPanel.isClear()) {
                 this.isClear = true;
+                gridPanel.setClear(false);
                 clearLabel.setVisible(true);
-            } else {
+            } else if (!this.isClear) {
                 currentMs = System.currentTimeMillis();
                 timerLabel.setText((currentMs - startMs) / 1000 + "초");
             }

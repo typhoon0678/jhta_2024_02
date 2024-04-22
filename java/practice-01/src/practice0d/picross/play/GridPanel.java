@@ -1,5 +1,6 @@
 package practice0d.picross.play;
 
+import practice0d.picross.record.PaintType;
 import practice0d.picross.record.PixelGrid;
 import practice0d.picross.component.Pixel;
 
@@ -18,6 +19,7 @@ public class GridPanel extends JPanel {
     private Point pressPoint = new Point();
 
     private boolean fill = true;
+    private boolean block = true;
     private boolean isPressed = false;
 
     private boolean isClear = false;
@@ -46,12 +48,22 @@ public class GridPanel extends JPanel {
 
                 pressPoint = e.getPoint();
                 isPressed = true;
-
-                for (Pixel[] pixelList : pixels) {
-                    for (Pixel pixel : pixelList) {
-                        if (pixel.isIn(pressPoint)) {
-                            fill = !pixel.isFill();
-                            return;
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    for (Pixel[] pixelList : pixels) {
+                        for (Pixel pixel : pixelList) {
+                            if (pixel.isIn(pressPoint)) {
+                                fill = (pixel.getPaintType() == PaintType.EMPTY);
+                                return;
+                            }
+                        }
+                    }
+                } else if (e.getButton() == MouseEvent.BUTTON3) {
+                    for (Pixel[] pixelList : pixels) {
+                        for (Pixel pixel : pixelList) {
+                            if (pixel.isIn(pressPoint)) {
+                                block = (pixel.getPaintType() == PaintType.EMPTY);
+                                return;
+                            }
                         }
                     }
                 }
@@ -62,12 +74,34 @@ public class GridPanel extends JPanel {
                 if (isClear) return;
                 isPressed = false;
 
-                for (int i = 0; i < pixelGrid.width(); i++) {
-                    for (int j = 0; j < pixelGrid.height(); j++) {
-                        if (pixels[i][j].isFill() != pixelGrid.grid()[i][j]) return;
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    for (Pixel[] pixelList : pixels) {
+                        for (Pixel pixel : pixelList) {
+                            if (pixel.getPaintType() == PaintType.FILL_TO_EMPTY || pixel.getPaintType() == PaintType.TEMP_EMPTY) {
+                                pixel.setPaintType(PaintType.EMPTY);
+                            } else if (pixel.getPaintType() == PaintType.EMPTY_TO_FILL || pixel.getPaintType() == PaintType.TEMP_FILL) {
+                                pixel.setPaintType(PaintType.FILL);
+                            }
+                        }
+                    }
+
+                    for (int i = 0; i < pixelGrid.width(); i++) {
+                        for (int j = 0; j < pixelGrid.height(); j++) {
+                            if ((pixels[i][j].getPaintType() == PaintType.FILL) != pixelGrid.grid()[i][j]) return;
+                        }
+                    }
+                    isClear = true;
+                } else if (e.getButton() == MouseEvent.BUTTON3) {
+                    for (Pixel[] pixelList : pixels) {
+                        for (Pixel pixel : pixelList) {
+                            if (pixel.getPaintType() == PaintType.EMPTY_TO_BLOCK || pixel.getPaintType() == PaintType.TEMP_BLOCK) {
+                                pixel.setPaintType(PaintType.BLOCK);
+                            } else if (pixel.getPaintType() == PaintType.BLOCK_TO_EMPTY || pixel.getPaintType() == PaintType.TEMP_EMPTY) {
+                                pixel.setPaintType(PaintType.EMPTY);
+                            }
+                        }
                     }
                 }
-                isClear = true;
             }
         });
 
@@ -76,10 +110,40 @@ public class GridPanel extends JPanel {
             public void mouseDragged(MouseEvent e) {
                 if (isClear || !isPressed) return;
 
-                for (Pixel[] pixelList : pixels) {
-                    for (Pixel pixel : pixelList) {
-                        if (pixel.isContain(pressPoint, e.getPoint())) {
-                            pixel.setFill(fill);
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    for (Pixel[] pixelList : pixels) {
+                        for (Pixel pixel : pixelList) {
+                            if (pixel.isContain(pressPoint, e.getPoint())) {
+                                if (pixel.getPaintType() == PaintType.EMPTY && fill) {
+                                    pixel.setPaintType(PaintType.TEMP_FILL);
+                                } else if (pixel.getPaintType() == PaintType.FILL && !fill) {
+                                    pixel.setPaintType(PaintType.TEMP_EMPTY);
+                                }
+                            } else {
+                                if (pixel.getPaintType() == PaintType.TEMP_EMPTY || pixel.getPaintType() == PaintType.EMPTY_TO_FILL) {
+                                    pixel.setPaintType(PaintType.EMPTY);
+                                } else if (pixel.getPaintType() == PaintType.TEMP_FILL || pixel.getPaintType() == PaintType.FILL_TO_EMPTY) {
+                                    pixel.setPaintType(PaintType.FILL);
+                                }
+                            }
+                        }
+                    }
+                } else if (e.getButton() == MouseEvent.BUTTON3) {
+                    for (Pixel[] pixelList : pixels) {
+                        for (Pixel pixel : pixelList) {
+                            if (pixel.isContain(pressPoint, e.getPoint())) {
+                                if (pixel.getPaintType() == PaintType.EMPTY && block) {
+                                    pixel.setPaintType(PaintType.TEMP_BLOCK);
+                                } else if (pixel.getPaintType() == PaintType.BLOCK && !block) {
+                                    pixel.setPaintType(PaintType.TEMP_EMPTY);
+                                }
+                            } else {
+                                if (pixel.getPaintType() == PaintType.TEMP_BLOCK || pixel.getPaintType() == PaintType.EMPTY_TO_BLOCK) {
+                                    pixel.setPaintType(PaintType.EMPTY);
+                                } else if (pixel.getPaintType() == PaintType.TEMP_EMPTY || pixel.getPaintType() == PaintType.BLOCK_TO_EMPTY) {
+                                    pixel.setPaintType(PaintType.BLOCK);
+                                }
+                            }
                         }
                     }
                 }
@@ -89,5 +153,9 @@ public class GridPanel extends JPanel {
 
     public boolean isClear() {
         return isClear;
+    }
+
+    public void setClear(boolean clear) {
+        isClear = clear;
     }
 }
