@@ -1,8 +1,8 @@
-package practice0d.picross.play;
+package practice0d.picross.pages.play;
 
-import practice0d.picross.record.PaintType;
-import practice0d.picross.record.PixelGrid;
-import practice0d.picross.component.Pixel;
+import practice0d.picross.records.PaintType;
+import practice0d.picross.records.PixelGrid;
+import practice0d.picross.components.Pixel;
 
 import javax.swing.*;
 
@@ -11,7 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
-import static practice0d.picross.Constant.*;
+import static practice0d.picross.records.Constant.*;
 
 public class GridPanel extends JPanel {
 

@@ -1,8 +1,8 @@
-package practice0d.picross.component;
+package practice0d.picross.components;
 
 import javax.swing.*;
 
-import static practice0d.picross.Constant.COUNT_TEXT_SIZE;
+import static practice0d.picross.records.Constant.COUNT_TEXT_SIZE;
 
 public class CountLabel extends JLabel {
 

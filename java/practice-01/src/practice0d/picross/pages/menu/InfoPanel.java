@@ -1,7 +1,7 @@
-package practice0d.picross.menu;
+package practice0d.picross.pages.menu;
 
-import practice0d.picross.record.PixelClear;
-import practice0d.picross.record.PixelGrid;
+import practice0d.picross.records.PixelClear;
+import practice0d.picross.records.PixelGrid;
 
 import javax.swing.*;
 import java.awt.*;

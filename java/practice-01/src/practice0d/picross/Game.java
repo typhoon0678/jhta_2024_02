@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import java.awt.*;
 
-import static practice0d.picross.Constant.*;
+import static practice0d.picross.records.Constant.*;
 
 public class Game extends JFrame {
 

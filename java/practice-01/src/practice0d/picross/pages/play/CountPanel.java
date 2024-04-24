@@ -1,11 +1,11 @@
-package practice0d.picross.play;
+package practice0d.picross.pages.play;
 
-import practice0d.picross.record.PixelGrid;
-import practice0d.picross.component.CountLabel;
+import practice0d.picross.records.PixelGrid;
+import practice0d.picross.components.CountLabel;
 
 import javax.swing.*;
 
-import static practice0d.picross.Constant.*;
+import static practice0d.picross.records.Constant.*;
 
 public class CountPanel extends JPanel {
 

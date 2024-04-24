@@ -1,11 +1,11 @@
-package practice0d.picross.menu;
+package practice0d.picross.pages.menu;
 
-import practice0d.picross.component.PButton;
+import practice0d.picross.components.PButton;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static practice0d.picross.Constant.*;
+import static practice0d.picross.records.Constant.*;
 
 
 public class MenuPanel extends JPanel {

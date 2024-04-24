@@ -1,6 +1,4 @@
-package practice0d.picross;
-
-import practice0d.picross.record.PixelGrid;
+package practice0d.picross.records;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -9,28 +7,27 @@ import java.util.Arrays;
 public class Constant {
 
     // Size
-    public static int INFO_HEIGHT = 100;
-    public static int GAME_HEIGHT = 600 + INFO_HEIGHT;
-    public static int GAME_WIDTH = 600;
+    public static final int INFO_HEIGHT = 100;
+    public static final int GAME_HEIGHT = 600 + INFO_HEIGHT;
+    public static final int GAME_WIDTH = 600;
 
-    public static int COUNT_SIZE = 150;
-    public static int COUNT_TEXT_SIZE = 20;
+    public static final int COUNT_SIZE = 150;
+    public static final int COUNT_TEXT_SIZE = 20;
 
-    public static int BUTTON_WIDTH = 100;
-    public static int BUTTON_HEIGHT = 60;
+    public static final int BUTTON_WIDTH = 100;
+    public static final int BUTTON_HEIGHT = 60;
 
     // Color
-    public static Color PRIMARY_COLOR = Color.blue;
-    public static Color BACKGROUND_COLOR = Color.lightGray;
-    public static Color BUTTON_COLOR = Color.blue;
+    public static final Color PRIMARY_COLOR = Color.blue;
+    public static final Color BACKGROUND_COLOR = Color.lightGray;
 
     // Font
-    public static Font TITLE_FONT = new Font("맑은 고딕", Font.BOLD, 24);
-    public static Font MIDDLE_FONT = new Font("맑은 고딕", Font.PLAIN, 16);
+    public static final Font TITLE_FONT = new Font("맑은 고딕", Font.BOLD, 24);
+    public static final Font MIDDLE_FONT = new Font("맑은 고딕", Font.PLAIN, 16);
 
 
     // Data
-    public static ArrayList<PixelGrid> GRID_DATA = new ArrayList<>(
+    public static final ArrayList<PixelGrid> GRID_DATA = new ArrayList<>(
             Arrays.asList(
                     new PixelGrid(new boolean[][]{
                             {false, true, false},

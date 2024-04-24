@@ -1,6 +1,6 @@
-package practice0d.picross.component;
+package practice0d.picross.components;
 
-import practice0d.picross.record.PaintType;
+import practice0d.picross.records.PaintType;
 
 import javax.swing.*;
 import java.awt.*;

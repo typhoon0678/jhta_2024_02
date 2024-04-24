@@ -1,12 +1,12 @@
-package practice0d.picross.play;
+package practice0d.picross.pages.play;
 
-import practice0d.picross.record.PixelGrid;
-import practice0d.picross.component.PButton;
+import practice0d.picross.records.PixelGrid;
+import practice0d.picross.components.PButton;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static practice0d.picross.Constant.*;
+import static practice0d.picross.records.Constant.*;
 
 public class PlayPanel extends JPanel implements Runnable {
 

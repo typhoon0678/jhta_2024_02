@@ -1,4 +1,4 @@
-package practice0d.picross.record;
+package practice0d.picross.records;
 
 public enum PaintType {
     FILL, EMPTY, // 확정 상태

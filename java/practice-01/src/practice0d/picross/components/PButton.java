@@ -1,15 +1,14 @@
-package practice0d.picross.component;
+package practice0d.picross.components;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static practice0d.picross.Constant.*;
+import static practice0d.picross.records.Constant.*;
 
 public class PButton extends JButton {
 
     public PButton(String title) {
         this.setText(title);
-        this.setBackground(BUTTON_COLOR);
         this.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
     }
 }

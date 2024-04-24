@@ -1,15 +1,15 @@
 package practice0d.picross;
 
-import practice0d.picross.menu.HowToPanel;
-import practice0d.picross.menu.MenuPanel;
-import practice0d.picross.menu.SelectStagePanel;
-import practice0d.picross.play.PlayPanel;
-import practice0d.picross.record.PixelClear;
+import practice0d.picross.pages.menu.HowToPanel;
+import practice0d.picross.pages.menu.MenuPanel;
+import practice0d.picross.pages.menu.SelectStagePanel;
+import practice0d.picross.pages.play.PlayPanel;
+import practice0d.picross.records.PixelClear;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static practice0d.picross.Constant.*;
+import static practice0d.picross.records.Constant.*;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements Runnable {
     CardLayout cardLayout;
 
     public GamePanel() {
-        cards.add(howToCard, "HowTO");
+        cards.add(howToCard, "HowTo");
         cards.add(menuCard, "Menu");
         cards.add(selectCard, "Select");
         cards.add(playPanel, "Play");
@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
 
             // 페이지
             if (menuCard.isHowTo()) {
-                cardLayout.show(cards, "HowTO");
+                cardLayout.show(cards, "HowTo");
                 menuCard.setHowTo(false);
             } else if (menuCard.isSelect()) {
                 cardLayout.show(cards, "Select");
@@ -67,22 +67,26 @@ public class GamePanel extends JPanel implements Runnable {
                 selectCard.setMenu(false);
             } else if (selectCard.isPlay()) {
                 playPanel.initialSetting(selectCard.getPixelGrid());
+
                 cardLayout.show(cards, "Play");
                 selectCard.setPlay(false);
             } else if (playPanel.isSelect()) {
-                // 클리어 정보 업데이트
-                int index = playPanel.getPixelGrid().index();
-
-                clearData[playPanel.getPixelGrid().index()]
-                        = new PixelClear(playPanel.isClear(), playPanel.getClearMs());
-
-                if (clearData[index].isClear()) {
-                    selectCard.setClearInfo(clearData[index], index);
-                }
+                updateClearInfo();
 
                 cardLayout.show(cards, "Select");
                 playPanel.setSelect(false);
             }
+        }
+    }
+
+    private void updateClearInfo() {
+        int index = playPanel.getPixelGrid().index();
+
+        clearData[playPanel.getPixelGrid().index()]
+                = new PixelClear(playPanel.isClear(), playPanel.getClearMs());
+
+        if (clearData[index].isClear()) {
+            selectCard.setClearInfo(clearData[index], index);
         }
     }
 }
