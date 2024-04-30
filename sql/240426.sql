@@ -51,3 +51,75 @@ SELECT RPAD(SUBSTR(empno, 1, 2), LENGTH(empno), '*'), RPAD(SUBSTR(ename, 1, 1), 
 SELECT TRUNC(sal / 21.5, 2) AS "daySalary", ROUND(sal / (21.5 * 8), 2) AS "hourSalary" FROM emp; 
 -- Problem3
 SELECT ename, TO_CHAR(NEXT_DAY(ADD_MONTHS(hiredate, 3), 2), 'YYYY-MM-DD') AS "day" FROM emp; 
+
+
+-- 0429
+SELECT ename, empno, job, sal, 
+	DECODE(
+	job,
+	'MAMAGER', sal * 1.1,
+	'SALESMAN', sal * 1.05,
+	'CLERK', sal * 1.03,
+	sal
+	) AS "인상된 월급"
+FROM emp;
+
+WITH temp AS (
+	SELECT 'M' gender FROM dual UNION ALL
+	SELECT 'F' gender FROM dual UNION ALL
+	SELECT 'X' gender FROM dual
+) SELECT gender, 
+	DECODE(
+	gender,
+	gender, 'M', '남자',
+	gender, 'F', '여자',
+	) AS "gender" FROM temp; 
+
+SELECT ename, job,
+	decode (
+	job, 
+	'CLERK', '사원',
+	'SALESMAN', '영업',
+	'MANAGER', '관리자',
+	'ANALYST', '분석가',
+	'PRESIDENT', '회장'
+	) AS "한글 명칭" FROM emp;
+	
+SELECT ename, comm, DECODE(comm, NULL, 'no', 'yes') AS "커미션 유뮤" FROM emp; 
+
+SELECT ename, empno, job, sal,
+CASE 
+	WHEN job = 'MANAGER' THEN sal * 1.1
+	WHEN job = 'SALESMAN' THEN sal * 1.05
+	WHEN job = 'CLERK' THEN sal * 1.03
+	ELSE sal
+END AS "인상된 월급" FROM emp;
+
+SELECT ename, sal,
+	CASE 
+		WHEN sal >= 2900 THEN '다이아'
+		WHEN sal >= 2700 THEN '에메랄드'
+		WHEN sal >= 2000 THEN '골드'
+		ELSE '실버'
+	END AS "등급" 
+FROM emp;
+
+
+SELECT empno, ename, comm,
+	CASE
+		WHEN comm IS NULL THEN 'NO'
+		WHEN comm > 0 THEN 'YES'
+	END AS "커미션"
+FROM emp;
+	
+SELECT ename, 
+	CASE
+		WHEN SUBSTR(mgr, 1, 2) = '75' THEN '5555'
+		WHEN SUBSTR(mgr, 1, 2) = '76' THEN '6666'
+		WHEN SUBSTR(mgr, 1, 2) = '77' THEN '7777'
+		WHEN SUBSTR(mgr, 1, 2) = '78' THEN '8888'
+		WHEN mgr IS NULL THEN '0000'
+		ELSE TO_CHAR(mgr)
+	END AS "manager number"
+FROM emp;
+	
