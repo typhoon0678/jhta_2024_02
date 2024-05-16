@@ -9,8 +9,8 @@
 <html>
 <head>
     <title>Delete Member</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../js/bootstrap.bundle.min.js"></script>
     <style>
         html,
         body {
@@ -24,14 +24,14 @@
     </style>
 </head>
 <body>
-<%@ include file="include/header.jsp"%>
+<%@ include file="../include/header.jsp"%>
 <form class="m-auto" action="delete-member-process.jsp" method="post">
     <div class="form-floating">
         <input type="password" class="form-control" name="userPW" id="floatingPassword" placeholder="Password">
         <label for="floatingPassword">Password</label>
     </div>
 
-    <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+    <button class="btn btn-danger w-100 py-2" type="submit">Delete User</button>
 </form>
 </body>
 </html>

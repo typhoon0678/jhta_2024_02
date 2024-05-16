@@ -39,7 +39,7 @@
 
         ScriptWriter.alert(response, "Login Successes.", "/");
     } else {
-        ScriptWriter.alert(response, "Login Failed.", "login.jsp");
+        ScriptWriter.alert(response, "Login Failed.", "/member/login.jsp");
     }
 
     jdbcConnect.close();

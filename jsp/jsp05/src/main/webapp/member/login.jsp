@@ -9,8 +9,8 @@
 <html>
 <head>
     <title>Login</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
     html,
@@ -19,7 +19,7 @@
     }
 
     .form-signin {
-        max-width: 330px;
+        max-width: 480px;
         padding: 1rem;
     }
 
@@ -43,14 +43,14 @@
 <%
     String rememberID = CookieManager.readCookie(request, "rememberID");
 %>
-<%@ include file="include/header.jsp"%>
+<%@ include file="../include/header.jsp"%>
 
 <main class="form-signin w-100 pt-5 m-auto">
     <form action="login-member-process.jsp" method="post">
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
         <div class="form-floating">
-            <input type="text" class="form-control" name="userID" id="floatingInput" placeholder="Write ID" value="<%= rememberID %>">
+            <input type="text" class="form-control" name="userID" id="floatingInput" placeholder="Write ID" value="${cookie.rememberID.value}">
             <label for="floatingInput">User ID</label>
         </div>
         <div class="form-floating">

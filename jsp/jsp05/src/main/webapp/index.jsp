@@ -17,7 +17,6 @@
     if (!userID.isEmpty() && !userName.isEmpty()) {
         out.println("<h2>Hi, " + userID + "</h2>");
         out.println("<h2>Hello, " + userName + "</h2>");
-        out.println("<h2><a href=\"info.jsp\" class=\"btn btn-primary\">Info</a></h2>");
     }
 %>
 <a href="hello-servlet" class="btn btn-outline-primary">Hello Servlet</a>
