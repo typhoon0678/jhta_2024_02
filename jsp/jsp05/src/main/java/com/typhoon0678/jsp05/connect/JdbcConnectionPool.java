@@ -12,17 +12,33 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class JdbcConnectionPool {
-    
-    private final Connection connection;
+
+    public Connection connection;
     private final PreparedStatement preparedStatement;
     private ResultSet resultSet;
-    
+
+    public JdbcConnectionPool(String sql) {
+        try {
+            Context initContext = new InitialContext();
+            Context context = (Context) initContext.lookup("java:comp/env");
+            DataSource dataSource = (DataSource) context.lookup("dbcp_oracle");
+
+            connection = dataSource.getConnection();
+
+            preparedStatement = connection.prepareStatement(sql);
+
+            System.out.println("dbcp_oracle connection created");
+        } catch (NamingException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public JdbcConnectionPool(String sql, String[] values) {
         try {
             Context initContext = new InitialContext();
             Context context = (Context) initContext.lookup("java:comp/env");
             DataSource dataSource = (DataSource) context.lookup("dbcp_oracle");
-            
+
             connection = dataSource.getConnection();
 
             preparedStatement = connection.prepareStatement(sql);
@@ -54,6 +70,14 @@ public class JdbcConnectionPool {
 
     public void setResultSet() throws SQLException {
         this.resultSet = this.preparedStatement.executeQuery();
+    }
+
+    public int getExecuteUpdate() throws SQLException {
+        return this.preparedStatement.executeUpdate();
+    }
+
+    public PreparedStatement getPreparedStatement() {
+        return preparedStatement;
     }
 
 }
