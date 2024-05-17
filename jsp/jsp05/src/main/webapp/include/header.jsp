@@ -1,3 +1,4 @@
+<%@ page import="com.typhoon0678.jsp05.util.CookieManager" %>
 <%
     String userID = CookieManager.readCookie(request, "userID");
     String userName = CookieManager.readCookie(request, "userName");

@@ -1,4 +1,4 @@
-<%@ page import="com.typhoon0678.jsp05.util.CookieManager" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: mac
   Date: 5/13/24

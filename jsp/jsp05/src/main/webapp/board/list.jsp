@@ -1,4 +1,3 @@
-<%@ page import="com.typhoon0678.jsp05.util.CookieManager" %>
 <%@ page import="com.typhoon0678.jsp05.connect.JdbcConnectionPool" %>
 <%@ page import="java.sql.ResultSet" %><%--
   Created by IntelliJ IDEA.
@@ -43,8 +42,8 @@
 
             while (resultSet.next()) { %>
 
-        <tr onclick="location.href='board-detail.jsp?boardNo=<%=resultSet.getString("boardNo")%>'">
-            <td><%= resultSet.getString("boardNo") %>
+        <tr onclick="location.href='view.jsp?boardNo=<%=resultSet.getInt("boardNo")%>'">
+            <td><%= resultSet.getInt("boardNo") %>
             </td>
             <td><%= resultSet.getString("subject") %>
             </td>
@@ -52,7 +51,7 @@
             </td>
             <td><%= resultSet.getString("regDate") %>
             </td>
-            <td><%= resultSet.getString("hit") %>
+            <td><%= resultSet.getInt("hit") %>
             </td>
         </tr>
         <% }
@@ -62,7 +61,7 @@
         </tbody>
     </table>
 
-    <div class="mt-5 mb-5"><a href="/board/write.jsp" class="btn btn-primary">Write</a></div>
+    <div class="mt-5 mb-5"><a href="write.jsp" class="btn btn-primary">Write</a></div>
 </div>
 </body>
 </html>

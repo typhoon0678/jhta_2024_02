@@ -1,4 +1,4 @@
-<%@ page import="com.typhoon0678.jsp05.util.CookieManager" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: mac
   Date: 5/13/24
@@ -40,10 +40,10 @@
     }
 </style>
 <body class="bg-body-tertiary">
+<%@ include file="../include/header.jsp"%>
 <%
     String rememberID = CookieManager.readCookie(request, "rememberID");
 %>
-<%@ include file="../include/header.jsp"%>
 
 <main class="form-signin w-100 pt-5 m-auto">
     <form action="login-member-process.jsp" method="post">

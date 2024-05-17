@@ -1,5 +1,4 @@
 <%@ page import="com.typhoon0678.jsp05.connect.JdbcConnect" %>
-<%@ page import="com.typhoon0678.jsp05.util.CookieManager" %>
 <%@ page import="java.sql.ResultSet" %><%--
   Created by IntelliJ IDEA.
   User: mac

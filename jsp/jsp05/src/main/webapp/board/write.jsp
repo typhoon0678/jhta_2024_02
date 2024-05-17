@@ -1,4 +1,4 @@
-<%@ page import="com.typhoon0678.jsp05.util.CookieManager" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: mac
   Date: 5/16/24
@@ -16,7 +16,7 @@
 <%@ include file="../include/header.jsp" %>
 
 <div class="container">
-    <form action="${pageContext.request.contextPath}/board/write-process.jsp" method="post">
+    <form action="write-process.jsp" method="post">
         <h1 class="h3 mb-3 fw-normal">Writes</h1>
 
         <div class="form-floating">
@@ -46,8 +46,5 @@
     </form>
 </div>
 
-<script>
-
-</script>
 </body>
 </html>
