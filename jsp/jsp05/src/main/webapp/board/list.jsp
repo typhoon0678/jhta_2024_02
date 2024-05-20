@@ -1,5 +1,8 @@
 <%@ page import="com.typhoon0678.jsp05.connect.JdbcConnectionPool" %>
-<%@ page import="java.sql.ResultSet" %><%--
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="com.typhoon0678.jsp05.dto.BoardDto" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: mac
   Date: 5/16/24
@@ -17,9 +20,47 @@
 <%@ include file="../include/header.jsp" %>
 
 <%
-    JdbcConnectionPool jdbcConnectionPool = new JdbcConnectionPool("SELECT * FROM BOARD", new String[0]);
+
+    String requestPage = request.getParameter("page");
+    int pageNum = (requestPage != null) ? Integer.parseInt(requestPage) : 1;
+
+    int perPage = 10;
+
+    String start = String.valueOf(perPage * (pageNum - 1) + 1);
+    String end = String.valueOf(perPage * pageNum);
+
+    String[] values = {start, end};
+    JdbcConnectionPool jdbcConnectionPool = new JdbcConnectionPool(
+            "SELECT * FROM (" +
+                    "SELECT rownum as num, b.* FROM (" +
+                    "SELECT * FROM BOARD ORDER BY boardNo DESC) b" +
+                    ") " +
+                    "WHERE num BETWEEN ? AND ?", values);
 
     jdbcConnectionPool.setResultSet();
+
+    List<BoardDto> boardDtoList = new ArrayList<BoardDto>();
+
+    ResultSet resultSet = jdbcConnectionPool.getResultSet();
+
+    while (resultSet.next()) {
+        BoardDto boardDto = new BoardDto(
+                resultSet.getInt("boardNo"),
+                resultSet.getString("subject"),
+                "",
+                "",
+                resultSet.getString("userName"),
+                resultSet.getString("regDate"),
+                resultSet.getInt("hit")
+        );
+
+        boardDtoList.add(boardDto);
+    }
+
+    request.setAttribute("pageNum", pageNum);
+    request.setAttribute("boardDtoList", boardDtoList);
+
+    jdbcConnectionPool.close();
 %>
 
 <div class="container">
@@ -37,29 +78,51 @@
         </thead>
         <tbody>
 
-        <%
-            ResultSet resultSet = jdbcConnectionPool.getResultSet();
-
-            while (resultSet.next()) { %>
-
-        <tr onclick="location.href='view.jsp?boardNo=<%=resultSet.getInt("boardNo")%>'">
-            <td><%= resultSet.getInt("boardNo") %>
-            </td>
-            <td><%= resultSet.getString("subject") %>
-            </td>
-            <td><%= resultSet.getString("userName") %>
-            </td>
-            <td><%= resultSet.getString("regDate") %>
-            </td>
-            <td><%= resultSet.getInt("hit") %>
-            </td>
-        </tr>
-        <% }
-
-            jdbcConnectionPool.close();
-        %>
+        <c:forEach var="boardDto" items="${boardDtoList}"
+                   begin="0"
+                   end="9"
+                   varStatus="loop">
+            <tr onclick="location.href='view.jsp?boardNo=${boardDto.no}'">
+                <td>${boardDto.no}
+                </td>
+                <td>${boardDto.subject}
+                </td>
+                <td>${boardDto.userName}
+                </td>
+                <td>${boardDto.regDate}
+                </td>
+                <td>${boardDto.hit}
+                </td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="./list.jsp?page=1" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <c:forEach var="boardDto"
+                       begin="0"
+                       end="9" varStatus="loop">
+                <c:if test="${pageNum == loop.count}">
+                    <li class="page-item active">
+                        <a class="page-link" href="./list.jsp?page=${loop.count}">${loop.count}</a></li>
+                </c:if>
+                <c:if test="${pageNum != loop.count}">
+                    <li class="page-item">
+                        <a class="page-link" href="./list.jsp?page=${loop.count}">${loop.count}</a></li>
+                </c:if>
+            </c:forEach>
+            <li class="page-item">
+                <a class="page-link" href="./list.jsp?page=${11}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 
     <div class="mt-5 mb-5"><a href="write.jsp" class="btn btn-primary">Write</a></div>
 </div>

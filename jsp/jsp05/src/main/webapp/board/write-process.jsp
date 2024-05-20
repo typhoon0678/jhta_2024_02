@@ -19,7 +19,7 @@
             "INSERT INTO BOARD (boardNo, subject, content, userID, userName) VALUES(board_seq.nextval, ?, ?, ?, ?)", values);
 
     if (jdbcConnectionPool.getExecuteUpdate() > 0) {
-        ScriptWriter.alert(response, "Success", "/board/list.jsp");
+        ScriptWriter.alert(response, "Success", "/board/list.jsp?");
     } else {
         ScriptWriter.alert(response, "Failed", "/board/list.jsp");
     }
