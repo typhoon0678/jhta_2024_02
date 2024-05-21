@@ -1,5 +1,7 @@
 package com.typhoon0678.jspmodel2.contoller.member;
 
+import com.typhoon0678.jspmodel2.dao.MemberDao;
+import com.typhoon0678.jspmodel2.dto.MemberDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,7 +16,33 @@ public class InsertMember extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/member/insert-member.jsp");
-        dispatcher.forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/member/insert-member.jsp").forward(req, resp);
+    }
+
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        MemberDto memberDto = MemberDto.builder()
+                .userID(req.getParameter("userID"))
+                .userName(req.getParameter("userName"))
+                .userPW(req.getParameter("userPW"))
+                .email(req.getParameter("userEmail"))
+                .postcode(req.getParameter("userPostCode"))
+                .address(req.getParameter("userAddress"))
+                .detailAddress(req.getParameter("userDetailAddress"))
+                .birth(req.getParameter("userBirth"))
+                .build();
+
+        MemberDao dao = new MemberDao();
+
+        int result = dao.insertMember(memberDto);
+        if (result > 0) {
+            req.getRequestDispatcher("/WEB-INF/member/insert-member-process.jsp").forward(req, resp);
+        } else {
+            req.setAttribute("error", "Error inserting member");
+
+            req.getRequestDispatcher("/WEB-INF/member/insert-member.jsp").forward(req, resp);
+        }
+
     }
 }

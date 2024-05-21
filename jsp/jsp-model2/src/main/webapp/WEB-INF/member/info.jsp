@@ -1,5 +1,4 @@
-<%@ page import="com.typhoon0678.jsp05.connect.JdbcConnect" %>
-<%@ page import="java.sql.ResultSet" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: mac
   Date: 5/13/24
@@ -15,33 +14,6 @@
 </head>
 <body>
 <%@ include file="../include/header.jsp" %>
-<%
-    String[] values = {userID, userName};
-
-    ServletContext context = request.getServletContext();
-
-    JdbcConnect jdbcConnect = new JdbcConnect(
-            context, "SELECT email, postcode, address, address_detail, birth from MEMBER WHERE userID = ? AND userName = ?", values);
-
-    jdbcConnect.setResultSet();
-    ResultSet resultSet = jdbcConnect.getResultSet();
-
-    String email = "";
-    String postcode = "";
-    String address = "";
-    String addressDetail = "";
-    String birth = "";
-
-    if (resultSet.next()) {
-        email = resultSet.getString("email");
-        postcode = resultSet.getString("postcode");
-        address = resultSet.getString("address");
-        addressDetail = resultSet.getString("address_detail");
-        birth = resultSet.getString("birth");
-    }
-
-    jdbcConnect.close();
-%>
 
 <table class="table">
     <thead>
@@ -57,24 +29,24 @@
     </thead>
     <tbody>
     <tr>
-        <td><%=userID%>
+        <td>${member.userID}
         </td>
-        <td><%=userName%>
+        <td>${member.userName}
         </td>
-        <td><%=email%>
+        <td>${member.email}
         </td>
-        <td><%=postcode%>
+        <td>${member.postcode}
         </td>
-        <td><%=address%>
+        <td>${member.address}
         </td>
-        <td><%=addressDetail%>
+        <td>${member.detailAddress}
         </td>
-        <td><%=birth%>
+        <td>${member.birth}
         </td>
     </tr>
     </tbody>
 </table>
-<button class="btn btn-danger" onclick="location.href='delete-member.jsp'">Delete User</button>
+<button class="btn btn-danger" onclick="location.href='/member/delete'">Delete User</button>
 
 </body>
 </html>

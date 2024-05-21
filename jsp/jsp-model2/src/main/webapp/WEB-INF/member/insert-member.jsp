@@ -50,11 +50,11 @@
 <%@ include file="../include/header.jsp" %>
 
 <main class="form-signin w-100 pt-5 m-auto">
-    <form action="${pageContext.request.contextPath}/member/insert-process" method="post">
+    <form action="${pageContext.request.contextPath}/member/insert" method="post">
         <h1 class="h3 mb-3 fw-normal">Sign Up</h1>
 
         <div class="form-floating">
-            <input type="text" class="form-control" name="userID" id="floatingInput" placeholder="Write ID" check-id="checked">
+            <input type="text" class="form-control" name="userID" id="floatingInput" placeholder="Write ID" check-id="">
             <label for="floatingInput">User ID</label>
             <button type="button" id="btn-duplicate" class="btn btn-secondary">Check Duplicate</button>
         </div>
@@ -165,13 +165,15 @@
 
     $("#btn-duplicate").on("click", function () {
         $.ajax({
-            url: "idCheck.jsp",
+            url: "/member/check-id",
             data: {
                 userID: idInput.val()
             },
             method: "POST",
             success: function (data) {
-                if (data.count > 0) {
+                console.log(data);
+
+                if (data.isDuplicated === true) {
                     alert("Duplicated ID, Please ReWrite ID");
                     idInput.val("");
                     idInput.focus();
@@ -236,5 +238,13 @@
     }
 
 </script>
+
+<c:if test="${not empty requestScope.error}">
+    <script>
+        window.addEventListener("load", function () {
+            alert("${error}");
+        });
+    </script>
+</c:if>
 </body>
 </html>

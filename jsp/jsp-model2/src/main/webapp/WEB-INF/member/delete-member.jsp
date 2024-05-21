@@ -9,8 +9,8 @@
 <html>
 <head>
     <title>Delete Member</title>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <script src="../js/bootstrap.bundle.min.js"></script>
+    <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
     <style>
         html,
         body {
@@ -24,8 +24,8 @@
     </style>
 </head>
 <body>
-<%@ include file="../include/header.jsp"%>
-<form class="m-auto" action="delete-member-process.jsp" method="post">
+<%@ include file="../include/header.jsp" %>
+<form class="m-auto" action="${pageContext.request.contextPath}/member/delete" method="post">
     <div class="form-floating">
         <input type="password" class="form-control" name="userPW" id="floatingPassword" placeholder="Password">
         <label for="floatingPassword">Password</label>
@@ -33,5 +33,13 @@
 
     <button class="btn btn-danger w-100 py-2" type="submit">Delete User</button>
 </form>
+
+<c:if test="${not empty requestScope.error}">
+    <script>
+        window.addEventListener("load", function () {
+            alert("${error}");
+        });
+    </script>
+</c:if>
 </body>
 </html>

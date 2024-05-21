@@ -1,6 +1,8 @@
 package com.typhoon0678.jspmodel2.contoller.member;
 
 import com.typhoon0678.jspmodel2.dao.MemberDao;
+import com.typhoon0678.jspmodel2.dto.MemberDto;
+import com.typhoon0678.jspmodel2.util.CookieManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,15 +11,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/member/list")
-public class ListMember extends HttpServlet {
+@WebServlet("/member/info")
+public class Info extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        MemberDao dao = new MemberDao();
 
-        req.setAttribute("memberList", dao.getMembers());
-
-        req.getRequestDispatcher("/WEB-INF/member/list-member.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/member/info.jsp").forward(req, resp);
     }
 }

@@ -19,7 +19,6 @@
 
 <div class="container">
     <h2 class="mt-5 mb-5">MEMBER LIST</h2>
-    <form action="delete-member-process-all.jsp" method="get">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -28,69 +27,50 @@
                 <th scope="col">UserName</th>
                 <th scope="col">Email</th>
                 <th scope="col">PostCode</th>
-                <%--            <th scope="col">Address</th>--%>
+                <th scope="col">Address</th>
                 <%--            <th scope="col">Detail Address</th>--%>
                 <%--            <th scope="col">UserBirth</th>--%>
-                <th></th>
-                <th><label for="check-all"></label><input type="checkbox" id="check-all"></th>
+                <th scope="col">Delete</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="memberDto" items="${memberList}" begin="0" end="${2}" varStatus="loop">
+            <c:forEach var="memberDto" items="${memberList}" varStatus="loop">
                 <tr>
-                    <td>${memberDto.userID}</td>
+                    <td >${memberDto.userID}</td>
                     <td>${memberDto.userName}</td>
                     <td>${memberDto.email}</td>
                     <td>${memberDto.postcode}</td>
-                    <td><a href=\"/member/admin-delete-member-process.jsp?userID=${memberDto.userID}"
-                           class="btn btn-danger">DEL</a>
-                        <button class="btn-delete btn btn-danger mx-1" type="button"
-                                data-userid="${memberDto.userID}">AJAX-DEL
-                        </button>
-                    </td>
-                    <td><input type="checkbox" class="check" name="check"
-                               value="${memberDto.userNo}"></input></td>
+                    <td>${memberDto.address}</td>
+                    <td><button class="btn-delete btn btn-danger">Delete</button></td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-        <button type="submit" class="btn-delete-all btn btn-danger">DEL</button>
-    </form>
 </div>
 <script>
     $(".btn-delete").on("click", function () {
         const parent = $(this).parent().parent();
         //alert("경고");
-        const sendUserID = $(this).data("userid");
+        const sendUserID = $(this).closest("tr").find("td:first").text();
         //alert(sendUserID);
         $.ajax({
-            url: "/member/admin-delete-member-ajax-process.jsp",
+            url: "/member/delete-admin",
+            method: "post",
             data: {
                 userID: sendUserID
             },
             success: function (data) {
                 console.log(data);
-                if (data.isDelete === "yes") {
-                    //alert(sendUserID+"님을 탈퇴시겼습니다.");
-                    //location.reload();
-                    //parent.remove();
+                if (data.isDeleted === true) {
+                    alert("Delete Success")
                     parent.fadeOut();
+                } else {
+                    alert("Delete Failed");
                 }
             }
         });
     });
 
-    $("#check-all").on("change", function () {
-        if ($(this).is(":checked")) {
-            $(".check").prop("checked", true);
-        } else {
-            $(".check").prop("checked", false);
-        }
-    });
-
-    $(".btn-delete-all").on("click", function () {
-        return confirm("삭제하시겠습니까?");
-    });
 </script>
 </body>
 </html>

@@ -40,14 +40,15 @@
     }
 </style>
 <body class="bg-body-tertiary">
-<%@ include file="../include/header.jsp"%>
+<%@ include file="../include/header.jsp" %>
 
 <main class="form-signin w-100 pt-5 m-auto">
-    <form action="login-member-process.jsp" method="post">
+    <form action="${pageContext.request.contextPath}/member/login" method="post">
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
         <div class="form-floating">
-            <input type="text" class="form-control" name="userID" id="floatingInput" placeholder="Write ID" value="${cookie.rememberID.value}">
+            <input type="text" class="form-control" name="userID" id="floatingInput" placeholder="Write ID"
+                   value="${cookie.rememberID.value}">
             <label for="floatingInput">User ID</label>
         </div>
         <div class="form-floating">
@@ -56,7 +57,8 @@
         </div>
 
         <div class="form-check text-start my-3">
-            <input class="form-check-input" type="checkbox" name="isRememberID" id="flexCheckDefault" value="yes">
+            <input class="form-check-input" type="checkbox" name="isRememberID" id="flexCheckDefault" value="yes"
+            ${(not empty cookie.rememberID) ? 'checked' : ''}>
             <label class="form-check-label" for="flexCheckDefault">
                 Remember ID
             </label>
@@ -65,5 +67,13 @@
         <p class="mt-5 mb-3 text-body-secondary">© 2017–2024</p>
     </form>
 </main>
+
+<c:if test="${not empty requestScope.error}">
+    <script>
+        window.addEventListener("load", function () {
+            alert("${error}");
+        });
+    </script>
+</c:if>
 </body>
 </html>

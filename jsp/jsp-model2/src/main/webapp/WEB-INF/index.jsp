@@ -7,13 +7,17 @@
     <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<%@include file="include/header.jsp"%>
+<%@include file="include/header.jsp" %>
 
-<h1><%= "Hello World!" %>
-</h1>
+<c:if test="${not empty member}">
+    <h1>Hi, ${member.userName}</h1>
+</c:if>
+<c:if test="${empty member}">
+    <h1>Hello World!</h1>
+</c:if>
 <br/>
+
 <a href="hello-servlet">Hello Servlet</a>
 <a href="TestForm.do">TestForm.do</a>
-<a href="member/insert">Insert Member</a>
 </body>
 </html>

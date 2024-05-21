@@ -1,23 +1,23 @@
 package com.typhoon0678.jspmodel2.contoller.member;
 
-import com.typhoon0678.jspmodel2.dao.MemberDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet("/member/list")
-public class ListMember extends HttpServlet {
+@WebServlet("/member/logout")
+public class Logout extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        MemberDao dao = new MemberDao();
+        HttpSession session = req.getSession();
 
-        req.setAttribute("memberList", dao.getMembers());
+        session.setAttribute("member", null);
 
-        req.getRequestDispatcher("/WEB-INF/member/list-member.jsp").forward(req, resp);
+        resp.sendRedirect("/index");
     }
 }

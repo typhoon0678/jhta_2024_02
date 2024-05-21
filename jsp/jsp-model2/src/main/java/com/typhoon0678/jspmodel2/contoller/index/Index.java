@@ -1,6 +1,5 @@
 package com.typhoon0678.jspmodel2.contoller.index;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,8 +13,7 @@ public class Index extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher =
-                req.getRequestDispatcher("/WEB-INF/index.jsp");
-        dispatcher.forward(req, resp);
+
+        req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
     }
 }
