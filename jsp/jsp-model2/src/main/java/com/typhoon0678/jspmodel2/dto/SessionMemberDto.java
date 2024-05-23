@@ -20,4 +20,6 @@ public class SessionMemberDto {
     private String detailAddress;
     private String grade;
     private String birth;
+    private String originalProfile;
+    private String renameProfile;
 }

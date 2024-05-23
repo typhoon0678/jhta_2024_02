@@ -15,7 +15,7 @@ public class MemberDao extends JdbcConnectionPool {
     public int insertMember(MemberDto memberDto) {
         int result = 0;
 
-        String sql = "INSERT INTO MEMBER VALUES(member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, sysdate)";
+        String sql = "INSERT INTO MEMBER VALUES(member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         String[] values = memberDto.getMember();
 
@@ -52,6 +52,8 @@ public class MemberDao extends JdbcConnectionPool {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            close();
         }
 
         return result;
@@ -61,17 +63,18 @@ public class MemberDao extends JdbcConnectionPool {
     public boolean deleteMember(MemberDto memberDto) {
         boolean result = false;
 
-        String sql = "DELETE FROM MEMBER WHERE userID = ? AND userPW = ?";
+        String sql = "DELETE FROM MEMBER WHERE userID = ?";
 
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, memberDto.getUserID());
-            pstmt.setString(2, memberDto.getUserPW());
 
             result = pstmt.executeUpdate() > 0;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            close();
         }
 
         return result;
@@ -133,26 +136,13 @@ public class MemberDao extends JdbcConnectionPool {
                 .address(memberDto.getAddress())
                 .detailAddress(memberDto.getDetailAddress())
                 .birth(memberDto.getBirth())
+                .originalProfile(memberDto.getOriginalProfile())
+                .renameProfile(memberDto.getRenameProfile())
                 .build();
 
     }
 
-    private MemberDto doMemberDto(ResultSet rs) throws SQLException {
-        return MemberDto.builder()
-                .userNo(rs.getInt("userNo"))
-                .userID(rs.getString("userID"))
-                .userPW(rs.getString("userPW"))
-                .userName(rs.getString("userName"))
-                .email(rs.getString("email"))
-                .postcode(rs.getString("postcode"))
-                .address(rs.getString("address"))
-                .detailAddress(rs.getString("address_detail"))
-                .grade(rs.getString("grade"))
-                .birth(rs.getString("birth"))
-                .build();
-    }
-
-    public boolean isIdDuplitated(String userID) {
+    public boolean isIdDuplicated(String userID) {
         boolean result;
 
         String sql = "SELECT * FROM MEMBER WHERE userID = ?";
@@ -165,6 +155,8 @@ public class MemberDao extends JdbcConnectionPool {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            close();
         }
 
         return result;
@@ -208,8 +200,27 @@ public class MemberDao extends JdbcConnectionPool {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            close();
         }
 
         return result;
+    }
+    
+    private MemberDto doMemberDto(ResultSet rs) throws SQLException {
+        return MemberDto.builder()
+                .userNo(rs.getInt("userNo"))
+                .userID(rs.getString("userID"))
+                .userPW(rs.getString("userPW"))
+                .userName(rs.getString("userName"))
+                .email(rs.getString("email"))
+                .postcode(rs.getString("postcode"))
+                .address(rs.getString("address"))
+                .detailAddress(rs.getString("address_detail"))
+                .grade(rs.getString("grade"))
+                .birth(rs.getString("birth"))
+                .originalProfile(rs.getString("original_profile"))
+                .renameProfile(rs.getString("rename_profile"))
+                .build();
     }
 }

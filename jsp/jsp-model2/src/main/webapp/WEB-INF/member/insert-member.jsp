@@ -50,7 +50,7 @@
 <%@ include file="../include/header.jsp" %>
 
 <main class="form-signin w-100 pt-5 m-auto">
-    <form action="${pageContext.request.contextPath}/member/insert" method="post">
+    <form action="${pageContext.request.contextPath}/member/insert" method="post" enctype="multipart/form-data">
         <h1 class="h3 mb-3 fw-normal">Sign Up</h1>
 
         <div class="form-floating">
@@ -106,9 +106,17 @@
             <label for="floatingBirth">Birth</label>
         </div>
 
+        <div class="mb-3">
+            <label for="profile" class="form-label">PROFILE</label>
+            <input class="form-control" type="file" id="profile" name="profile"
+                   accept="image/gif, image/jpg, image/png">
+            <div class="m-2" id="preview"></div>
+        </div>
+
         <button class="btn btn-primary w-100 py-2 mt-4" id="btn-signup" type="submit">Sign Up</button>
         <p class="mt-5 mb-3 text-body-secondary">© 2017–2024</p>
     </form>
+
 </main>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -162,7 +170,6 @@
         }
     });
 
-
     $("#btn-duplicate").on("click", function () {
         $.ajax({
             url: "/member/check-id",
@@ -191,7 +198,6 @@
             }
         });
     });
-
 
     $("#btn-postcode").on("click", makePostcode);
 
@@ -236,6 +242,34 @@
             }
         }).open();
     }
+
+    $("#profile").on("change", function (e) {
+
+        const file = e.currentTarget.files[0];
+
+        if (!file) {
+            $("#preview").html("");
+            return false;
+        }
+
+        const extension = file.name.substring(file.name.lastIndexOf(".") + 1).toLowerCase();
+
+        if (["png", "jpg", "gif"].includes(extension)) {
+            const profileReader = new FileReader();
+            profileReader.addEventListener("load", function (event) {
+                console.log(event);
+                const img = event.currentTarget.result;
+                console.log(img);
+                $("#preview").html(`<img src=\${img}>`);
+            });
+            profileReader.readAsDataURL(file);
+
+        } else {
+            alert("Please Upload Image");
+            $(this).val("");
+            return false;
+        }
+    });
 
 </script>
 

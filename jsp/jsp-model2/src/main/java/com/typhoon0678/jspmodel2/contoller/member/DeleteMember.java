@@ -3,7 +3,6 @@ package com.typhoon0678.jspmodel2.contoller.member;
 import com.typhoon0678.jspmodel2.dao.MemberDao;
 import com.typhoon0678.jspmodel2.dto.MemberDto;
 import com.typhoon0678.jspmodel2.dto.SessionMemberDto;
-import com.typhoon0678.jspmodel2.util.CookieManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -31,14 +30,14 @@ public class DeleteMember extends HttpServlet {
         String userPW = req.getParameter("userPW");
 
         MemberDao dao = new MemberDao();
-
+        MemberDao dao2 = new MemberDao();
 
         MemberDto memberDto = MemberDto.builder()
                 .userID(dto.getUserID())
                 .userPW(userPW)
                 .build();
 
-        if (dao.deleteMember(memberDto)) {
+        if (dao.checkMember(memberDto) && dao2.deleteMember(memberDto)) {
             session.setAttribute("member", null);
 
             req.getRequestDispatcher("/WEB-INF/member/delete-member-process.jsp").forward(req, resp);

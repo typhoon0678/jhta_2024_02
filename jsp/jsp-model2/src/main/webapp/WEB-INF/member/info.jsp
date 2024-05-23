@@ -21,10 +21,10 @@
         <th scope="col">UserID</th>
         <th scope="col">UserName</th>
         <th scope="col">Email</th>
-        <th scope="col">PostCode</th>
         <th scope="col">Address</th>
         <th scope="col">Detail Address</th>
         <th scope="col">UserBirth</th>
+        <th scope="col">Profile</th>
     </tr>
     </thead>
     <tbody>
@@ -35,17 +35,18 @@
         </td>
         <td>${member.email}
         </td>
-        <td>${member.postcode}
-        </td>
         <td>${member.address}
         </td>
         <td>${member.detailAddress}
         </td>
         <td>${member.birth}
         </td>
+        <td><img src="${member.renameProfile}">
+        </td>
     </tr>
     </tbody>
 </table>
+<button class="btn btn-secondary" onclick="location.href='/member/password-reset?id=${member.userID}'">Change Password</button>
 <button class="btn btn-danger" onclick="location.href='/member/delete'">Delete User</button>
 
 </body>

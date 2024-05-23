@@ -2,7 +2,6 @@ package com.typhoon0678.jspmodel2.contoller.member;
 
 import com.google.gson.Gson;
 import com.typhoon0678.jspmodel2.dao.MemberDao;
-import com.typhoon0678.jspmodel2.dto.MemberDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -28,7 +27,7 @@ public class checkID extends HttpServlet {
         MemberDao dao = new MemberDao();
 
         Map<String, Boolean> checkMap = new HashMap<>();
-        checkMap.put("isDuplicated", dao.isIdDuplitated(userID));
+        checkMap.put("isDuplicated", dao.isIdDuplicated(userID));
 
         Gson gson = new Gson();
         out.println(gson.toJson(checkMap));

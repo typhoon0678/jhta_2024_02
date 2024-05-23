@@ -20,8 +20,10 @@ public class MemberDto {
     private String detailAddress;
     private String grade;
     private String birth;
+    private String originalProfile;
+    private String renameProfile;
 
     public String[] getMember() {
-        return new String[] { userID, userPW, userName, email, postcode, address, grade, detailAddress };
+        return new String[]{userID, userPW, userName, email, postcode, address, detailAddress, grade, birth, originalProfile, renameProfile};
     }
 }
