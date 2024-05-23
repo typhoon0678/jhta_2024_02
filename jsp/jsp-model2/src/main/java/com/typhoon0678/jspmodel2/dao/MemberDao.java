@@ -3,6 +3,7 @@ package com.typhoon0678.jspmodel2.dao;
 import com.typhoon0678.jspmodel2.connect.JdbcConnectionPool;
 import com.typhoon0678.jspmodel2.dto.MemberDto;
 import com.typhoon0678.jspmodel2.dto.SessionMemberDto;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ public class MemberDao extends JdbcConnectionPool {
     public int insertMember(MemberDto memberDto) {
         int result = 0;
 
-        String sql = "INSERT INTO MEMBER VALUES(member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, sysdate)";
+        String sql = "INSERT INTO MEMBER VALUES(member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, sysdate)";
 
         String[] values = memberDto.getMember();
 
@@ -136,30 +137,6 @@ public class MemberDao extends JdbcConnectionPool {
 
     }
 
-    public MemberDto getMember(int userNo) {
-        MemberDto memberDto = new MemberDto();
-
-        String sql = "SELECT * FROM MEMBER WHERE userNo = ?";
-
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, userNo);
-
-            ResultSet rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                memberDto = doMemberDto(rs);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            close();
-        }
-
-        return memberDto;
-    }
-
     private MemberDto doMemberDto(ResultSet rs) throws SQLException {
         return MemberDto.builder()
                 .userNo(rs.getInt("userNo"))
@@ -170,6 +147,7 @@ public class MemberDao extends JdbcConnectionPool {
                 .postcode(rs.getString("postcode"))
                 .address(rs.getString("address"))
                 .detailAddress(rs.getString("address_detail"))
+                .grade(rs.getString("grade"))
                 .birth(rs.getString("birth"))
                 .build();
     }
@@ -193,21 +171,43 @@ public class MemberDao extends JdbcConnectionPool {
     }
 
     public boolean checkMember(MemberDto memberDto) {
-        boolean result;
+        String hashPW = "";
 
-        String sql = "SELECT * FROM MEMBER WHERE userID = ? AND userPW = ?";
+        String sql = "SELECT * FROM MEMBER WHERE userID = ?";
 
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, memberDto.getUserID());
-            pstmt.setString(2, memberDto.getUserPW());
 
-            result = pstmt.executeQuery().next();
+            ResultSet results = pstmt.executeQuery();
+
+            while (results.next()) {
+                hashPW = results.getString("userPW");
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             close();
+        }
+
+        return !hashPW.isEmpty() && BCrypt.checkpw(memberDto.getUserPW(), hashPW);
+    }
+
+    public boolean resetPassword(MemberDto memberDto) {
+        boolean result = false;
+
+        String sql = "UPDATE MEMBER SET userPW = ? WHERE userID = ?";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, memberDto.getUserPW());
+            pstmt.setString(2, memberDto.getUserID());
+
+            result = pstmt.executeQuery().next();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return result;

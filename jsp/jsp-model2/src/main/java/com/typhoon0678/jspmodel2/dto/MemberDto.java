@@ -18,9 +18,10 @@ public class MemberDto {
     private String postcode;
     private String address;
     private String detailAddress;
+    private String grade;
     private String birth;
 
     public String[] getMember() {
-        return new String[] { userID, userPW, userName, email, postcode, address, detailAddress };
+        return new String[] { userID, userPW, userName, email, postcode, address, grade, detailAddress };
     }
 }

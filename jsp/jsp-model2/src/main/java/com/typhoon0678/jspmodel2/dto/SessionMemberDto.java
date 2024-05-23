@@ -18,5 +18,6 @@ public class SessionMemberDto {
     private String postcode;
     private String address;
     private String detailAddress;
+    private String grade;
     private String birth;
 }
