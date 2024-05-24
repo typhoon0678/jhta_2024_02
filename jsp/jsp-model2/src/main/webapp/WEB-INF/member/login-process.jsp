@@ -7,6 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script>
-    window.alert("Login Success");
+    window.alert();
     window.location.href="/index";
 </script>

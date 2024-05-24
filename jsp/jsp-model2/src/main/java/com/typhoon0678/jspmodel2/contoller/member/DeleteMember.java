@@ -3,6 +3,8 @@ package com.typhoon0678.jspmodel2.contoller.member;
 import com.typhoon0678.jspmodel2.dao.MemberDao;
 import com.typhoon0678.jspmodel2.dto.MemberDto;
 import com.typhoon0678.jspmodel2.dto.SessionMemberDto;
+import com.typhoon0678.jspmodel2.util.CookieManager;
+import com.typhoon0678.jspmodel2.util.CustomAlert;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -38,11 +40,13 @@ public class DeleteMember extends HttpServlet {
                 .build();
 
         if (dao.checkMember(memberDto) && dao2.deleteMember(memberDto)) {
-            session.setAttribute("member", null);
+            session.invalidate();
+            CookieManager.deleteCookie(resp, "rememberID");
 
-            req.getRequestDispatcher("/WEB-INF/member/delete-member-process.jsp").forward(req, resp);
+            CustomAlert.setAlert(req, resp, "Member Deleted", "/index");
+
         } else {
-            req.setAttribute("error", "Password Incorrect");
+            CustomAlert.setAlert(req, resp, "Please Check your Password", "/member/delete-member");
 
             req.getRequestDispatcher("/WEB-INF/member/delete-member.jsp").forward(req, resp);
         }

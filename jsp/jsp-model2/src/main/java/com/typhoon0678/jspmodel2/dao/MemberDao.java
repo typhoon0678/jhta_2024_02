@@ -20,7 +20,6 @@ public class MemberDao extends JdbcConnectionPool {
         String[] values = memberDto.getMember();
 
         try {
-            conn.prepareStatement(sql);
             pstmt = conn.prepareStatement(sql);
 
             for (int i = 0; i < values.length; i++) {
@@ -206,7 +205,7 @@ public class MemberDao extends JdbcConnectionPool {
 
         return result;
     }
-    
+
     private MemberDto doMemberDto(ResultSet rs) throws SQLException {
         return MemberDto.builder()
                 .userNo(rs.getInt("userNo"))

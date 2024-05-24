@@ -4,6 +4,7 @@ import com.typhoon0678.jspmodel2.dao.MemberDao;
 import com.typhoon0678.jspmodel2.dto.MemberDto;
 import com.typhoon0678.jspmodel2.dto.SessionMemberDto;
 import com.typhoon0678.jspmodel2.util.CookieManager;
+import com.typhoon0678.jspmodel2.util.CustomAlert;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -51,12 +52,11 @@ public class Login extends HttpServlet {
                 CookieManager.deleteCookie(resp, "rememberID");
             }
 
-            req.getRequestDispatcher("/WEB-INF/member/login-process.jsp").forward(req, resp);
+            CustomAlert.setAlert(req, resp, "Login Success", "/index");
 
         } else {
-            req.setAttribute("error", "Invalid userID or password");
+            CustomAlert.setErrorAlert(req, resp, "Invalid userID or password", "/member/login.jsp");
 
-            req.getRequestDispatcher("/WEB-INF/member/login.jsp").forward(req, resp);
         }
 
     }

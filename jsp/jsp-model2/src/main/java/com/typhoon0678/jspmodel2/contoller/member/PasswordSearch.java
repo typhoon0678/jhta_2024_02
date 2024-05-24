@@ -2,6 +2,7 @@ package com.typhoon0678.jspmodel2.contoller.member;
 
 import com.typhoon0678.jspmodel2.dao.MemberDao;
 import com.typhoon0678.jspmodel2.mail.NaverMail;
+import com.typhoon0678.jspmodel2.util.CustomAlert;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -34,7 +35,7 @@ public class PasswordSearch extends HttpServlet {
 
         System.out.println(toEmail);
         if (toEmail == null) {
-            req.getRequestDispatcher("/WEB-INF/member/password-search-process.jsp").forward(req, resp);
+            CustomAlert.setAlert(req, resp, "Check your Email", "/index");
             return;
         }
 
@@ -55,6 +56,6 @@ public class PasswordSearch extends HttpServlet {
             System.out.println("fail");
         }
 
-        req.getRequestDispatcher("/WEB-INF/member/password-search-process.jsp").forward(req, resp);
+        CustomAlert.setAlert(req, resp, "Check Your Email", "/index");
     }
 }

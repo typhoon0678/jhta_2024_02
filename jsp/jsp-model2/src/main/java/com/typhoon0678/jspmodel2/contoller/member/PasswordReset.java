@@ -2,6 +2,7 @@ package com.typhoon0678.jspmodel2.contoller.member;
 
 import com.typhoon0678.jspmodel2.dao.MemberDao;
 import com.typhoon0678.jspmodel2.dto.MemberDto;
+import com.typhoon0678.jspmodel2.util.CustomAlert;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -38,11 +39,11 @@ public class PasswordReset extends HttpServlet {
         boolean result = dao.resetPassword(memberDto);
 
         if (result) {
-            req.getRequestDispatcher("/WEB-INF/member/password-reset-process.jsp").forward(req, resp);
-        } else {
-            req.setAttribute("error", "Error Reset Password");
+            CustomAlert.setAlert(req, resp, "Password Changed", "/index");
 
-            req.getRequestDispatcher("/WEB-INF/member/password-reset.jsp").forward(req, resp);
+        } else {
+            CustomAlert.setErrorAlert(req, resp, "Error Reset Password", "/password-reset.jsp");
+
         }
     }
 }

@@ -2,6 +2,7 @@ package com.typhoon0678.jspmodel2.contoller.member;
 
 import com.typhoon0678.jspmodel2.dao.MemberDao;
 import com.typhoon0678.jspmodel2.dto.MemberDto;
+import com.typhoon0678.jspmodel2.util.CustomAlert;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -75,11 +76,11 @@ public class InsertMember extends HttpServlet {
 
         int result = dao.insertMember(memberDto);
         if (result > 0) {
-            req.getRequestDispatcher("/WEB-INF/member/insert-member-process.jsp").forward(req, resp);
-        } else {
-            req.setAttribute("error", "Error inserting member");
+            CustomAlert.setAlert(req, resp, "Member Created", "/index");
 
-            req.getRequestDispatcher("/WEB-INF/member/insert-member.jsp").forward(req, resp);
+        } else {
+            CustomAlert.setErrorAlert(req, resp, "Error inserting member", "/member/insert-member.jsp");
+
         }
 
     }
