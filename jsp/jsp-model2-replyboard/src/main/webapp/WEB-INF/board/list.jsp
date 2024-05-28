@@ -17,6 +17,25 @@
 
 <main class="container">
 
+
+    <form action="${pageContext.request.contextPath}/board/search" class="row g-3 align-items-center mb-5" method="post">
+        <div class="col-2">
+            <select class="form-select" aria-label="Default select example" name="search">
+                <option selected value="subject">제목</option>
+                <option value="username">글쓴이</option>
+                <option value="content">내용</option>
+                <option value="all">제목+내용</option>
+            </select>
+        </div>
+        <div class="col-8">
+            <label for="searchWord"></label>
+            <input type="text" name="searchWord" id="searchWord" class="form-control">
+        </div>
+        <div class="col-2">
+            <button class="btn btn-primary">Search</button>
+        </div>
+    </form>
+
     <div class="row">
         <c:forEach var="boardDto" items="${boardList}" varStatus="loop">
             <div class="col-md-6">
@@ -43,12 +62,20 @@
         <ul class="pagination">
             <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/board/list?page=${(navNum - 10 > 0) ? navNum - 10 : 1}"
+                   href="${pageContext.request.contextPath}/board/list?page=${(navNum > 10) ? navNum - 10 : 1}"
                    aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <c:forEach var="i" begin="${10 * navNum + 1}" end="${10 * navNum + 10}">
+            <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/board/list?page=${(page > 1) ? page - 1 : 1}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&lt;</span>
+                </a>
+            </li>
+            <c:forEach var="i" begin="${perPage * navNum + 1}"
+                       end="${(perPage * (navNum + 1) <= total) ? perPage * (navNum + 1) : total}">
                 <li class="page-item">
                     <a class="page-link ${(i == page) ? 'active' : ''}"
                        href="${pageContext.request.contextPath}/board/list?page=${i}">
@@ -58,7 +85,14 @@
             </c:forEach>
             <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/board/list?page=${navNum + 11}"
+                   href="${pageContext.request.contextPath}/board/list?page=${(perPage * (navNum + 1) + 1 <= total) ? perPage * (navNum + 1) + 1: total}"
+                   aria-label="Next">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/board/list?page=${(perPage * (navNum + 1) + 1 <= total) ? perPage * (navNum + 1) + 1: total}"
                    aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>

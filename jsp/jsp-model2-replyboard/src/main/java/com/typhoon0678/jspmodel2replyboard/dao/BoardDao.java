@@ -10,252 +10,318 @@ import java.util.List;
 
 public class BoardDao extends JdbcConnectionPool {
 
-    public boolean addBoard(BoardDto boardDto) {
+	public boolean addBoard(BoardDto boardDto) {
 
-        String sql = "INSERT INTO board values(board_seq.nextval, ?, ?, ?, ?, ?, ?, ?, sysdate, 0, 1)";
+		String sql = "INSERT INTO board values(board_seq.nextval, ?, ?, ?, ?, ?, ?, ?, sysdate, 0, 1)";
 
-        String[] values = dtoToArray(boardDto);
+		String[] values = dtoToArray(boardDto);
 
-        boolean result;
+		boolean result;
 
-        try {
-            pstmt = conn.prepareStatement(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
 
-            for (int i = 0; i < values.length; i++) {
-                pstmt.setString(i + 1, values[i]);
-            }
+			for (int i = 0; i < values.length; i++) {
+				pstmt.setString(i + 1, values[i]);
+			}
 
-            result = pstmt.executeUpdate() > 0;
+			result = pstmt.executeUpdate() > 0;
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return false;
-        } finally {
-            close();
-        }
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		} finally {
+			close();
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    public List<BoardDto> getAllBoard() {
+	public List<BoardDto> getPageBoard(int start, int end) {
 
-        String sql = "SELECT * FROM board WHERE relevel = 1 AND restep = 1 ORDER BY regroup DESC, relevel ASC";
-
-        List<BoardDto> boardList;
-
-        try {
-            pstmt = conn.prepareStatement(sql);
-
-            rs = pstmt.executeQuery();
-
-            boardList = getBoardFromDB(rs);
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            close();
-        }
-
-        return boardList;
-    }
-
-    public List<BoardDto> getPageBoard(int start, int end) {
-
-        String sql = "SELECT * FROM "
+		String sql = "SELECT * FROM "
 			+ "(SELECT rownum AS num, b01.* FROM "
-			+ "   (SELECT * FROM board ORDER BY no DESC) b01) "
+			+ "   (SELECT * FROM board ORDER BY no DESC) b01 "
+			+ "WHERE relevel = 1 AND restep = 1 AND available = 1) "
 			+ "WHERE num BETWEEN ? AND ? ";
 
-        List<BoardDto> boardList;
+		List<BoardDto> boardList;
 
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, start);
-            pstmt.setInt(2, end);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
 
-            rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 
-            boardList = getBoardFromDB(rs);
+			boardList = getBoardFromDB(rs);
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            close();
-        }
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			close();
+		}
 
-        return boardList;
-    }
+		return boardList;
+	}
 
-    public BoardDto getBoard(String no) {
+	public BoardDto getBoard(String no) {
 
-        String sql = "SELECT * FROM board WHERE no = ?";
+		String sql = "SELECT * FROM board WHERE no = ? AND available = 1";
 
-        List<BoardDto> boardList;
+		List<BoardDto> boardList;
 
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, no);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, no);
 
-            rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 
-            boardList = getBoardFromDB(rs);
+			boardList = getBoardFromDB(rs);
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            close();
-        }
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			close();
+		}
 
-        return boardList.get(0);
-    }
+		return boardList.get(0);
+	}
 
-    public boolean updateBoardHit(String no) {
+	public boolean updateBoardHit(String no) {
 
-        String sql = "UPDATE board SET hit = hit + 1 WHERE no = ?";
+		String sql = "UPDATE board SET hit = hit + 1 WHERE no = ?";
 
-        boolean result = false;
+		boolean result = false;
 
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, no);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, no);
 
-            result = pstmt.executeUpdate() > 0;
+			result = pstmt.executeUpdate() > 0;
 
-        } catch (SQLException e) {
-            return false;
-        } finally {
-            close();
-        }
+		} catch (SQLException e) {
+			return false;
+		} finally {
+			close();
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    public int getMaxReGroup() {
+	public boolean updateBoardAvailable(String no) {
 
-        String sql = "SELECT NVL(MAX(regroup), 0) AS max FROM board";
+		String sql = "UPDATE board SET available = 0 WHERE no = ?";
 
-        int result;
+		boolean result = false;
 
-        try {
-            pstmt = conn.prepareStatement(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, no);
 
-            rs = pstmt.executeQuery();
+			result = pstmt.executeUpdate() > 0;
 
-            result = rs.next() ? rs.getInt("max") : 0;
+		} catch (SQLException e) {
+			return false;
+		} finally {
+			close();
+		}
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            close();
-        }
+		return result;
+	}
 
-        return result;
-    }
+	public int getBoardCount() {
 
-    public int getMaxReLevel(int regroup) {
+		String sql = "SELECT COUNT(*) AS count FROM board WHERE available = 1";
 
-        String sql = "SELECT NVL(MAX(relevel), 0) AS max FROM board WHERE regroup = ?";
+		int result;
 
-        int result;
+		try {
+			pstmt = conn.prepareStatement(sql);
 
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, regroup);
+			rs = pstmt.executeQuery();
 
-            rs = pstmt.executeQuery();
+			result = rs.next() ? rs.getInt("count") : 0;
 
-            result = rs.next() ? rs.getInt("max") : 0;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			close();
+		}
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            close();
-        }
+		return result;
+	}
 
-        return result;
-    }
+	public int getMaxReGroup() {
 
-    public int getMaxReStep(int regroup, int relevel) {
+		String sql = "SELECT NVL(MAX(regroup), 0) AS max FROM board WHERE available = 1";
 
-        String sql = "SELECT NVL(MAX(restep), 0) AS max FROM board WHERE regroup = ? AND relevel = ?";
+		int result;
 
-        int result;
+		try {
+			pstmt = conn.prepareStatement(sql);
 
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, regroup);
-            pstmt.setInt(2, relevel);
+			rs = pstmt.executeQuery();
 
-            rs = pstmt.executeQuery();
+			result = rs.next() ? rs.getInt("max") : 0;
 
-            result = rs.next() ? rs.getInt("max") : 0;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			close();
+		}
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            close();
-        }
+		return result;
+	}
 
-        return result;
-    }
+	public int getMaxReLevel(int regroup) {
 
-    public List<BoardDto> getBoardByReGroup(BoardDto boardDto) {
+		String sql = "SELECT NVL(MAX(relevel), 0) AS max FROM board WHERE regroup = ? AND available = 1";
 
-        String sql = "SELECT * FROM board WHERE regroup = ? AND no != ? ORDER BY relevel, restep";
+		int result;
 
-        List<BoardDto> boardList;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, regroup);
 
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, boardDto.getReGroup());
-            pstmt.setInt(2, boardDto.getNo());
+			rs = pstmt.executeQuery();
 
-            rs = pstmt.executeQuery();
+			result = rs.next() ? rs.getInt("max") : 0;
 
-            boardList = getBoardFromDB(rs);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			close();
+		}
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            close();
-        }
+		return result;
+	}
 
-        return boardList;
-    }
+	public int getMaxReStep(int regroup, int relevel) {
 
-    private List<BoardDto> getBoardFromDB(ResultSet rs) throws SQLException {
-        List<BoardDto> boardList = new ArrayList<>();
+		String sql = "SELECT NVL(MAX(restep), 0) AS max FROM board WHERE regroup = ? AND relevel = ? AND available = 1";
 
-        while (rs.next()) {
-            BoardDto boardDto = BoardDto.builder()
-                    .no(rs.getInt("no"))
-                    .subject(rs.getString("subject"))
-                    .content(rs.getString("content"))
-                    .userID(rs.getString("userid"))
-                    .userName(rs.getString("username"))
-                    .reGroup(rs.getInt("regroup"))
-                    .reLevel(rs.getInt("relevel"))
-                    .reStep(rs.getInt("restep"))
-                    .regDate(rs.getString("regdate"))
-                    .hit(rs.getInt("hit"))
-                    .build();
+		int result;
 
-            boardList.add(boardDto);
-        }
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, regroup);
+			pstmt.setInt(2, relevel);
 
-        return boardList;
-    }
+			rs = pstmt.executeQuery();
 
-    private String[] dtoToArray(BoardDto boardDto) {
+			result = rs.next() ? rs.getInt("max") : 0;
 
-        return new String[]{
-                boardDto.getSubject(),
-                boardDto.getContent(),
-                boardDto.getUserID(),
-                boardDto.getUserName(),
-                String.valueOf(boardDto.getReGroup()),
-                String.valueOf(boardDto.getReLevel()),
-                String.valueOf(boardDto.getReStep())
-        };
-    }
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			close();
+		}
+
+		return result;
+	}
+
+	public List<BoardDto> getBoardByReGroup(BoardDto boardDto) {
+
+		String sql = "SELECT * FROM board WHERE regroup = ? AND no != ? AND available = 1 ORDER BY relevel, restep";
+
+		List<BoardDto> boardList;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardDto.getReGroup());
+			pstmt.setInt(2, boardDto.getNo());
+
+			rs = pstmt.executeQuery();
+
+			boardList = getBoardFromDB(rs);
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			close();
+		}
+
+		return boardList;
+	}
+
+	public List<BoardDto> searchBoard(String search, String searchWord) {
+
+		String sql;
+
+		switch (search) {
+			case "subject":
+				sql = "SELECT * FROM board WHERE subject LIKE '%'||?||'%' AND available = 1";
+				break;
+			case "content":
+				sql = "SELECT * FROM board WHERE content LIKE '%'||?||'%' AND available = 1";
+				break;
+			case "username":
+				sql = "SELECT * FROM board WHERE username LIKE '%'||?||'%' AND available = 1";
+				break;
+			case "all":
+				sql = "SELECT * FROM board WHERE subject LIKE '%'||?||'%' OR content LIKE '%'||?||'%' AND available = 1";
+				break;
+			default:
+				sql = "SELECT * FROM board WHERE subject LIKE '%'||?||'%' AND available = 1";
+		}
+
+		List<BoardDto> boardList;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, searchWord);
+			if (search.equals("all")) {
+				pstmt.setString(2, searchWord);
+			}
+
+			rs = pstmt.executeQuery();
+
+			boardList = getBoardFromDB(rs);
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			close();
+		}
+
+		return boardList;
+	}
+
+	private List<BoardDto> getBoardFromDB(ResultSet rs) throws SQLException {
+		List<BoardDto> boardList = new ArrayList<>();
+
+		while (rs.next()) {
+			BoardDto boardDto = BoardDto.builder()
+				.no(rs.getInt("no"))
+				.subject(rs.getString("subject"))
+				.content(rs.getString("content"))
+				.userID(rs.getString("userid"))
+				.userName(rs.getString("username"))
+				.reGroup(rs.getInt("regroup"))
+				.reLevel(rs.getInt("relevel"))
+				.reStep(rs.getInt("restep"))
+				.regDate(rs.getString("regdate"))
+				.hit(rs.getInt("hit"))
+				.available(rs.getInt("available"))
+				.build();
+
+			boardList.add(boardDto);
+		}
+
+		return boardList;
+	}
+
+	private String[] dtoToArray(BoardDto boardDto) {
+
+		return new String[] {
+			boardDto.getSubject(),
+			boardDto.getContent(),
+			boardDto.getUserID(),
+			boardDto.getUserName(),
+			String.valueOf(boardDto.getReGroup()),
+			String.valueOf(boardDto.getReLevel()),
+			String.valueOf(boardDto.getReStep())
+		};
+	}
 }

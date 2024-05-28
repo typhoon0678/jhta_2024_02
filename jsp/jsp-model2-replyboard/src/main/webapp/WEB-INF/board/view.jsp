@@ -30,39 +30,23 @@
     </div>
 
 
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th></th>
-            <th>subject</th>
-            <th>content</th>
-            <th>regDate</th>
-            <th>reGroup</th>
-            <th>reLevel</th>
-            <th>reStep</th>
-        </tr>
-        </thead>
-        <tbody id="rep-body">
+    <div class="row" id="rep-body">
         <c:forEach var="rep" items="${reply}" varStatus="loop">
-            <tr id="rep">
-                <c:if test="${rep.reStep <= 1}">
-                    <td style="width: 16px;"></td>
-                </c:if>
-                <c:if test="${rep.reStep > 1}">
-                    <td style="width: 16px;">&#8618;</td>
-                </c:if>
-
-                <td>${rep.subject}</td>
-                <td>${rep.content}</td>
-                <td>${rep.regDate}</td>
-                <td>${rep.reGroup}</td>
-                <td id="td-reLevel">${rep.reLevel}</td>
-                <td id="td-reStep">${rep.reStep}</td>
-            </tr>
+            <section class="row ${rep.reStep <= 1 ? 'bg-primary-subtle' : ''}">
+                <div class="col-1">
+                    <c:if test="${rep.reStep > 1}">&#8618;</c:if>
+                </div>
+                <div class="col-3">${rep.subject}</div>
+                <div class="col-3">${rep.content}</div>
+                <div class="col-2">${rep.regDate}</div>
+                <div class="col-1">${rep.reGroup}</div>
+                <div class="col-1" id="td-reLevel">${rep.reLevel}</div>
+                <div class="col-1" id="td-reStep">${rep.reStep}</div>
+            </section>
         </c:forEach>
-        </tbody>
-    </table>
+    </div>
 
+    <a class="btn btn-danger" id="btn-delete">Delete</a>
 
     <a href="${pageContext.request.contextPath}/board/list" class="btn btn-secondary">Back</a>
 
@@ -121,21 +105,47 @@
 
     $("#div-board").on("click", function (e) {
         console.log(e.target);
+
+        if (${empty member}) return;
         if ($("#div-board #form-reply").length === 0) {
-            $("#rep-body div").remove();
+            $("#rep-body #form-reply").remove();
             $(this).append(getFormText(0));
         }
     });
 
     $("#rep-body").on("click", "> *", function (e) {
-        if (e.currentTarget.tagName !== 'TR') return;
+        console.log(e.currentTarget);
+
+        if (${empty member}) return;
+        else if (e.currentTarget.tagName !== 'SECTION') return;
         else if ($(this).find('#td-reStep').text() > 1) return;
 
         if ($(this).next('#form-reply').length === 0) {
             $("#div-board #form-reply").remove();
-            $("#rep-body div").remove();
+            $("#rep-body #form-reply").remove();
             $(this).after(getFormText($(this).find('#td-reLevel').text()));
         }
+    });
+
+    $("#btn-delete").on("click", function () {
+        if (${empty member}) return;
+
+        $.ajax({
+            url: "/board/delete",
+            type: "post",
+            data: {
+                no: ${board.no}
+            },
+            success: function (res) {
+                console.log(res);
+
+                if (res.success === true) {
+                    window.location.href = "/board/list";
+                } else {
+                    alert("Failed to Delete Board");
+                }
+            }
+        });
     });
 
 </script>
