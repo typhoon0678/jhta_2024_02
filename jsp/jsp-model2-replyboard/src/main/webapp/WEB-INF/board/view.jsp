@@ -19,13 +19,13 @@
 <main class="container">
     <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary" id="div-board">
         <div class="col-lg-6 px-0">
-            <h1 class="display-4 fst-italic">${board.subject}</h1>
+            <h1 class="display-4 fst-italic" style="word-wrap: break-word;">${board.subject}</h1>
             <div class="d-flex justify-content-between">
                 <div class="lead mb-0 text-body-emphasis fw-bold">${board.userName}</div>
                 <div class="lead mb-0 text-body-emphasis fw-bold">${board.regDate}</div>
                 <div class="lead mb-0 text-body-emphasis fw-bold">hit : ${board.hit}</div>
             </div>
-            <p class="lead my-3">${board.content}</p>
+            <p class="lead my-3" style="word-wrap: break-word;">${board.content}</p>
         </div>
     </div>
 
@@ -47,8 +47,22 @@
     </div>
 
     <a class="btn btn-danger" id="btn-delete">Delete</a>
+    <a class="btn btn-secondary" id="btn-back">Back</a>
 
-    <a href="${pageContext.request.contextPath}/board/list" class="btn btn-secondary">Back</a>
+    <div class="container my-5">
+        <c:if test="${not empty subject_prev}">
+            <a href="/board/view?no=${no_prev}" class="row border border-secondary p-2">
+                <div class="col-2">이전글</div>
+                <div class="col-10">${subject_prev}</div>
+            </a>
+        </c:if>
+        <c:if test="${not empty subject_next}">
+            <a href="/board/view?no=${no_next}" class="row border border-secondary p-2">
+                <div class="col-2">다음글</div>
+                <div class="col-10">${subject_next}</div>
+            </a>
+        </c:if>
+    </div>
 
 </main>
 
@@ -146,6 +160,10 @@
                 }
             }
         });
+    });
+
+    $("#btn-back").on("click", function () {
+        history.back();
     });
 
 </script>

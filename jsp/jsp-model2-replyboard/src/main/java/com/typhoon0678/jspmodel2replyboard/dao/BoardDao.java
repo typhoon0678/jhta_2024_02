@@ -65,6 +65,42 @@ public class BoardDao extends JdbcConnectionPool {
 		return boardList;
 	}
 
+	public String[] getPrevNextBoard(String no) {
+
+		String sql = "SELECT subject_prev, subject_next, no_prev, no_next FROM "
+			+ "(SELECT "
+			+ "		LAG(b01.subject) OVER(ORDER BY rownum) AS subject_prev, "
+			+ "		LAG(b01.no) OVER(ORDER BY rownum) AS no_prev, "
+			+ "		LEAD(b01.subject) OVER(ORDER BY rownum) AS subject_next, "
+			+ "		LEAD(b01.no) OVER(ORDER BY rownum) AS no_next, "
+			+ "		b01.* FROM (SELECT * FROM board ORDER BY no DESC) b01 "
+			+ "			WHERE relevel = 1 AND restep = 1 AND available = 1) "
+			+ "WHERE no = ? ";
+
+		String[] result = new String[] {null, null, null, null};
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, no);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result[0] = rs.getString("subject_prev");
+				result[1] = rs.getString("subject_next");
+				result[2] = rs.getString("no_prev");
+				result[3] = rs.getString("no_next");
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			close();
+		}
+
+		return result;
+	}
+
 	public BoardDto getBoard(String no) {
 
 		String sql = "SELECT * FROM board WHERE no = ? AND available = 1";
@@ -132,12 +168,38 @@ public class BoardDao extends JdbcConnectionPool {
 
 	public int getBoardCount() {
 
-		String sql = "SELECT COUNT(*) AS count FROM board WHERE available = 1";
+		String sql = "SELECT COUNT(*) AS count FROM board WHERE relevel = 1 AND restep = 1 AND available = 1";
 
 		int result;
 
 		try {
 			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+
+			result = rs.next() ? rs.getInt("count") : 0;
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			close();
+		}
+
+		return result;
+	}
+
+	public int getSearchBoardCount(String search, String searchWord) {
+
+		String sql = generateCountSqlByCondition(search);
+
+		int result;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, searchWord);
+			if (search.equals("all")) {
+				pstmt.setString(2, searchWord);
+			}
 
 			rs = pstmt.executeQuery();
 
@@ -245,26 +307,9 @@ public class BoardDao extends JdbcConnectionPool {
 		return boardList;
 	}
 
-	public List<BoardDto> searchBoard(String search, String searchWord) {
+	public List<BoardDto> searchBoard(String search, String searchWord, int start, int end) {
 
-		String sql;
-
-		switch (search) {
-			case "subject":
-				sql = "SELECT * FROM board WHERE subject LIKE '%'||?||'%' AND available = 1";
-				break;
-			case "content":
-				sql = "SELECT * FROM board WHERE content LIKE '%'||?||'%' AND available = 1";
-				break;
-			case "username":
-				sql = "SELECT * FROM board WHERE username LIKE '%'||?||'%' AND available = 1";
-				break;
-			case "all":
-				sql = "SELECT * FROM board WHERE subject LIKE '%'||?||'%' OR content LIKE '%'||?||'%' AND available = 1";
-				break;
-			default:
-				sql = "SELECT * FROM board WHERE subject LIKE '%'||?||'%' AND available = 1";
-		}
+		String sql = generateSqlByCondition(search);
 
 		List<BoardDto> boardList;
 
@@ -273,6 +318,11 @@ public class BoardDao extends JdbcConnectionPool {
 			pstmt.setString(1, searchWord);
 			if (search.equals("all")) {
 				pstmt.setString(2, searchWord);
+				pstmt.setInt(3, start);
+				pstmt.setInt(4, end);
+			} else {
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, end);
 			}
 
 			rs = pstmt.executeQuery();
@@ -323,5 +373,77 @@ public class BoardDao extends JdbcConnectionPool {
 			String.valueOf(boardDto.getReLevel()),
 			String.valueOf(boardDto.getReStep())
 		};
+	}
+
+	private String generateSqlByCondition(String search) {
+		String sql;
+
+		switch (search) {
+			case "subject":
+				sql = "SELECT * FROM "
+					+ "(SELECT rownum AS num, b01.* FROM "
+					+ "   (SELECT * FROM board ORDER BY no DESC) b01 "
+					+ "WHERE subject LIKE '%'||?||'%' "
+					+ "AND relevel = 1 AND restep = 1 AND available = 1) "
+					+ "WHERE num BETWEEN ? AND ? ";
+				break;
+			case "content":
+				sql = "SELECT * FROM "
+					+ "(SELECT rownum AS num, b01.* FROM "
+					+ "   (SELECT * FROM board ORDER BY no DESC) b01 "
+					+ "WHERE content LIKE '%'||?||'%' "
+					+ "AND relevel = 1 AND restep = 1 AND available = 1) "
+					+ "WHERE num BETWEEN ? AND ? ";
+				break;
+			case "username":
+				sql = "SELECT * FROM "
+					+ "(SELECT rownum AS num, b01.* FROM "
+					+ "   (SELECT * FROM board ORDER BY no DESC) b01 "
+					+ "WHERE username LIKE '%'||?||'%' "
+					+ "AND relevel = 1 AND restep = 1 AND available = 1) "
+					+ "WHERE num BETWEEN ? AND ? ";
+				break;
+			case "all":
+				sql = "SELECT * FROM "
+					+ "(SELECT rownum AS num, b01.* FROM "
+					+ "   (SELECT * FROM board ORDER BY no DESC) b01 "
+					+ "WHERE (subject LIKE '%'||?||'%' OR content LIKE '%'||?||'%') "
+					+ "AND relevel = 1 AND restep = 1 AND available = 1) "
+					+ "WHERE num BETWEEN ? AND ? ";
+				break;
+			default:
+				sql = "SELECT * FROM "
+					+ "(SELECT rownum AS num, b01.* FROM "
+					+ "   (SELECT * FROM board ORDER BY no DESC) b01 "
+					+ "WHERE subject LIKE '%'||?||'%' "
+					+ "AND relevel = 1 AND restep = 1 AND available = 1) "
+					+ "WHERE num BETWEEN ? AND ? ";
+				break;
+		}
+
+		return sql;
+	}
+
+	private String generateCountSqlByCondition(String search) {
+		String sql;
+
+		switch (search) {
+			case "subject":
+				sql = "SELECT COUNT(*) AS count FROM board WHERE subject LIKE '%'||?||'%' AND relevel = 1 AND restep = 1 AND available = 1";
+				break;
+			case "content":
+				sql = "SELECT COUNT(*) AS count FROM board WHERE content LIKE '%'||?||'%' AND relevel = 1 AND restep = 1 AND available = 1";
+				break;
+			case "username":
+				sql = "SELECT COUNT(*) AS count FROM board WHERE username LIKE '%'||?||'%' AND relevel = 1 AND restep = 1 AND available = 1";
+				break;
+			case "all":
+				sql = "SELECT COUNT(*) AS count FROM board WHERE (subject LIKE '%'||?||'%' OR content LIKE '%'||?||'%') AND relevel = 1 AND restep = 1 AND available = 1";
+				break;
+			default:
+				sql = "SELECT COUNT(*) AS count FROM board WHERE subject LIKE '%'||?||'%' AND relevel = 1 AND restep = 1 AND available = 1";
+		}
+
+		return sql;
 	}
 }

@@ -27,6 +27,14 @@ public class ViewBoard extends HttpServlet {
         BoardDao dao3 = new BoardDao();
         req.setAttribute("reply", dao3.getBoardByReGroup(board));
 
+        BoardDao dao4 = new BoardDao();
+        String[] result = dao4.getPrevNextBoard(boardNo);
+
+        if (result[0] != null) req.setAttribute("subject_prev", result[0]);
+        if (result[1] != null) req.setAttribute("subject_next", result[1]);
+        if (result[2] != null) req.setAttribute("no_prev", result[2]);
+        if (result[3] != null) req.setAttribute("no_next", result[3]);
+
         req.getRequestDispatcher("/WEB-INF/board/view.jsp").forward(req, resp);
     }
 }
