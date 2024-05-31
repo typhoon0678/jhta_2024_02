@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.typhoon0678.mybatis">
+
+    <select id="getBoard" resultType="BoardDto" parameterType="int">
+        SELECT * FROM board WHERE no = #{no}
+    </select>
+
+    <select id="getBoardList" resultType="BoardDto" parameterType="PageDto">
+        SELECT * FROM (
+            SELECT rownum AS num, b01.*
+                FROM (SELECT * FROM board ORDER BY no DESC) b01
+            WHERE relevel = 1 AND restep = 1 AND available = 1
+            )
+        WHERE num BETWEEN #{start} AND #{end}
+    </select>
+
+    <select id="getTotal" resultType="int">
+        SELECT COUNT(*) AS total FROM board
+            WHERE relevel = 1 AND restep = 1 AND available = 1
+    </select>
+
+    <select id="getSearchBoardList" resultType="BoardDto" parameterType="SearchDto">
+        SELECT * FROM (
+            SELECT rownum AS num, b01.*
+                FROM (SELECT * FROM board ORDER BY no DESC) b01
+            WHERE relevel = 1 AND restep = 1 AND available = 1
+                <choose>
+                    <when test="search == 'subject'">
+                        AND subject LIKE '%'||#{searchWord}||'%'
+                    </when>
+                    <when test="search == 'content'">
+                        AND content LIKE '%'||#{searchWord}||'%'
+                    </when>
+                    <when test="search == 'username'">
+                        AND username LIKE '%'||#{searchWord}||'%'
+                    </when>
+                    <when test="search == 'all'">
+                        AND (subject LIKE '%'||#{searchWord}||'%' OR content LIKE '%'||#{searchWord}||'%')
+                    </when>
+                    <otherwise>
+                        AND subject LIKE '%'||#{searchWord}||'%'
+                    </otherwise>
+                </choose>
+            )
+        WHERE num BETWEEN #{start} AND #{end}
+    </select>
+
+    <select id="getSearchTotal" resultType="int" parameterType="SearchDto">
+        SELECT COUNT(*) as total FROM board
+            WHERE relevel = 1 AND restep = 1 AND available = 1
+                <choose>
+                    <when test="search == 'subject'">
+                        AND subject LIKE '%'||#{searchWord}||'%'
+                    </when>
+                    <when test="search == 'content'">
+                        AND content LIKE '%'||#{searchWord}||'%'
+                    </when>
+                    <when test="search == 'username'">
+                        AND username LIKE '%'||#{searchWord}||'%'
+                    </when>
+                    <when test="search == 'all'">
+                        AND (subject LIKE '%'||#{searchWord}||'%' OR content LIKE '%'||#{searchWord}||'%')
+                    </when>
+                    <otherwise>
+                        AND subject LIKE '%'||#{searchWord}||'%'
+                    </otherwise>
+                </choose>
+    </select>
+
+    <select id="getMaxReGroup" resultType="int">
+        SELECT NVL(MAX(regroup), 0) AS max FROM board WHERE available = 1
+    </select>
+
+    <insert id="writeBoard" parameterType="BoardDto">
+        INSERT INTO board VALUES (
+            board_seq.nextval, #{subject}, #{content} ,#{userID}, #{userName}, #{reGroup}, 1, 1, sysdate, 0, 1
+        )
+    </insert>
+
+    <delete id="deleteAllBoard">
+        DELETE FROM board WHERE no IN
+        <foreach collection="array" item="item" index="i" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>
