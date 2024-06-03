@@ -3,9 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <properties resource="db.properties">
-
-    </properties>
+    <properties resource="db.properties"/>
     <typeAliases>
         <typeAlias alias="BoardDto" type="com.typhoon0678.mybatis.dto.BoardDto"/>
         <typeAlias alias="PageDto" type="com.typhoon0678.mybatis.dto.PageDto"/>
@@ -13,17 +11,20 @@
         <typeAlias alias="MemberDto" type="com.typhoon0678.mybatis.dto.MemberDto"/>
         <typeAlias alias="ProfileDto" type="com.typhoon0678.mybatis.dto.ProfileDto"/>
     </typeAliases>
+    <typeHandlers>
+        <typeHandler handler="com.typhoon0678.mybatis.mybatis.GradeTypeHandler"/>
+    </typeHandlers>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
-<!--            <dataSource type="POOLED">-->
-<!--                <property name="driver" value="${driver}"/>-->
-<!--                <property name="url" value="${url}"/>-->
-<!--                <property name="username" value="${username}"/>-->
-<!--                <property name="password" value="${password}"/>-->
-<!--            </dataSource>-->
+            <!--            <dataSource type="POOLED">-->
+            <!--                <property name="driver" value="${driver}"/>-->
+            <!--                <property name="url" value="${url}"/>-->
+            <!--                <property name="username" value="${username}"/>-->
+            <!--                <property name="password" value="${password}"/>-->
+            <!--            </dataSource>-->
             <dataSource type="JNDI">
-                <property name="data_source" value="java:comp/env/dbcp_oracle" />
+                <property name="data_source" value="java:comp/env/dbcp_oracle"/>
             </dataSource>
         </environment>
     </environments>

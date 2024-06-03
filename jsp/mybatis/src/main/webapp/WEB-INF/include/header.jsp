@@ -18,7 +18,14 @@
     <div class="col-md-3 text-end">
         <c:if test="${not empty member}">
             <a href="${pageContext.request.contextPath}/member/info" class="me-2" style="text-decoration: none">
-                <img src="${member.renameProfile}" style="object-fit: contain; height: 50px; width: 50px;">
+                <c:choose>
+                    <c:when test="${not empty member.renameProfile}">
+                        <img src="${member.renameProfile}" style="object-fit: contain; height: 40px; width: 40px;">
+                    </c:when>
+                    <c:otherwise>
+                        <img src="${pageContext.request.contextPath}/image/profile.png" style="object-fit: contain; height: 40px; width: 40px;">
+                    </c:otherwise>
+                </c:choose>
             </a>
             <a href="${pageContext.request.contextPath}/member/logout" class="btn btn-outline-primary me-4">Logout</a>
         </c:if>

@@ -45,14 +45,16 @@
             <tr class="row">
                 <th class="col-1">NO</th>
                 <th class="col-2">Subject</th>
-                <th class="col-3">Content</th>
+                <th class="col">Content</th>
                 <th class="col-2">UserName</th>
                 <th class="col-1">Hit</th>
                 <th class="col-2">RegDate</th>
-                <td class="col-1">
-                    <label for="check-all"></label>
-                    <input type="checkbox" id="check-all">
-                </td>
+                <c:if test="${not empty member and member.grade.getLabel() eq 'admin'}">
+                    <td class="col-1">
+                        <label for="check-all"></label>
+                        <input type="checkbox" id="check-all">
+                    </td>
+                </c:if>
             </tr>
             </thead>
             <tbody>
@@ -61,16 +63,18 @@
                     <td class="col-1"
                         onclick="location.href='/board/view?boardNo=${board.no}'">${total - perPage * (page - 1) - loop.index}</td>
                     <td class="col-2" onclick="location.href='/board/view?boardNo=${board.no}'">${board.subject}</td>
-                    <td class="col-3 text-truncate"
+                    <td class="col text-truncate"
                         onclick="location.href='/board/view?boardNo=${board.no}'">${board.content}</td>
                     <td class="col-2" onclick="location.href='/board/view?boardNo=${board.no}'">${board.userName}</td>
                     <td class="col-1" onclick="location.href='/board/view?boardNo=${board.no}'">${board.hit}</td>
                     <td class="col-2" onclick="location.href='/board/view?boardNo=${board.no}'">${board.regDate}</td>
-                    <td class="col-1">
-                        <label>
-                            <input type="checkbox" name="check" class="check" value="${board.no}">
-                        </label>
-                    </td>
+                    <c:if test="${not empty member and member.grade.getLabel() eq 'admin'}">
+                        <td class="col-1">
+                            <label>
+                                <input type="checkbox" name="check" class="check" value="${board.no}">
+                            </label>
+                        </td>
+                    </c:if>
                 </tr>
             </c:forEach>
             </tbody>
@@ -80,17 +84,19 @@
 
     <nav aria-label="...">
         <ul class="pagination pagination-sm">
-            <c:forEach var="index" begin="1" end="${(total / 10) + (1 - (total / 10) % 1) % 1}">
-                <li>
-                    <form class="page-item ${(page == index) ? "active" : ""}" aria-current="page"
-                          action="${pageContext.request.contextPath}/board/list" method="get">
-                        <input type="hidden" name="search" value="${search}">
-                        <input type="hidden" name="searchWord" value="${searchWord}">
-                        <input type="hidden" name="page" value="${index}">
-                        <button class="page-link">${index}</button>
-                    </form>
-                </li>
-            </c:forEach>
+            <c:if test="${not empty member and member.grade.getLabel() eq 'admin'}">
+                <c:forEach var="index" begin="1" end="${(total / 10) + (1 - (total / 10) % 1) % 1}">
+                    <li>
+                        <form class="page-item ${(page == index) ? "active" : ""}" aria-current="page"
+                              action="${pageContext.request.contextPath}/board/list" method="get">
+                            <input type="hidden" name="search" value="${search}">
+                            <input type="hidden" name="searchWord" value="${searchWord}">
+                            <input type="hidden" name="page" value="${index}">
+                            <button class="page-link">${index}</button>
+                        </form>
+                    </li>
+                </c:forEach>
+            </c:if>
         </ul>
     </nav>
 
@@ -107,7 +113,9 @@
                 </a>
             </c:otherwise>
         </c:choose>
-        <button class="btn btn-danger" id="btn-delete-all">DELETE-ALL</button>
+        <c:if test="${not empty member and member.grade.getLabel() eq 'admin'}">
+            <button class="btn btn-danger" id="btn-delete-all">DELETE-ALL</button>
+        </c:if>
     </div>
 
 </main>

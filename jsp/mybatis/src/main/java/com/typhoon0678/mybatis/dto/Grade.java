@@ -1,10 +1,15 @@
 package com.typhoon0678.mybatis.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum Grade {
 
 	MEMBER("member"),
 	ADMIN("admin"),
 	MANAGER("manager");
 
-	Grade(String grade) {}
+	private final String label;
 }
