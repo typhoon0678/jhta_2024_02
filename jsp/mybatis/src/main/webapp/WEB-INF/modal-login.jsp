@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
     <title></title>
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
@@ -26,5 +27,7 @@
     const modal = new bootstrap.Modal("#modal-login");
     modal.show();
 </script>
+
+<c:remove var="modal" scope="session"/>
 
 </body>

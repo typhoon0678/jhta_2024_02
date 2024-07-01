@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+</head>
+<body>
+
+<h2>List</h2>
+
+<table>
+    <thead>
+    <tr>
+        <td>Index</td>
+        <td>User ID</td>
+        <td>UserName</td>
+        <td>Password</td>
+        <td>Birth</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="member : ${memberStore}">
+        <td th:text="${member.key}">idx</td>
+        <td th:text="${member.value.userId}">userId</td>
+        <td th:text="${member.value.userName}">userName</td>
+        <td th:text="${member.value.password}">password</td>
+        <td th:text="${member.value.birth}">birth</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

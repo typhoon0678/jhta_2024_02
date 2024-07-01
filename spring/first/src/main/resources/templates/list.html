@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <td>User ID</td>
+        <td>Password</td>
+        <td>Birth</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${userList}">
+        <td th:text="${user.userId}">userId</td>
+        <td th:text="${user.userPw}">userId</td>
+        <td th:text="${user.birth}">userId</td>
+    </tr>
+    </tbody>
+</table>
+<a href="/login">Go To Login</a>
+
+</body>
+</html>

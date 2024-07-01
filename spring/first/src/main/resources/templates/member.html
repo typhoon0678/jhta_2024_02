@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Member</title>
+</head>
+<body>
+
+<h2>Member</h2>
+<table>
+    <thead>
+    <tr>
+        <td>Name</td>
+        <td>Age</td>
+        <td>Link</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="member : ${memberList}">
+        <td th:text="${member.name}">name</td>
+        <td th:text="${member.age}">age</td>
+        <td>
+            <a th:href="@{/test/member(name=${member.name}, age=${member.age})}" href="/test/member">Go To Test</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
