@@ -11,20 +11,18 @@ import java.util.Map;
 @Repository
 public class MemberRepository {
 
-    private static final Map<Integer, Member> memberMap = new HashMap<>();
-    private static int seq = 0;
+    private static final Map<Integer, Member> members = new HashMap<>();
+    private static int SEQUENCE = 0;
 
-    public Member saveMember(Member member) {
-        member.setIdx(seq++);
-        memberMap.put(member.getIdx(), member);
-        return member;
+    public List<Member> getAllMember() {
+        return new ArrayList<>(members.values());
     }
 
-    public List<Member> findAll() {
-        return new ArrayList<>(memberMap.values());
+    public Member getMemberById(int id) {
+        return members.get(id);
     }
 
-    public Member findByIdx(int idx) {
-        return memberMap.get(idx);
+    public void addMember(Member member) {
+        members.put(SEQUENCE++, member);
     }
 }

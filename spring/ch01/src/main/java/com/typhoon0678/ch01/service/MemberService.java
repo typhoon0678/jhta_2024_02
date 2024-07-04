@@ -13,16 +13,16 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-
-    public Member saveMember(Member member) {
-        return memberRepository.saveMember(member);
+    public void saveMember(Member member) {
+        memberRepository.addMember(member);
     }
 
-    public List<Member> getAllMembers() {
-        return memberRepository.findAll();
+    public List<Member> getMemberList() {
+        return memberRepository.getAllMember();
     }
 
-    public Member getMemberByIdx(int idx) {
-        return memberRepository.findByIdx(idx);
+    public Member getMemberById(int id) {
+        return memberRepository.getMemberById(id);
     }
+
 }

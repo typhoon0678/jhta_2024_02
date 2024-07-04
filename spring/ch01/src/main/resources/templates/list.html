@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Member List</title>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <script src="/js/bootstrap.bundle.js"></script>
+</head>
+<body>
+
+<main class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Password</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member : ${memberList}">
+            <td th:text="${member.id}">id</td>
+            <td th:text="${member.password}">password</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="/member/signin" class="btn btn-secondary">Go To Signin</a>
+</main>
+
+</body>
+</html>
