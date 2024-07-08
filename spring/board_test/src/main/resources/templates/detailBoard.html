@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Board</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+<div th:replace="~{components/header}"></div>
+
+<main class="container">
+    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+        <div class="flex justify-content-between">
+            <div></div>
+            <div th:text="${board.username}">username</div>
+        </div>
+        <div class="col-lg-6 px-0">
+            <h1 class="display-4 fst-italic" th:text="${board.title}">title</h1>
+            <p class="lead my-3" th:text="${board.content}">content</p>
+        </div>
+    </div>
+    <button th:if="${session.username != null && session.username == board.username}"
+            class="btn btn-danger" onclick="deleteAlert()">Delete
+    </button>
+</main>
+
+<script th:inline="javascript">
+
+    const deleteAlert = function () {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch("/board/delete?id=" + [[${board.id}]], {
+                    method: "DELETE",
+                }).then(
+                    Swal.fire({
+                        title: "Board Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    }).then(() => {
+                        location.href = "/";
+                    })
+                );
+            }
+        });
+    }
+</script>
+</body>
+</html>

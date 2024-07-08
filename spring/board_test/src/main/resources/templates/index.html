@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Board Test</title>
+</head>
+<body>
+<div th:replace="~{components/header}"></div>
+
+<main class="container">
+    <div class="row mb-2">
+        <div class="col-md-6" th:each="board : ${boardList}">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <h3 class="mb-0" th:text="${board.title}">title</h3>
+                    <strong class="d-inline-block mb-2 text-primary-emphasis" th:text="${board.username}">username</strong>
+                    <p class="card-text mb-auto" th:text="${board.content}">content</p>
+                    <a href="/" th:href="@{/board/{id}(id = ${board.id})}" class="icon-link gap-1 icon-link-hover stretched-link">
+                        Continue reading
+                        <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

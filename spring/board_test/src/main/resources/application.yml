@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: board_test
+
+  security:
+    user:
+      name: user
+      password: 1234
+      roles: USER, ADMIN
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    url: jdbc:h2:~/test
+
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
