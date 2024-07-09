@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: security
+
+  security:
+    user:
+      name: user
+      password: 1234
+      roles: USER, ADMIN
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    url: jdbc:h2:~/test;mode=oracle
+
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+
+mybatis:
+  config-location: classpath:mapper/config/config.xml
+  mapper-locations: classpath:mapper/sql/**/*.xml
