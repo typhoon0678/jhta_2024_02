@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!--    <meta name="_csrf" th:content="${_csrf?.token}"/>-->
+<!--    <meta name="_csrf_header" th:content="${_csrf?.headerName}"/>-->
+    <meta charset="UTF-8">
+    <title>SignUp</title>
+</head>
+<body>
+
+<h2>Sign Up</h2>
+
+<form th:action="@{/signup}" method="post">
+    <button type="button" id="btn-duplicate">Is Duplicated?</button>
+    <input type="text" id="username" name="username">
+    <input type="password" id="password" name="password">
+    <button type="submit">Sign Up</button>
+</form>
+
+<script th:inline="javascript">
+
+    const csrf_header = [[${_csrf.headerName}]];
+    const csrf_token = [[${_csrf.token}]];
+
+    const inputUsername = document.getElementById("username");
+    const btnDuplicate = document.getElementById("btn-duplicate");
+
+    btnDuplicate.addEventListener("click", function () {
+        let formData = new FormData();
+        formData.append("username", inputUsername.value);
+
+        fetch("/duplicate", {
+            method: "POST",
+            headers: {
+                [csrf_header]: csrf_token
+            },
+            body: formData,
+        }).then(res => {
+            return res.text();
+        }).then(data => {
+            if (data === "duplicated") {
+                alert("이 아이디는 사용할 수 없습니다.");
+            } else {
+                alert("사용 가능한 아이디입니다.");
+            }
+        }).catch((err) => {
+            console.log(err);
+        })
+    });
+
+</script>
+
+</body>
+</html>
