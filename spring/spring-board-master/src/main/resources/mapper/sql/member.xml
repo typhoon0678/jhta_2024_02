@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jjang051.board.dao.MemberDao">
+    <insert id="signin" parameterType="com.jjang051.board.dto.MemberDto">
+        insert into member values(
+        member_seq.nextval, #{userId}, #{userName},#{email},#{password},#{role},sysdate)
+    </insert>
+    <select id="duplicateId" resultType="int" parameterType="string">
+        select count(*) as count from member where userId = #{userId}
+    </select>
+    <select id="login" parameterType="com.jjang051.board.dto.MemberDto"
+            resultType="com.jjang051.board.dto.MemberDto">
+        select * from member where userId = #{userId}
+    </select>
+
+    <select id="info" parameterType="com.jjang051.board.dto.MemberDto"
+            resultType="com.jjang051.board.dto.MemberDto">
+        select * from member where userId = #{userId}
+    </select>
+    <delete id="deleteMember" parameterType="MemberDto">
+        delete from member where userId = #{userId}
+    </delete>
+</mapper>

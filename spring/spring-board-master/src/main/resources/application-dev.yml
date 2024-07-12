@@ -1,0 +1,16 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    url: jdbc:h2:~/test;mode=oracle
+
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+
+

@@ -1,0 +1,30 @@
+server:
+  servlet:
+    session:
+      timeout: 1800
+      #tracking-modes: cookie
+
+
+spring:
+  application:
+    name: board
+  profiles:
+    active: dev
+
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  
+  #시큐리티 기본 설정
+  security:
+    user:
+      name: user
+      password: 1234
+      roles: USER, ADMIN
+
+mybatis:
+  config-location: classpath:mapper/config/config.xml
+  mapper-locations: classpath:mapper/sql/**/*.xml
+  type-aliases-package: com.jjang051.board.dto

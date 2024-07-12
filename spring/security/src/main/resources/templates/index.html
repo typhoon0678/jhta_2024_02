@@ -15,8 +15,13 @@
 </h2>
 
 <h2 sec:authorize="isAuthenticated()">
-    <a href="/logout">LogOut</a>
+    <a href="/logout">Logout</a>
 </h2>
+
+<form sec:authorize="isAuthenticated()" th:action="@{/logout}">
+    <button type="submit">Logout</button>
+</form>
+
 
 <h2>
     <a href="/signup">Sign Up</a>

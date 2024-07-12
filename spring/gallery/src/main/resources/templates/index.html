@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+
+<h1>INDEX</h1>
+<a href="/gallery/list">Gallery List</a>
+<a href="/gallery/write">Gallery Write</a>
+
+<script>
+    fetch(
+        "http://localhost:8080/gallery/json-list"
+    ).then((res) => {
+        return res.json()
+    }).then((data) => {
+        console.log(data)
+    })
+</script>
+
+</body>
+</html>

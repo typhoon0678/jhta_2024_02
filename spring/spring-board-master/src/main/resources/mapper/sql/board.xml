@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jjang051.board.dao.BoardDao">
+    <insert id="writeBoard" parameterType="com.jjang051.board.dto.BoardDto">
+        insert into board values(
+        board_seq.nextval, #{title}, #{content},#{password},sysdate)
+        <!-- insert into board values(nextval('board_seq'), #{title}, #{content}) -->
+    </insert>
+    <select id="readBoard" parameterType="int"
+            resultType="com.jjang051.board.dto.BoardDto">
+        select * from board where id= #{id}
+    </select>
+    <select id="getAllBoard" resultType="com.jjang051.board.dto.BoardDto">
+        select * from board
+    </select>
+    <delete id="deleteBoard" parameterType="com.jjang051.board.dto.DeleteBoardDto">
+        delete from board where id = #{id} and password = #{password}
+    </delete>
+
+</mapper>
