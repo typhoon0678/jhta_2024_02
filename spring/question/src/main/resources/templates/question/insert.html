@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Question</title>
+</head>
+<body>
+
+<form th:action="@{/question/insert}" method="post">
+    <input type="text" id="subject" name="subject">
+    <textarea id="content" name="content" rows="5"></textarea>
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>
