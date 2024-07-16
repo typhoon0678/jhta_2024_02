@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+
+<h2 sec:authorize="isAuthenticated()">Hello</h2>
+<h2 sec:authorize="isAuthenticated()" sec:authentication="name">
+    username
+</h2>
+
+<a href="/login" sec:authorize="!isAuthenticated()">Login</a>
+<form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+    <button type="submit">Log Out</button>
+</form>
+
+<a href="/signup" sec:authorize="!isAuthenticated()">Sign Up</a>
+
+<a href="/board/write">Write Board</a>
+
+<hr/>
+<div th:each="board: ${boardList}">
+    <p th:text="${board.member.username}">username</p>
+    <h3 th:text="${board.title}">title</h3>
+    <p th:text="${board.content}">content</p>
+    <hr/>
+</div>
+
+</body>
+</html>
