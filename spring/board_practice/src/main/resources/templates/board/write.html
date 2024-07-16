@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Write Board</title>
+</head>
+<body>
+
+<h2>Write Board</h2>
+
+<form th:action="@{/board/write}" method="post">
+    <input type="text" id="title" name="title">
+    <textarea id="content" name="content" rows="5"></textarea>
+    <button type="submit">Write</button>
+</form>
+
+</body>
+</html>
