@@ -22,12 +22,20 @@
 <a href="/board/write">Write Board</a>
 
 <hr/>
-<div th:each="board: ${boardList}">
+<div th:each="board: ${boardList}"
+     th:boardId="${board.id}"
+     th:onclick="moveToBoardDetail(this.getAttribute('boardId'))">
     <p th:text="${board.member.username}">username</p>
     <h3 th:text="${board.title}">title</h3>
     <p th:text="${board.content}">content</p>
     <hr/>
 </div>
+
+<script th:inline="javascript">
+    function moveToBoardDetail(boardId) {
+        location.href = `/board/${boardId}`;
+    }
+</script>
 
 </body>
 </html>

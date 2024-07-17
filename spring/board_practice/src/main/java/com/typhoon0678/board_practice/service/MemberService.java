@@ -24,4 +24,5 @@ public class MemberService {
     public Member login(String username) {
         return memberRepository.findByUsername(username);
     }
+
 }

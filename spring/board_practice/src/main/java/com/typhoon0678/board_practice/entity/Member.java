@@ -26,6 +26,9 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Board> boardList;
 
+    @OneToMany(mappedBy = "member")
+    private List<Comment> commentList;
+
     @Builder
     public Member(String username, String password) {
         this.username = username;

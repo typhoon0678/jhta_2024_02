@@ -1,17 +1,18 @@
 package com.typhoon0678.board_practice.dto;
 
 import com.typhoon0678.board_practice.entity.Member;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 
-@RequiredArgsConstructor
+@Getter
+@AllArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
-    private final Member member;
+    private Member member;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

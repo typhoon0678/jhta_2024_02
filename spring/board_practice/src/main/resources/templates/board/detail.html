@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Board Detail</title>
+</head>
+<body>
+
+<h2 th:text="${board.title}">title</h2>
+<p th:text="${board.username}">}</p>
+<p th:text="${board.content}">content</p>
+
+<form th:action="@{/comment/write}" method="post">
+    <input type="hidden" id="boardId" name="boardId" th:value="${board.id}">
+    <input type="text" id="content" name="content">
+    <button type="submit">Write Comment</button>
+</form>
+
+<hr/>
+<div th:each="comment : ${commentList}">
+    <h3 th:text="${comment.content}">comment</h3>
+    <p th:text="${comment.username}">username</p>
+    <hr/>
+</div>
+
+</body>
+</html>
