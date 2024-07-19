@@ -9,6 +9,14 @@
 <h2 th:text="${board.title}">title</h2>
 <p th:text="${board.username}">}</p>
 <p th:text="${board.content}">content</p>
+<p th:text="${#authentication.name}"></p>
+<th:block th:if="${#authentication.name == board.username}">
+    <button id="delete-btn"
+            th:id="${board.id}"
+            th:onclick="deleteBoard(this.getAttribute('id'))">
+        Delete
+    </button>
+</th:block>
 
 <form th:action="@{/comment/write}" method="post">
     <input type="hidden" id="boardId" name="boardId" th:value="${board.id}">
@@ -22,6 +30,21 @@
     <p th:text="${comment.username}">username</p>
     <hr/>
 </div>
+
+<script>
+    function deleteBoard(id) {
+        fetch(
+            `/board/${id}`, {
+                method: "DELETE"
+            }
+        ).then((res) => {
+            if (res.ok) {
+                alert("Deleted");
+                location.href = "/";
+            }
+        });
+    }
+</script>
 
 </body>
 </html>

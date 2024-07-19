@@ -31,7 +31,35 @@
     <hr/>
 </div>
 
+<div>
+    <th:block th:if="${pageDto.isPrevious()}">
+        <button
+                th:page="${pageDto.startPage - 1}"
+                th:onclick="movePage(this.getAttribute('page'))"><<
+        </button>
+    </th:block>
+    <th:block th:each="page : ${#numbers.sequence(pageDto.startPage, pageDto.endPage)}">
+        <button th:page="${page}"
+                th:onclick="movePage(this.getAttribute('page'))"
+                th:text="${page}"
+                th:style="${pageDto.currentPage == page} ? 'background-color: yellow' : 'background-color: none'">
+            page
+        </button>
+    </th:block>
+    <th:block th:if="${pageDto.isNext()}">
+        <button
+                th:page="${pageDto.endPage + 1}"
+                th:onclick="movePage(this.getAttribute('page'))">>>
+        </button>
+    </th:block>
+</div>
+
 <script th:inline="javascript">
+
+    function movePage(page) {
+        location.href = `/?page=${page}`;
+    }
+
     function moveToBoardDetail(boardId) {
         location.href = `/board/${boardId}`;
     }
