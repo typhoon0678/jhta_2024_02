@@ -15,12 +15,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberService.login(username);
 
-        if (member != null) {
-            return new CustomUserDetails(member);
-        } else {
+        try {
+            Member member = memberService.login(username);
+            return new CustomUserDetails(member, null);
+
+        } catch (UsernameNotFoundException e) {
             throw new UsernameNotFoundException("Username not found");
         }
+
     }
 }

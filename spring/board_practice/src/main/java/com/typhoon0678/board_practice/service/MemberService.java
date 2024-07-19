@@ -4,6 +4,7 @@ import com.typhoon0678.board_practice.dto.LoginDto;
 import com.typhoon0678.board_practice.entity.Member;
 import com.typhoon0678.board_practice.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,15 @@ public class MemberService {
     }
 
     public Member login(String username) {
-        return memberRepository.findByUsername(username);
+        return memberRepository.findByUsername(username).orElseThrow(
+                () -> new UsernameNotFoundException("Username not found")
+        );
+    }
+
+    public void saveMemberIfNotExist(Member member) {
+        if (memberRepository.findByUsername(member.getUsername()).isEmpty()) {
+            memberRepository.save(member);
+        }
     }
 
 }
