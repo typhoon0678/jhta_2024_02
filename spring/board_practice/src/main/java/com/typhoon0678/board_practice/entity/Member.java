@@ -23,10 +23,10 @@ public class Member {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Board> boardList;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Comment> commentList;
 
     @Builder

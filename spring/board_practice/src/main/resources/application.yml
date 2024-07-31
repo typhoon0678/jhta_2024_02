@@ -1,26 +1,14 @@
 spring:
   application:
     name: board_practice
+  profiles:
+    include: oauth
 
   datasource:
     driver-class-name: org.h2.Driver
     username: sa
     password:
     url: jdbc:h2:~/test;mode=oracle
-
-  security:
-    user:
-      name: user
-      password: 1234
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: CLIENT_ID
-            client-secret: CLIENT_SECRET
-            scope:
-              - profile
-              - email
 
 
   h2:

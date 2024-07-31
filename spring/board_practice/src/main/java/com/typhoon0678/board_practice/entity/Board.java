@@ -28,7 +28,7 @@ public class Board {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
     List<Comment> commentList;
 
     @Builder

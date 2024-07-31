@@ -14,6 +14,8 @@
 
 <a href="/login" sec:authorize="!isAuthenticated()">Login</a>
 <a href="/oauth2/authorization/google" sec:authorize="!isAuthenticated()">Google Login</a>
+<a href="/oauth2/authorization/kakao" sec:authorize="!isAuthenticated()">Kakao Login</a>
+<a href="/oauth2/authorization/naver" sec:authorize="!isAuthenticated()">Naver Login</a>
 <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
     <button type="submit">Log Out</button>
 </form>
